@@ -10,7 +10,7 @@ This repository contains the source files and site generator for the Reach Devel
     git clone https://github.com/reach-sh/reach-developer-portal.git
     ```
 
-    The following directions assume that *reach-developer-portal* is the cwd on your computer.
+    The following directions assume that *reach-developer-portal* is the [cwd](https://en.wikipedia.org/wiki/Working_directory) on your computer.
 
 1. Convert source files to website files. (Node.js is required. I use v16.3.0 or greater.)
 
