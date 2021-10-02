@@ -28,9 +28,8 @@ This repository contains the source files and site generator for the Reach Devel
 1. Install and run [http-server](https://www.npmjs.com/package/http-server):
 
     ```
-    $ npm i --global http-server
-    $ cd dev
-    $ http-server -c-1
+    npm i --global http-server
+    http-server -c-1
     ```
 
     The -c flag turns off server caching. If you plan to create/modify webpages and see the changes on refresh, you probably want to turn off browser caching, too. In Chrome, check Developer Tools > Network > Disable cache. Chrome clears this setting at exit.
