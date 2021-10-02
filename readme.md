@@ -62,13 +62,13 @@ This repository contains the source files and site generator for the Reach Devel
 1. Create a page folder (e.g. colors-and-shapes):
 
     ```
-    $ mkdir -p en/pages/games/colors-and-shapes
+    mkdir -p en/pages/games/colors-and-shapes
     ```
 
 1. Create an index.md file inside your page folder:
 
     ```
-    $ touch en/pages/games/colors-and-shapes/index.md
+    touch en/pages/games/colors-and-shapes/index.md
     ```
 
 1. Add content to the index.md file. For sample content, browse to [sample](https://github.com/hagenhaus/reach-lang/blob/master/dev/pages/sample/index.md), click the Pencil icon, and copy.
@@ -76,10 +76,10 @@ This repository contains the source files and site generator for the Reach Devel
 1. Generate the webpage:
 
     ```
-    $ node dev/tools/generator.js -t folder -d pages/games/colors-and-shapes
+    $ node tools/generator.js -t folder -d en/pages/games/colors-and-shapes
     ```
 
-1. Browse to http://localhost:8080/pages/games/colors-and-shapes.
+1. Browse to http://localhost:8080/en/pages/games/colors-and-shapes.
 
 ## Configure the webpage
 
