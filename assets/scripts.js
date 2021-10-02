@@ -6,7 +6,7 @@ const currentPage = {
 };
 
 let updateOtp = false;
-const github = 'https://github.com/hagenhaus/reach-developer-portal/blob/master';
+const github = 'https://github.com/reach-sh/reach-developer-portal/blob/master';
 
 const pathnameToId = (pathname) => { return pathname.replace(/^\/|\/$/g, '').replace(/\//g, '_'); }
 const idToPathName = (id) => { return id.replace(/_/g, '/'); }
