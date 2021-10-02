@@ -71,7 +71,7 @@ This repository contains the source files and site generator for the Reach Devel
     touch en/pages/games/colors-and-shapes/index.md
     ```
 
-1. Add content to the index.md file. For sample content, browse to [sample](https://github.com/hagenhaus/reach-lang/blob/master/dev/pages/sample/index.md), click the Pencil icon, and copy.
+1. Add content to the index.md file. For sample content, browse to [sample](https://github.com/reach-sh/reach-developer-portal/blob/master/en/pages/sample/index.md), click the Pencil icon, and copy.
 
 1. Generate the webpage:
 
