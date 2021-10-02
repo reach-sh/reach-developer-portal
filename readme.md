@@ -7,7 +7,7 @@ This repository contains the source files and site generator for the Reach Devel
 1. Clone this repository to your computer:
 
     ```
-    $ git clone https://github.com/reach-sh/reach-developer-portal.git
+    git clone https://github.com/reach-sh/reach-developer-portal.git
     ```
 
     The following directions assume that *reach-developer-portal* is the cwd on your computer.
