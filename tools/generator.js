@@ -75,9 +75,9 @@ const argv = yargs(process.argv.slice(2))
     ['$0 -t all'],
     ['$0 -t book -d books/demo'],
     ['$0 -t css'],
-    ['$0 -t html'],
-    ['$0 -t folder -d books/demo'],
-    ['$0 -t folders -d books/demo'],
+    ['$0 -t base -l en'],
+    ['$0 -t folder -d en/books/demo'],
+    ['$0 -t folders -d en/books/demo'],
     ['$0 -t js']
   ])
   .argv

@@ -16,7 +16,7 @@ This repository contains the source files and site generator for the Reach Devel
     cd reach-developer-portal
     ```
 
-1. Convert source files to website files. (Node.js and npm are required. I use v16.3.0 or greater.)
+1. Convert source files to website files. (Node.js and npm are required. I use Node.js v16.3.0.)
 
     ```
     cd tools
