@@ -1,0 +1,88 @@
+---
+menuItem: mi-docs
+---
+
+# Development Environment
+
+## Add reach to path
+
+If you add `~/reach` to your `PATH` environment variable, you can use `reach <command>` to run the [reach](https://github.com/reach-sh/reach-lang/blob/master/reach) script from any current working directory. Otherwise, use `~/reach/reach <command>` to do the same.
+
+To add `~/reach` to `PATH` for the current terminal, use this:
+
+``` nonum
+$ export PATH=~/reach:$PATH
+```
+
+To do so for any terminal you open, add the following to your startup file (e.g. *.bashrc*, *.zshrc*, etc.):
+
+``` nonum
+PATH=~/reach:$PATH
+```
+
+To apply this change to your current terminal, rerun your startup file (e.g. close/open terminal or use [source](https://en.wikipedia.org/wiki/Dot_(command))). 
+
+Many instructions on this site assume that you have added `~/reach` to `PATH`.
+
+## Install VSCode
+
+1. Install [Visual Studio Code](https://code.visualstudio.com/).
+
+1. Add the following file association to vscode preferences:
+
+    ``` nonum
+    "files.associations": {
+      "*.rsh": "javascript"
+    }
+    ```
+    
+1. Open `~/reach`:
+
+    <p><img src="vscode.png" class="img-fluid" width=700 loading="lazy"></p>
+
+1. Change directory to `~/reach/hello-world`:
+
+    <p><img src="vscode-hello-world.png" class="img-fluid" width=700 loading="lazy"></p>
+
+1. Execute `reach run` to verify that your devenv is working:
+
+    <p><img src="vscode-reach-run.png" class="img-fluid" width=700 loading="lazy"></p>
+
+    Expect to see the following Hello World output:
+
+    ```
+    ...
+    Hello, Alice and Bob!
+    Launching...
+    Starting backends...
+    Goodbye, Alice and Bob!
+    ```
+
+## Maintain your environment
+
+From time to time, you will need to do the following:
+
+* Upgrade your `~/reach/reach` script:
+
+    ``` nonum
+    $ cd ~/reach
+    $ reach upgrade
+    ```
+
+* Stop and remove your Reach Docker containers.
+
+    ``` nonum
+    $ reach down
+    ```
+
+* Update your Reach Docker images.
+
+    ``` nonum
+    $ reach update
+    ```
+
+## Next Steps
+
+1. Watch the [Overview Video](/en/books/essentials/) (if you haven't already).
+1. Complete the  [Quick Start](/en/books/essentials/quick-start/) (if you haven't already).
+1. Start the [Tutorials](/en/books/essentials/tutorials/).
