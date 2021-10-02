@@ -49,9 +49,10 @@ This repository contains the source files and site generator for the Reach Devel
     Helpful *pm2* commands:
 
     ```
-    $ pm2 list     # list all processes
-    $ pm2 stop 0   # stop process where id=0
-    $ pm2 start 0  # start process where id=0
+    $ pm2 list      # list all processes
+    $ pm2 stop 0    # stop process where id=0
+    $ pm2 start 0   # start process where id=0
+    $ pm2 delete 0  # stop process and remove from list where id=0
     ```
     
 1. Browse to http://127.0.0.1:8080 or http://localhost:8080.
