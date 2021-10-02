@@ -153,20 +153,3 @@ The index.md file conforms to [Github-flavored markdown](https://github.github.c
 It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as demonstrated on the [Demo Page](https://github.com/hagenhaus/reach-lang/blob/master/dev/pages/demo/index.md). It may also contain links to supplemental files (e.g. images) that reside in the same folder, and links to external resources (e.g. videos):
 
 <p><img src="./readme/supplemental-files.png" width=600></p>
-
-## Deploy the site publicly
-
-1. Clone `https://github.com/reach-sh/reach-sh.github.io`.
-
-1. Copy the following from *reach-lang* to *reach-sh.github.io*:
-
-    * dev/index.html
-    * dev/assets
-    * dev/books
-    * dev/pages
-
-1. Push to *reach-sh.github.io*.
-
-1. Browse to [reach-sh.github.io](https://reach-sh.github.io/pages/homepage/).
-
-## About the site generator
