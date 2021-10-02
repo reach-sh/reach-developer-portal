@@ -79,7 +79,7 @@ This repository contains the source files and site generator for the Reach Devel
     $ node tools/generator.js -t folder -d en/pages/games/colors-and-shapes
     ```
 
-1. Browse to http://localhost:8080/en/pages/games/colors-and-shapes.
+1. Browse to http://localhost:8080/en/pages/colors-and-shapes.
 
 ## Configure the webpage
 
