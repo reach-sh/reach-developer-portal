@@ -62,13 +62,13 @@ This repository contains the source files and site generator for the Reach Devel
 1. Create a page folder (e.g. colors-and-shapes):
 
     ```
-    mkdir -p en/pages/games/colors-and-shapes
+    mkdir -p en/pages/colors-and-shapes
     ```
 
 1. Create an index.md file inside your page folder:
 
     ```
-    touch en/pages/games/colors-and-shapes/index.md
+    touch en/pages/colors-and-shapes/index.md
     ```
 
 1. Add content to the index.md file. For sample content, browse to [sample](https://github.com/reach-sh/reach-developer-portal/blob/master/en/pages/sample/index.md), click the Pencil icon, and copy.
