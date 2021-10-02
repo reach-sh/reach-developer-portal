@@ -32,7 +32,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const cfg = fs.readJsonSync(`${__dirname}/generator.json`);
 
-const pathnameToId = (pathname) => { return pathname.replace(/^\/|\/$/g, '').replace(/\//g, '_'); }
+const srcDir = __dirname.replace('/tools', '');
 
 /************************************************************************************************
 * Parse command line
@@ -102,8 +102,8 @@ const processBook = (baseDir, relDir) => {
 * processCss
 ************************************************************************************************/
 const processCss = () => {
-  let iPath = `${cfg.srcDir}${cfg.iCssPath}`;
-  let oPath = `${cfg.srcDir}${cfg.oCssPath}`;
+  let iPath = `${srcDir}${cfg.iCssPath}`;
+  let oPath = `${srcDir}${cfg.oCssPath}`;
   console.log(`Minifying ${cfg.iCssPath.slice(1)}`);
   try {
     let input = fs.readFileSync(iPath, 'utf8');
@@ -120,8 +120,8 @@ const processCss = () => {
 ************************************************************************************************/
 
 const processBase = (lang) => {
-  let iPath = `${cfg.srcDir}/${lang}/base.html`;
-  let oPath = `${cfg.srcDir}/${lang}/index.html`;
+  let iPath = `${srcDir}/${lang}/base.html`;
+  let oPath = `${srcDir}/${lang}/index.html`;
   console.log(`Minifying ${iPath}`);
   let options = { html: {}, };
   minify(iPath, options)
@@ -134,8 +134,8 @@ const processBase = (lang) => {
 ************************************************************************************************/
 
 const processJs = () => {
-  let iPath = `${cfg.srcDir}${cfg.iJsPath}`;
-  let oPath = `${cfg.srcDir}${cfg.oJsPath}`;
+  let iPath = `${srcDir}${cfg.iJsPath}`;
+  let oPath = `${srcDir}${cfg.oJsPath}`;
   console.log(`Minifying ${cfg.iJsPath.slice(1)}`);
   try {
     let input = fs.readFileSync(iPath, 'utf8');
@@ -485,7 +485,7 @@ const findAndProcessFolder = async (folder) => {
   const fileArr = fs.readdirSync(folder);
   for (let i = 0; i < fileArr.length; i++) {
     if (fileArr[i] == 'index.md') {
-      let baseDir = normalizeDir(cfg.srcDir);
+      let baseDir = normalizeDir(srcDir);
       let relDir = normalizeDir(folder.replace(baseDir, ''));
       relDir = relDir.startsWith('/') ? relDir.slice(1) : relDir;
       let rval = await processFolder(baseDir, relDir);
@@ -524,13 +524,9 @@ switch (argv.t) {
 
   case 'all':
     processCss();
-    //console.log('After processCss');
     processBase('en');
-    //console.log('After processBase');
     processJs();
-    //console.log('After processJs');
-    findAndProcessFolders(`${normalizeDir(cfg.srcDir)}`);
-    //console.log('After findAndProcessFolders');
+    findAndProcessFolders(`${normalizeDir(srcDir)}`);
     break;
 
   case 'base':
@@ -538,7 +534,7 @@ switch (argv.t) {
     break;
 
   case 'book':
-    processBook(normalizeDir(cfg.srcDir), normalizeDir(argv.d));
+    processBook(normalizeDir(srcDir), normalizeDir(argv.d));
     break;
 
   case 'css':
@@ -547,13 +543,13 @@ switch (argv.t) {
 
   case 'folder':
     (async () => {
-      const rval = await processFolder(normalizeDir(cfg.srcDir), normalizeDir(argv.d));
+      const rval = await processFolder(normalizeDir(srcDir), normalizeDir(argv.d));
       if (rval !== 'success') { console.log(rval); }
     })();
     break;
 
   case 'folders':
-    findAndProcessFolders(`${normalizeDir(cfg.srcDir)}/${normalizeDir(argv.d)}`);
+    findAndProcessFolders(`${normalizeDir(srcDir)}/${normalizeDir(argv.d)}`);
     break;
 
   case 'js':
