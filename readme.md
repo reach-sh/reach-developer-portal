@@ -12,7 +12,7 @@ This repository contains the source files and site generator for the Reach Devel
 
     The following directions assume that *reach-developer-portal* is the [cwd](https://en.wikipedia.org/wiki/Working_directory) on your computer.
 
-1. Convert source files to website files. (Node.js is required. I use v16.3.0 or greater.)
+1. Convert source files to website files. (Node.js and npm are required. I use v16.3.0 or greater.)
 
     ```
     $ cd tools
