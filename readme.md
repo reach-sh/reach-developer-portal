@@ -4,12 +4,12 @@ This repository contains the source files and site generator for the Reach Devel
 
 ## Deploy the site locally
 
-1. Clone the [reach-lang](https://github.com/reach-sh/reach-lang) repository to your computer. All directions assume that reach-lang is your cwd.
+1. Clone the [this repository](https://github.com/reach-sh/reach-developer-portal) to your computer. All directions assume that reach-developer-portal is your cwd.
 
-1. Convert markdown to html. Node.js is required. I use v16.3.0 or greater. 
+1. Convert markdown to html. (Node.js is required. I use v16.3.0 or greater.)
 
     ```
-    $ cd dev/tools
+    $ cd tools
     $ npm install
     $ npm run [s1, s2, s3, s4]
     $ node generator.js -t all
