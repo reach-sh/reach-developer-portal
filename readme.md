@@ -23,6 +23,7 @@ This repository contains the source files and site generator for the Reach Devel
     npm install
     npm run s1 && npm run s2 && npm run s3 && npm run s4
     node generator.js -t all
+    cd .. # change back to reach-developer-portal
     ```
 
 1. Install and run [http-server](https://www.npmjs.com/package/http-server):
