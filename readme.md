@@ -19,10 +19,10 @@ This repository contains the source files and site generator for the Reach Devel
 1. Convert source files to website files. (Node.js and npm are required. I use v16.3.0 or greater.)
 
     ```
-    $ cd tools
-    $ npm install
-    $ npm run [s1, s2, s3, s4]
-    $ node generator.js -t all
+    cd tools
+    npm install
+    npm run s1 && npm run s2 && npm run s3 && npm run s4
+    node generator.js -t all
     ```
 
 1. Install and run [http-server](https://www.npmjs.com/package/http-server):

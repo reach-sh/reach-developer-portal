@@ -120,8 +120,8 @@ const processCss = () => {
 ************************************************************************************************/
 
 const processBase = (lang) => {
-  let iPath = `${lang}/base.html`;
-  let oPath = `${lang}/index.html`;
+  let iPath = `${cfg.srcDir}/${lang}/base.html`;
+  let oPath = `${cfg.srcDir}/${lang}/index.html`;
   console.log(`Minifying ${iPath}`);
   let options = { html: {}, };
   minify(iPath, options)
