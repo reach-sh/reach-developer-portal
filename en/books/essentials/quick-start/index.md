@@ -6,7 +6,11 @@ menuItem: mi-docs
 
 This page shows you how to run a Reach *Hello World* decentralized application (DApp) in a terminal:
 
-## Install prerequisites
+# Set up your environment
+
+Reach assumes the presence of a POSIX-compliant shell and [Docker](https://docs.docker.com/get-docker/).
+
+## MacOS and Linux
 
 1. Install [GNU Make](https://www.gnu.org/software/make/) or verify your installation:
 
@@ -22,7 +26,19 @@ This page shows you how to run a Reach *Hello World* decentralized application (
     Docker version 20.10.5
     ```
 
-## Install Reach
+## Windows
+
+[This video](https://www.youtube.com/watch?v=wczwWvBdMTE) demonstrates the steps below.
+
+1. Install Windows 10, version 2004 or higher.
+
+1. Enable the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) feature, specifically the WSL 2 option.
+
+1. Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop), and enable the [Docker Desktop WSL 2 backend](https://docs.docker.com/docker-for-windows/wsl/).
+
+1. Follow the instructions from Docker on [developing with Docker and WSL 2](https://docs.docker.com/docker-for-windows/wsl/#develop-with-docker-and-wsl-2).
+
+# Install Reach
 
 1. Create a *reach* directory:
 
@@ -50,7 +66,7 @@ This page shows you how to run a Reach *Hello World* decentralized application (
     $ ./reach update
     ```
 
-## Create the app
+# Create the app
 
 1. Create a project subfolder (as a child of `~/reach`):
 
@@ -70,7 +86,7 @@ This page shows you how to run a Reach *Hello World* decentralized application (
 
     *index.mjs* is the JS frontend, and *index.rsh* is the Reach backend. We defer code analysis until the [Tutorials](/en/books/essentials/tutorials/).
 
-## Run the app
+# Run the app
 
 1. Run the DApp on a local dockerized Ethereum devnet:
 
@@ -107,7 +123,7 @@ This page shows you how to run a Reach *Hello World* decentralized application (
     Goodbye, Alice and Bob!
     ```
 
-## Next Steps
+# Next Steps
 
 1. Watch the [Overview Video](/en/books/essentials/) (if you haven't already).
 1. Set up a [Development Environment](/en/books/essentials/development-environment/).
