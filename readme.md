@@ -128,15 +128,15 @@ Below is a table of the current page configuration options:
 
 ## About source files
 
-Each webpage traces its source to a folder within the [books](https://github.com/hagenhaus/reach-lang/tree/master/dev/books) or [pages](https://github.com/hagenhaus/reach-lang/tree/master/dev/pages) directories.
+Each webpage traces its source to a folder within the [books](https://github.com/reach-sh/reach-developer-portal/tree/master/en/books) or [pages](https://github.com/reach-sh/reach-developer-portal/tree/master/en/pages) directories.
 
 <p><img src="./readme/folder-to-webpage.png" width=400></p>
 
-The [books](https://github.com/hagenhaus/reach-lang/tree/master/dev/books) directory contains book, chapter, and leaf folders which correspond to book, chapter, and leaf webpages:
+The [books](https://github.com/reach-sh/reach-developer-portal/tree/master/en/books) directory contains book, chapter, and leaf folders which correspond to book, chapter, and leaf webpages:
 
 <p><img src="./readme/books.png" width=700></p>
 
-The [pages](https://github.com/hagenhaus/reach-lang/tree/master/dev/pages) directory contains standalone and dummy folders. Standalone folders correspond to webpages. Dummy folders do not correspond to webpages. Instead, they provide a user-determined organizational hierarchy for standalone folders.
+The [pages](https://github.com/reach-sh/reach-developer-portal/tree/master/en/pages) directory contains standalone and dummy folders. Standalone folders correspond to webpages. Dummy folders do not correspond to webpages. Instead, they provide a user-determined organizational hierarchy for standalone folders.
 
 <p><img src="./readme/pages.png" width=700></p>
 
@@ -150,6 +150,6 @@ The index.md file conforms to [Github-flavored markdown](https://github.github.c
 # Demo Page
 ```
 
-It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as demonstrated on the [Demo Page](https://github.com/hagenhaus/reach-lang/blob/master/dev/pages/demo/index.md). It may also contain links to supplemental files (e.g. images) that reside in the same folder, and links to external resources (e.g. videos):
+It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as demonstrated on the [Demo Page](https://github.com/reach-sh/reach-developer-portal/blob/master/en/pages/demo/index.md). It may also contain links to supplemental files (e.g. images) that reside in the same folder, and links to external resources (e.g. videos):
 
 <p><img src="./readme/supplemental-files.png" width=600></p>
