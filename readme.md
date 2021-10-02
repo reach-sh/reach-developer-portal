@@ -91,7 +91,7 @@ Consider the following index.md file:
 Lorem ipsum dolor sit amet ...
 ```
 
-Because this file specifies no frontmatter configuration options, the corresponding webpage reflects the default options:
+Because this file specifies no frontmatter, the corresponding webpage reflects default options:
 
 <p><img src="./readme/page-options-defaults.png" width=800></p>
 
