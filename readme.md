@@ -21,7 +21,7 @@ This repository contains the source files and site generator for the [Reach Deve
     ```
     cd tools
     npm install
-    npm run s1 && npm run s2 && npm run s3 && npm run s4
+    npm run s1 && npm run s2 && npm run s3 && npm run s4 # Build custom plugins.
     node generator.js -t all
     cd .. # change back to reach-developer-portal
     ```
