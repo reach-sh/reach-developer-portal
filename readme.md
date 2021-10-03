@@ -155,3 +155,41 @@ The index.md file conforms to [Github-flavored markdown](https://github.github.c
 It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as demonstrated on the [Demo Page](https://github.com/reach-sh/reach-developer-portal/blob/master/en/pages/demo/index.md). It may also contain links to supplemental files (e.g. images) that reside in the same folder, and links to external resources (e.g. videos):
 
 <p><img src="./assets/supplemental-files.png" width=600></p>
+
+## About the generator
+
+A Node.js command-line application, the site generator which, for the most part, transforms markdown files into html files, will continue to evolve over the next few months. Here is the current help menu:
+
+```
+$ node tools/generator.js -h
+Options:
+  -h, --help      Show help.  [boolean]
+  -v, --version   Show version.  [boolean]
+  -d, --dir       Specify dirpath.  [string] [default: ""]
+  -l, --language  Specify language (e.g. en, zh).  [string] [default: "en"]
+  -t, --type      Specify file type.  [string] [required] [choices: "all", "base", "book", "css", "folder", "folders", "js"]
+
+Examples:
+  generator.js
+  generator.js -t all
+  generator.js -t book -d books/demo
+  generator.js -t css
+  generator.js -t base -l en
+  generator.js -t folder -d en/books/demo
+  generator.js -t folders -d en/books/demo
+  generator.js -t js
+```
+
+Below are some additional examples.
+
+If you modify an index.md file (e.g. `en/books/demo/amphibians/frogs), you regenerate the corresponding webpage like this:
+
+```
+$ node tools/generator.js -t folder -d en/books/demo/amphibians/frogs
+```
+
+If you modify various index.md files in the demo book, you regenerate all the corresponding webpages like this:
+
+```
+$ node tools/generator.js -t folders -d en/books/demo
+```
