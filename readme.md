@@ -71,7 +71,7 @@ This repository contains the source files and site generator for the [Reach Deve
     touch en/pages/colors-and-shapes/index.md
     ```
 
-1. Add content to the index.md file. For sample content, browse to the [Sample Page](https://reach-sh.github.io/en/pages/sample/), click the Pencil icon, click the second Pencil icon, and copy. For more variety, see the [Demo Page](https://reach-sh.github.io/en/pages/demo/).
+1. Add content to the index.md file. For sample content, browse to the [Sample Page](https://reach-sh.github.io/en/pages/sample/), click the Pencil icon, click the second Pencil icon, and copy.
 
 1. Generate the webpage:
 
