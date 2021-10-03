@@ -83,8 +83,20 @@ const getWebpage = async (folder, hash, updateHistory) => {
     // Write page title.
     document.querySelector('div.hh-viewer-wrapper span.title').textContent = configJson.title;
 
-    // Update edit btn.
+    // Update and show/hide edit btn.
     currentPage.src = `${github}${folder}index.md`;
+    if (configJson.hasEditBtn) {
+      document.querySelector('div.hh-page-header button.edit-btn').style.display = 'block';
+    } else {
+      document.querySelector('div.hh-page-header button.edit-btn').style.display = 'none';
+    }
+
+    // Show/hide refresh btn.
+    if (configJson.hasRefreshBtn) {
+      document.querySelector('div.hh-page-header button.refresh').style.display = 'block';
+    } else {
+      document.querySelector('div.hh-page-header button.refresh').style.display = 'none';
+    }
 
     // Write author
     if (configJson.author) {

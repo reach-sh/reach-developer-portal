@@ -120,9 +120,11 @@ Below is a table of the current page configuration options:
 |Option|Type|Default|Description|
 |-|-|-|-|
 |author|string|null|Displays "By" + author.|
+|hasEditBtn|boolean|true|Displays or hides the pencil icon.|
 |hasOtp|boolean|true|Displays or hides the *On This Page* panel.|
 |hasPageHeader|boolean|true|Displays or hides the title, icons, author, and publication date.|
 |hasPageScrollbar|boolean|true|Displays or hides the page scrollbar. Scrolling works either way.|
+|hasRefreshBtn|boolean|true|Displays or hides the refresh icon.|
 |menuItem|string|null|Internal use at this point.|
 |publishedDate|string|null|Displays or hides the publication date. Use 2021-09-30T14:00:00 GMT format.|
 

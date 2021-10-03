@@ -270,8 +270,10 @@ const processFolder = async (baseDir, relDir) => {
   configJson.bookTitle = null;
   configJson.chapters = null;
   configJson.hasOtp = true;
+  configJson.hasEditBtn = true;
   configJson.hasPageHeader = true;
   configJson.hasPageScrollbar = true;
+  configJson.hasRefreshBtn = true;
   configJson.menuItem = null;
   configJson.pages = null;
   configJson.pathname = null;
