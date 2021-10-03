@@ -463,7 +463,14 @@ const processFolder = async (baseDir, relDir) => {
   }
 
   try {
-    fs.symlinkSync(`${baseDir}/${lang}/index.html`, `${folder}/index.html`);
+    let backstepCount = relDir.split('/').length - 1;
+    let backstepUrl = '';
+    for (let i=0; i < backstepCount; i++) {
+      backstepUrl = backstepUrl + '../';
+    }
+    let target = `${backstepUrl}index.html`;
+    let symlink = `${folder}/index.html`;
+    fs.symlinkSync(target, symlink);
   } catch (err) {
     //console.log('Error: Could not create symlink to index.html.');
   }
