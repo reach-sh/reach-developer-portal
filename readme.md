@@ -1,6 +1,6 @@
 # Reach Developer Portal
 
-This repository contains the source files and site generator for the Reach Developer Portal website.
+This repository contains the source files and site generator for the [Reach Developer Portal](https://reach-sh.github.io).
 
 ## Deploy the site locally
 
