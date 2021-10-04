@@ -4,6 +4,8 @@ menuItem: mi-docs
 
 # Development Environment
 
+This page helps you set up the development environment used in many of the examples throughout this site. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) first.
+
 ## Add reach to path
 
 If you add `~/reach` to your `PATH` environment variable, you can use `reach <command>` to run the [reach](https://github.com/reach-sh/reach-lang/blob/master/reach) script from any current working directory. Otherwise, use `~/reach/reach <command>` to do the same.
