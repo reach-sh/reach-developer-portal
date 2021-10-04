@@ -15,6 +15,72 @@ let lang = window.navigator.language.split('-')[0];
 const homepage = `/${lang}/pages/homepage/`;
 
 /************************************************************************************************
+* getWinWidth
+************************************************************************************************/
+
+const getWinWidthStr = () => {
+  let s = window.innerWidth;
+  if (s >= 1200) { return 'xl' }
+  else if (s >= 992) { return 'lg' }
+  else if (s >= 768) { return 'md' }
+  else if (s >= 576) { return 'sm' }
+  else return 'xs'
+}
+
+const maxColWidth = '280px';
+let winWidth = getWinWidthStr();
+
+/************************************************************************************************
+* establishDisplay
+************************************************************************************************/
+
+const establishDisplay = () => {
+  if (currentPage.bookPath) {
+    if (winWidth == 'xl') {
+      document.getElementById('book-col').style.display = 'block';
+      document.getElementById('book-col').style.maxWidth = maxColWidth;
+      document.querySelector('div.show-book-col').style.display = 'none';
+    } else if (winWidth == 'lg' || winWidth == 'md') {
+      document.getElementById('book-col').style.display = 'block';
+      document.getElementById('book-col').style.maxWidth = maxColWidth;
+      document.querySelector('div.show-book-col').style.display = 'none';
+    } else if (winWidth == 'sm' || winWidth == 'xs') {
+      document.getElementById('book-col').style.display = 'none';
+      document.getElementById('book-col').style.maxWidth = 'none';
+      document.querySelector('div.show-book-col').style.display = 'block';
+    }
+  }
+
+  if (currentPage.hasOtp) {
+    if (winWidth == 'xl') {
+      document.getElementById('otp-col').style.display = 'block';
+      document.getElementById('otp-col').style.maxWidth = maxColWidth;
+      document.querySelector('button.show-otp-col').style.display = 'none';
+    } else if (winWidth == 'lg' || winWidth == 'md') {
+      document.getElementById('otp-col').style.display = 'none';
+      document.getElementById('otp-col').style.maxWidth = maxColWidth;
+      document.querySelector('button.show-otp-col').style.display = 'block';
+    } else if (winWidth == 'sm' || winWidth == 'xs') {
+      document.getElementById('otp-col').style.display = 'none';
+      document.getElementById('otp-col').style.maxWidth = 'none';
+      document.querySelector('button.show-otp-col').style.display = 'block';
+    }
+  }
+}
+
+/************************************************************************************************
+* window horizontal resize
+************************************************************************************************/
+
+window.addEventListener('resize', () => {
+  let newWinWidth = getWinWidthStr();
+  if (winWidth != newWinWidth) {
+    winWidth = newWinWidth;
+    establishDisplay();
+  }
+});
+
+/************************************************************************************************
 * getWebpage
 * folder examples:
 *   /pages/demo/
@@ -192,9 +258,17 @@ const getWebpage = async (folder, hash, updateHistory) => {
       }
     }
 
+    // Establish correct display values.
+    establishDisplay();
+
     // Display book.
-    if (configJson.bookPath) { document.getElementById('book-col').style.display = 'block'; }
-    else { document.getElementById('book-col').style.display = 'none'; }
+    if (configJson.bookPath) {
+      document.getElementById('book-col').classList.remove('banish');
+      document.querySelector('div.show-book-col').classList.remove('banish');
+    } else {
+      document.getElementById('book-col').classList.add('banish');
+      document.querySelector('div.show-book-col').classList.add('banish');
+    }
 
     // Display page.
     if (configJson.hasPageHeader) { document.querySelector('div.hh-page-header').style.display = 'block'; }
@@ -202,8 +276,13 @@ const getWebpage = async (folder, hash, updateHistory) => {
     document.getElementById('page-col').style.display = 'block';
 
     // Display OTP.
-    if (configJson.hasOtp) { document.getElementById('otp-col').style.display = 'block'; }
-    else { document.getElementById('otp-col').style.display = 'none'; }
+    if (configJson.hasOtp) {
+      document.getElementById('otp-col').classList.remove('banish');
+      document.querySelector('button.show-otp-col').classList.remove('banish');
+    } else {
+      document.getElementById('otp-col').classList.add('banish');
+      document.querySelector('button.show-otp-col').classList.add('banish');
+    }
 
     // Scroll to proper place and update history
     currentPage.folder = `${folder}`;
@@ -226,9 +305,6 @@ const getWebpage = async (folder, hash, updateHistory) => {
 ************************************************************************************************/
 
 const followLink = async (href) => {
-
-  //console.log(href);
-
   let a = document.createElement('a');
   a.href = href;
 
@@ -294,61 +370,6 @@ document.querySelector('button.show-otp-col').addEventListener('click', (event) 
   }
   document.getElementById('otp-col').style.display = 'block';
   document.querySelector('button.show-otp-col').style.display = 'none';
-});
-
-/************************************************************************************************
-* window horizontal resizing
-************************************************************************************************/
-
-const getWinWidthStr = () => {
-  let s = window.innerWidth;
-  if (s >= 1200) { return 'xl' }
-  else if (s >= 992) { return 'lg' }
-  else if (s >= 768) { return 'md' }
-  else if (s >= 576) { return 'sm' }
-  else return 'xs'
-}
-let winWidth = getWinWidthStr();
-const maxColWidth = '280px';
-
-window.addEventListener('resize', () => {
-  let newWinWidth = getWinWidthStr();
-  if (winWidth != newWinWidth) {
-    winWidth = newWinWidth;
-
-    if (currentPage.bookPath) {
-      if (winWidth == 'xl') {
-        document.getElementById('book-col').style.display = 'block';
-        document.getElementById('book-col').style.maxWidth = maxColWidth;
-        document.querySelector('div.show-book-col').style.display = 'none';
-      } else if (winWidth == 'lg' || winWidth == 'md') {
-        document.getElementById('book-col').style.display = 'block';
-        document.getElementById('book-col').style.maxWidth = maxColWidth;
-        document.querySelector('div.show-book-col').style.display = 'none';
-      } else if (winWidth == 'sm' || winWidth == 'xs') {
-        document.getElementById('book-col').style.display = 'none';
-        document.getElementById('book-col').style.maxWidth = 'none';
-        document.querySelector('div.show-book-col').style.display = 'block';
-      }
-    }
-
-    if (currentPage.hasOtp) {
-      if (winWidth == 'xl') {
-        document.getElementById('otp-col').style.display = 'block';
-        document.getElementById('otp-col').style.maxWidth = maxColWidth;
-        document.querySelector('button.show-otp-col').style.display = 'none';
-      } else if (winWidth == 'lg' || winWidth == 'md') {
-        document.getElementById('otp-col').style.display = 'none';
-        document.getElementById('otp-col').style.maxWidth = maxColWidth;
-        document.querySelector('button.show-otp-col').style.display = 'block';
-      } else if (winWidth == 'sm' || winWidth == 'xs') {
-        document.getElementById('otp-col').style.display = 'none';
-        document.getElementById('otp-col').style.maxWidth = 'none';
-        document.querySelector('button.show-otp-col').style.display = 'block';
-      }
-    }
-
-  }
 });
 
 /************************************************************************************************

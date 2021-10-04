@@ -14,7 +14,7 @@ hasPageHeader: false
   </div>
 
   <div class="d-none d-lg-block">
-    <img src="first-steps.png" width=800 usemap="#image-map-800">
+    <img src="first-steps.png" width=800 height=185 usemap="#image-map-800">
     <map name="image-map-800">
         <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="124,10,222,71" shape="rect">
         <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="123,117,223,179" shape="rect">
@@ -26,7 +26,7 @@ hasPageHeader: false
   </div>
 
   <div class="d-none d-md-block d-lg-none">
-    <img src="first-steps.png" width=600 usemap="#image-map-600">
+    <img src="first-steps.png" width=600 width=139 usemap="#image-map-600">
     <map name="image-map-600">
         <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="94,7,168,54" shape="rect">
         <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="94,87,167,134" shape="rect">
@@ -38,7 +38,7 @@ hasPageHeader: false
   </div>
 
   <div class="d-block d-md-none">
-    <img src="first-steps-for-400.png" width=400 usemap="#image-map-400">
+    <img src="first-steps-for-400.png" width=400 height=92 usemap="#image-map-400">
     <map name="image-map-400">
         <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="63,5,112,34" shape="rect">
         <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="63,58,112,88" shape="rect">

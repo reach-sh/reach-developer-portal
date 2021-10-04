@@ -28,13 +28,13 @@ main {height: calc(100% - 56px);}
 
 @media (min-width: 768px) {
   #book-col {max-width: 280px; min-width: 280px;}
+  #otp-col {max-width: 280px; min-width: 280px;}
   #book-col.display {display: block;}
   #page-col div.show-book-col {display: none;}
 }
 
 @media (min-width: 1200px) {
   #page-col button.show-otp-col {display: none;}
-  #otp-col {max-width: 280px; min-width: 280px;}
   #otp-col.display {display: block;}
 }
 
@@ -471,4 +471,10 @@ iframe.gray-scale {
 
 #tutorial-cards div.card-body {
   padding-bottom: 0;
+}
+
+.banish {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
 }
