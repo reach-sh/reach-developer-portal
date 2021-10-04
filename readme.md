@@ -182,13 +182,13 @@ Examples:
 
 Below are some additional examples.
 
-If you modify an index.md file (e.g. `en/books/demo/amphibians/frogs), you regenerate the corresponding webpage like this:
+If you modify an index.md file (e.g. `en/books/demo/amphibians/frogs`), you regenerate the corresponding webpage with the `folder` flag:
 
 ```
 $ node tools/generator.js -t folder -d en/books/demo/amphibians/frogs
 ```
 
-If you modify various index.md files in the demo book, you regenerate all the corresponding webpages like this:
+If you modify various index.md files within a hierarchy (e.g. `en/books/demo`), you regenerate all the corresponding webpages with the `folders` flag:
 
 ```
 $ node tools/generator.js -t folders -d en/books/demo
