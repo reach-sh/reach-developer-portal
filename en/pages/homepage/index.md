@@ -8,13 +8,13 @@ hasPageHeader: false
 <section class="text-center">
   <div class="row">
     <div class="col-12">
-      <p class="lead" style="color:gray;"><b><span style="color:black;">Reach</span> is a <span style="color:black;">programming language</span> for building <span style="color:black;">blockchain</span> applications.</b></p>
-      <p class="lead" style="color:gray;"><b><span style="color:black;">New</span> to Reach <span style="color:black;">DApp</span> development<span style="color:black;"> ?</span></b></p>
+      <p class="lead">Reach is a programming language for building blockchain applications.</b></p>
+      <p class="lead">New to Reach DApp development ?</b></p>
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-6 col-md-4 col-lg-3 d-grid"><a href="/en/books/essentials/" class="btn btn-dark my-2">Overview Video</a></div>
-    <div class="col-6 col-md-4 col-lg-3 d-grid"><a href="/en/books/essentials/quick-start/" class="btn btn-dark my-2">Quick Start</a></div>
+    <div class="col-6 col-md-4 col-lg-3 d-grid"><a href="/en/books/essentials/" class="btn btn-outline-dark my-2">Overview Video</a></div>
+    <div class="col-6 col-md-4 col-lg-3 d-grid"><a href="/en/books/essentials/quick-start/" class="btn btn-outline-dark my-2">Quick Start</a></div>
   </div>
 </section>
 
