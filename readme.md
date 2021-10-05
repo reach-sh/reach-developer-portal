@@ -172,7 +172,7 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 ### Small
 
-<p><img src="./assets/w-sm.png" width=800></p>
+<p><img src="./assets/w-sm.png" width=410></p>
 
 ### Extra Small
 
