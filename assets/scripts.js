@@ -299,15 +299,18 @@ const getWebpage = async (folder, hash, updateHistory) => {
     }
 
     // Scroll to proper place and update history
-    currentPage.folder = `${folder}`;
+    currentPage.folder = folder;
     if (hash && hash !== '#on-this-page') {
       document.getElementById(hash.substring(1)).scrollIntoView();
-      window.history.pushState(null, null, `${window.location.origin}${folder}${hash}`);
+      if (updateHistory) {
+        window.history.pushState(null, null, `${window.location.origin}${folder}${hash}`);
+      }
     } else {
       document.getElementById('page-col').scrollTo(0, 0);
-      window.history.pushState('{}', '', `${window.location.origin}${folder}`);
+      if (updateHistory) {
+        window.history.pushState('{}', '', `${window.location.origin}${folder}`);
+      }
     }
-
   } catch (error) {
     console.log(error);
   }
