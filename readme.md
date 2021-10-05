@@ -168,7 +168,7 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 ### Medium
 
-<p><img src="./assets/w-md.png" width=800></p>
+<p><img src="./assets/w-md.png" width=420></p>
 
 ### Small
 
