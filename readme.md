@@ -156,6 +156,28 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 <p><img src="./assets/supplemental-files.png" width=600></p>
 
+## Responsive Defaults
+
+### Extra Large
+
+<p><img src="./assets/width-xl.png" width=800></p>
+
+### Large
+
+<p><img src="./assets/width-lg.png" width=800></p>
+
+### Medium
+
+<p><img src="./assets/width-md.png" width=800></p>
+
+### Small
+
+<p><img src="./assets/width-sm.png" width=800></p>
+
+### Extra Small
+
+<p><img src="./assets/width-xs.png" width=800></p>
+
 ## About the generator
 
 A Node.js command-line application, the site generator which, for the most part, transforms markdown files into html files, will continue to evolve over the next few months. Here is the current help menu:
