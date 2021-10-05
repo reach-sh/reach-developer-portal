@@ -176,7 +176,7 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 ### Extra Small
 
-<p><img src="./assets/w-xs.png" width=300></p>
+<p><img src="./assets/w-xs.png" width=280></p>
 
 ## About the generator
 
