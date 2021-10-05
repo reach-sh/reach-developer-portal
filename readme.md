@@ -158,7 +158,7 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 ## Responsive Defaults
 
-### Books
+The various screen widths (seen below) determine whether a user sees, on initial load, a book column v. an expander hamburger (on the left) and an otp column v. an expander hamburger (on the right). 
 
 #### Extra Large
 
