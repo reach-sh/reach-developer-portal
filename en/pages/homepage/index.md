@@ -14,38 +14,32 @@ hasPageHeader: false
   </div>
 
   <div class="d-none d-lg-block">
-    <img src="first-steps.png" width=800 height=185 usemap="#image-map-800">
-    <map name="image-map-800">
-        <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="124,10,222,71" shape="rect">
-        <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="123,117,223,179" shape="rect">
-        <area target="" alt="Development Environment" title="Development Environment" href="/en/books/essentials/development-environment/" coords="273,62,371,125" shape="rect">
-        <area target="" alt="Wisdom for Sale" title="Wisdom for Sale" href="/en/books/essentials/tutorials/wisdom-for-sale/" coords="401,61,502,125" shape="rect">
-        <area target="" alt="Market Day" title="Market Day" href="/en/books/essentials/tutorials/market-day/" coords="532,61,632,125" shape="rect">
-        <area target="" alt="Rock Paper Scissors" title="Rock Paper Scissors" href="/en/books/essentials/tutorials/rock-paper-scissors/" coords="663,62,762,126" shape="rect">
+    <img src="first-steps.png" width=700 height=237 usemap="#image-map-700">
+    <map name="image-map-700">
+        <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="157,11,285,92" shape="rect">
+        <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="157,149,285,230" shape="rect">
+        <area target="" alt="Development Environment" title="Development Environment" href="/en/books/essentials/development-environment/" coords="356,78,485,161" shape="rect">
+        <area target="" alt="Tutorials" title="Tutorials" href="/en/books/essentials/tutorials/" coords="525,80,652,160" shape="rect">
     </map>
   </div>
 
   <div class="d-none d-md-block d-lg-none">
-    <img src="first-steps.png" width=600 width=139 usemap="#image-map-600">
+    <img src="first-steps.png" width=600 height=203 usemap="#image-map-600">
     <map name="image-map-600">
-        <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="94,7,168,54" shape="rect">
-        <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="94,87,167,134" shape="rect">
-        <area target="" alt="Development Environment" title="Development Environment" href="/en/books/essentials/development-environment/" coords="206,47,280,94" shape="rect">
-        <area target="" alt="Wisdom for Sale" title="Wisdom for Sale" href="/en/books/essentials/tutorials/wisdom-for-sale/" coords="302,46,377,94" shape="rect">
-        <area target="" alt="Market Day" title="Market Day" href="/en/books/essentials/tutorials/market-day/" coords="402,47,476,94" shape="rect">
-        <area target="" alt="Rock Paper Scissors" title="Rock Paper Scissors" href="/en/books/essentials/tutorials/rock-paper-scissors/" coords="499,46,573,94" shape="rect">
+        <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="136,9,244,78" shape="rect">
+        <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="135,128,244,197" shape="rect">
+        <area target="" alt="Development Environment" title="Development Environment" href="/en/books/essentials/development-environment/" coords="306,69,416,139" shape="rect">
+        <area target="" alt="Tutorials" title="Tutorials" href="/en/books/essentials/tutorials/" coords="450,68,559,137" shape="rect">
     </map>
   </div>
 
   <div class="d-block d-md-none">
-    <img src="first-steps-for-400.png" width=400 height=92 usemap="#image-map-400">
+    <img src="first-steps.png" width=400 height=135 usemap="#image-map-400">
     <map name="image-map-400">
-        <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="63,5,112,34" shape="rect">
-        <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="63,58,112,88" shape="rect">
-        <area target="" alt="Development Environment" title="Development Environment" href="/en/books/essentials/development-environment/" coords="138,31,186,61" shape="rect">
-        <area target="" alt="Wisdom for Sale" title="Wisdom for Sale" href="/en/books/essentials/tutorials/wisdom-for-sale/" coords="202,30,251,62" shape="rect">
-        <area target="" alt="Market Day" title="Market Day" href="/en/books/essentials/tutorials/market-day/" coords="266,30,317,61" shape="rect">
-        <area target="" alt="Rock Paper Scissors" title="Rock Paper Scissors" href="/en/books/essentials/tutorials/rock-paper-scissors/" coords="333,32,382,60" shape="rect">
+        <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="91,8,163,52" shape="rect">
+        <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="91,85,164,131" shape="rect">
+        <area target="" alt="Development Environment" title="Development Environment" href="/en/books/essentials/development-environment/" coords="205,46,276,92" shape="rect">
+        <area target="" alt="Tutorials" title="Tutorials" href="/en/books/essentials/tutorials/" coords="300,48,372,91" shape="rect">
     </map>
   </div>
 </section>
