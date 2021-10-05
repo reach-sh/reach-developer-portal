@@ -14,6 +14,10 @@ const idToPathName = (id) => { return id.replace(/_/g, '/'); }
 let lang = window.navigator.language.split('-')[0];
 const homepage = `/${lang}/pages/homepage/`;
 
+const otpPreferences = { 'none': 'none', 'show': 'show', 'hide': 'hide' };
+Object.freeze(otpPreferences);
+let otpPreference = otpPreferences.none;
+
 /************************************************************************************************
 * getWinWidth
 ************************************************************************************************/
@@ -36,34 +40,44 @@ let winWidth = getWinWidthStr();
 
 const establishDisplay = () => {
   if (currentPage.bookPath) {
-    if (winWidth == 'xl') {
-      document.getElementById('book-col').style.display = 'block';
-      document.getElementById('book-col').style.maxWidth = maxColWidth;
-      document.querySelector('div.show-book-col').style.display = 'none';
-    } else if (winWidth == 'lg' || winWidth == 'md') {
-      document.getElementById('book-col').style.display = 'block';
-      document.getElementById('book-col').style.maxWidth = maxColWidth;
-      document.querySelector('div.show-book-col').style.display = 'none';
+    const bookCol = document.getElementById('book-col');
+    const bookBtn = document.querySelector('div.show-book-col');
+    if (winWidth == 'xl' || winWidth == 'lg' || winWidth == 'md') {
+      bookCol.style.maxWidth = maxColWidth;
+      bookCol.style.display = 'block';
+      bookBtn.style.display = 'none';
     } else if (winWidth == 'sm' || winWidth == 'xs') {
-      document.getElementById('book-col').style.display = 'none';
-      document.getElementById('book-col').style.maxWidth = 'none';
-      document.querySelector('div.show-book-col').style.display = 'block';
+      bookCol.style.maxWidth = 'none';
+      bookCol.style.display = 'none';
+      bookBtn.style.display = 'block';
     }
   }
 
   if (currentPage.hasOtp) {
+    const otpCol = document.getElementById('otp-col');
+    const otpBtn = document.querySelector('button.show-otp-col');
     if (winWidth == 'xl') {
-      document.getElementById('otp-col').style.display = 'block';
-      document.getElementById('otp-col').style.maxWidth = maxColWidth;
-      document.querySelector('button.show-otp-col').style.display = 'none';
+      otpCol.style.maxWidth = maxColWidth;
+      if (otpPreference == otpPreferences.hide) {
+        otpCol.style.display = 'none';
+        otpBtn.style.display = 'block';
+      } else {
+        otpCol.style.display = 'block';
+        otpBtn.style.display = 'none';
+      }
     } else if (winWidth == 'lg' || winWidth == 'md') {
-      document.getElementById('otp-col').style.display = 'none';
-      document.getElementById('otp-col').style.maxWidth = maxColWidth;
-      document.querySelector('button.show-otp-col').style.display = 'block';
+      otpCol.style.maxWidth = maxColWidth;
+      if (otpPreference == otpPreferences.show) {
+        otpCol.style.display = 'block';
+        otpBtn.style.display = 'none';
+      } else {
+        otpCol.style.display = 'none';
+        otpBtn.style.display = 'block';
+      }
     } else if (winWidth == 'sm' || winWidth == 'xs') {
-      document.getElementById('otp-col').style.display = 'none';
-      document.getElementById('otp-col').style.maxWidth = 'none';
-      document.querySelector('button.show-otp-col').style.display = 'block';
+      otpCol.style.maxWidth = 'none';
+      otpCol.style.display = 'none';
+      otpBtn.style.display = 'block';
     }
   }
 }
@@ -362,6 +376,7 @@ document.querySelector('button.hide-otp-icon').addEventListener('click', (event)
   }
   document.getElementById('otp-col').style.display = 'none';
   document.querySelector('button.show-otp-col').style.display = 'block';
+  otpPreference = otpPreferences.hide;
 });
 
 document.querySelector('button.show-otp-col').addEventListener('click', (event) => {
@@ -370,6 +385,7 @@ document.querySelector('button.show-otp-col').addEventListener('click', (event) 
   }
   document.getElementById('otp-col').style.display = 'block';
   document.querySelector('button.show-otp-col').style.display = 'none';
+  otpPreference = otpPreferences.show;
 });
 
 /************************************************************************************************

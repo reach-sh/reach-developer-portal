@@ -270,10 +270,10 @@ const processFolder = async (baseDir, relDir) => {
   configJson.bookTitle = null;
   configJson.chapters = null;
   configJson.hasOtp = true;
-  configJson.hasEditBtn = true;
+  configJson.hasEditBtn = false;
   configJson.hasPageHeader = true;
   configJson.hasPageScrollbar = true;
-  configJson.hasRefreshBtn = true;
+  configJson.hasRefreshBtn = false;
   configJson.menuItem = null;
   configJson.pages = null;
   configJson.pathname = null;
@@ -535,7 +535,11 @@ switch (argv.t) {
     processCss();
     processBase('en');
     processJs();
-    findAndProcessFolders(`${normalizeDir(srcDir)}`);
+    // Hard coding for now to avoid the imported book. Should add --ignore flag instead.
+    await findAndProcessFolder(`${srcDir}/en/books/demo`);
+    await findAndProcessFolder(`${srcDir}/en/books/essentials`);
+    await findAndProcessFolder(`${srcDir}/en/pages`);
+    //findAndProcessFolders(`${normalizeDir(srcDir)}`);
     break;
 
   case 'base':
