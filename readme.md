@@ -158,23 +158,25 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 ## Responsive Defaults
 
-### Book Extra Large
+### Books
+
+#### Extra Large
 
 <p><img src="./assets/w-xl.png" width=800></p>
 
-#### Book Large
+#### Large
 
 <p><img src="./assets/w-lg.png" width=630></p>
 
-### Book Medium
+#### Medium
 
 <p><img src="./assets/w-md.png" width=530></p>
 
-### Book Small
+#### Small
 
 <p><img src="./assets/w-sm.png" width=410></p>
 
-### Book Extra Small
+#### Extra Small
 
 <p><img src="./assets/w-xs.png" width=280></p>
 
