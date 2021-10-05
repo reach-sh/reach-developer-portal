@@ -162,7 +162,7 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 <p><img src="./assets/w-xl.png" width=800></p>
 
-### Book Large
+#### Book Large
 
 <p><img src="./assets/w-lg.png" width=630></p>
 
