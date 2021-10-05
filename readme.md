@@ -160,23 +160,23 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 ### Extra Large
 
-<p><img src="./assets/w-xl.png" height=300></p>
+<p><img src="./assets/w-xl.png" width=800></p>
 
 ### Large
 
-<p><img src="./assets/w-lg.png" height=300></p>
+<p><img src="./assets/w-lg.png" width=636></p>
 
 ### Medium
 
-<p><img src="./assets/w-md.png" height=300></p>
+<p><img src="./assets/w-md.png" width=800></p>
 
 ### Small
 
-<p><img src="./assets/w-sm.png" height=300></p>
+<p><img src="./assets/w-sm.png" width=800></p>
 
 ### Extra Small
 
-<p><img src="./assets/w-xs.png" height=300></p>
+<p><img src="./assets/w-xs.png" width=800></p>
 
 ## About the generator
 
