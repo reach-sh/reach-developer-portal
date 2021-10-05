@@ -156,7 +156,7 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 <p><img src="./assets/supplemental-files.png" width=600></p>
 
-## Responsive Defaults
+## Book Responsive Defaults
 
 ### Extra Large
 
@@ -176,7 +176,7 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 ### Extra Small
 
-<p><img src="./assets/w-xs.png" width=800></p>
+<p><img src="./assets/w-xs.png" width=300></p>
 
 ## About the generator
 
