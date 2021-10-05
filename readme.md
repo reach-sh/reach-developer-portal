@@ -160,7 +160,8 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 The various screen widths (seen below) determine whether a user sees, on initial load, a book column v. an expander hamburger (on the left) and an on-this-page (otp) column v. an expander hamburger (on the right).
 
-> Important: Once a user expands or collapses the OTP column, the application remembers that state, and applies it to every page that the user visits. 
+> ##### Important
+> Once a user expands or collapses the OTP column, the application remembers that state, and applies it to every page that the user visits. 
 
 #### Extra Large
 
