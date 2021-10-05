@@ -56,7 +56,7 @@ const establishDisplay = () => {
   if (currentPage.hasOtp) {
     const otpCol = document.getElementById('otp-col');
     const otpBtn = document.querySelector('button.show-otp-col');
-    if (winWidth == 'xl') {
+    if (winWidth == 'xl' || winWidth == 'lg') {
       otpCol.style.maxWidth = maxColWidth;
       if (otpPreference == otpPreferences.hide) {
         otpCol.style.display = 'none';
@@ -65,7 +65,7 @@ const establishDisplay = () => {
         otpCol.style.display = 'block';
         otpBtn.style.display = 'none';
       }
-    } else if (winWidth == 'lg' || winWidth == 'md') {
+    } else if (winWidth == 'md') {
       otpCol.style.maxWidth = maxColWidth;
       if (otpPreference == otpPreferences.show) {
         otpCol.style.display = 'block';
