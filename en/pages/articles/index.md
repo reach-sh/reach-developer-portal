@@ -5,8 +5,6 @@ menuItem: mi-articles
 
 # Articles
 
-Below are Reach-related articles written by developers for developers.
-
 # [How do network and non-network tokens differ?](/en/pages/articles/how-do-network-and-non-network-tokens-differ/)
 
 <small class="text-muted">By Jay McCarthy on October 2, 2021</small>
@@ -21,7 +19,7 @@ This article describes various ways that Reach applications transition from loca
 
 # [How do I add tracing logs to my Reach program?](/en/pages/articles/how-do-i-add-tracing-logs-to-my-program/)
 
-<small class="text-muted">By Jay McCarthy on May 5, 2021</small>
+<small class="text-muted">By Jay McCarthy on May 22, 2021</small>
 
 This article explains how to approximate console.log in Reach programs.
 
@@ -72,4 +70,10 @@ This article examines the meaning of Reach version numbers.
 <small class="text-muted">By Jay McCarthy on August 29, 2020</small>
 
 This article explains that steps can be sequential and simultaneous.
+
+# [Building decentralized abstractions](/en/pages/articles/building-decentralized-abstractions/)
+
+<small class="text-muted">By Jay McCarthy on August 29, 2020</small>
+
+This article ...
 

@@ -1,7 +1,7 @@
 ---
 author: Jay McCarthy
 menuItem: mi-articles
-publishedDate: 2021-03-04T14:00:00
+publishedDate: 2020-08-29T14:00:00
 ---
 
 # How does Reach development compare to Solidity development?
