@@ -325,6 +325,9 @@ const followLink = async (href) => {
   let a = document.createElement('a');
   a.href = href;
 
+  console.log(a.pathname);
+  console.log(a.hash);
+
   if (a.hostname === window.location.hostname) {
     if (currentPage.folder == a.pathname && a.hash) {
       if (a.hash === '#on-this-page') {
@@ -336,7 +339,7 @@ const followLink = async (href) => {
       }
     }
     else {
-      await getWebpage(a.pathname, null, true);
+      await getWebpage(a.pathname, a.hash, true);
     }
   } else {
     window.open(a.href, '_blank').focus();

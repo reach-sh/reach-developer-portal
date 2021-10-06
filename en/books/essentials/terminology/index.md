@@ -14,6 +14,10 @@ menuItem: mi-docs
 
 # Block
 
+# Blockchain
+
+* [Understand the Blockchain in Two Minutes](https://www.youtube.com/watch?v=r43LhSUUGTQ)
+
 # Bridge
 
 # Computation
