@@ -6,7 +6,7 @@ menuItem: mi-docs
 
 This page helps you set up the development environment used in many of the examples throughout this site. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) first.
 
-## Add reach to path
+# Add reach to path
 
 If you add `~/reach` to your `PATH` environment variable, you can use `reach <command>` to run the [reach](https://github.com/reach-sh/reach-lang/blob/master/reach) script from any current working directory. Otherwise, use `~/reach/reach <command>` to do the same.
 
@@ -26,7 +26,7 @@ To apply this change to your current terminal, rerun your startup file (e.g. clo
 
 Many instructions on this site assume that you have added `~/reach` to `PATH`.
 
-## Install VSCode
+# Install an IDE
 
 1. Install [Visual Studio Code](https://code.visualstudio.com/).
 
@@ -60,7 +60,7 @@ Many instructions on this site assume that you have added `~/reach` to `PATH`.
     Goodbye, Alice and Bob!
     ```
 
-## Maintain your environment
+# Maintain your environment
 
 From time to time, you will need to do the following:
 
@@ -83,7 +83,7 @@ From time to time, you will need to do the following:
     $ reach update
     ```
 
-## Next Steps
+# Next Steps
 
 1. Watch the [Overview Video](/en/books/essentials/) (if you haven't already).
 1. Complete the  [Quick Start](/en/books/essentials/quick-start/) (if you haven't already).

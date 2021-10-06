@@ -5,11 +5,23 @@ menuItem: mi-articles
 
 # Articles
 
+# [How to use Ganache with Reach](/en/pages/articles/how-to-use-ganache-with-reach/)
+
+<small class="text-muted">By Mohammed Abuelmaali on August 30, 2021</small>
+
+This article explains how to use Ganache, a popular Ethereum personal blockchain.
+
 # [How do network and non-network tokens differ?](/en/pages/articles/how-do-network-and-non-network-tokens-differ/)
 
 <small class="text-muted">By Jay McCarthy on October 2, 2021</small>
 
 This article explains how these two types of tokens differ, and why it is important.
+
+# [Sharing and discovering shared Reach packages](/en/pages/articles/sharing-and-discovering-shared-reach-packages/)
+
+<small class="text-muted">By Matt Audesse on June 4, 2021</small>
+
+This article shows how to share and discover Reach-related packages. 
 
 # [What do the different consensus transfers mean?](/en/pages/articles/what-do-the-different-transfers-mean/)
 
@@ -75,5 +87,10 @@ This article explains that steps can be sequential and simultaneous.
 
 <small class="text-muted">By Jay McCarthy on August 29, 2020</small>
 
-This article ...
+This article discusses building abstrations with arrow functions and objects.
 
+# [What are Reach’s limitations?](/en/pages/articles/what-are-reach-limitations/)
+
+<small class="text-muted">By Jay McCarthy on August 29, 2020</small>
+
+This article discusses Reach limitations in terms of connectors, backends, computation, verification, network integration, and communication.
