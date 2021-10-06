@@ -1,4 +1,7 @@
 ---
 menuItem: mi-docs
-src: ref-model.md
 ---
+
+# ref-model.md
+
+Imported into Essentials.

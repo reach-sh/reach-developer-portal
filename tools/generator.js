@@ -46,6 +46,12 @@ const argv = yargs(process.argv.slice(2))
     type: 'string',
     default: ''
   })
+  .option('edit', {
+    alias: 'e',
+    describe: 'Add edit button to page.',
+    type: 'boolean',
+    default: false
+  })
   .option('help', {
     alias: 'h',
     describe: 'Show help.',
@@ -56,6 +62,12 @@ const argv = yargs(process.argv.slice(2))
     describe: 'Specify language (e.g. en, zh).',
     type: 'string',
     default: 'en'
+  })
+  .option('refresh', {
+    alias: 'r',
+    describe: 'Add refresh button to page.',
+    type: 'boolean',
+    default: false
   })
   .option('type', {
     alias: 't',
@@ -270,10 +282,10 @@ const processFolder = async (baseDir, relDir) => {
   configJson.bookTitle = null;
   configJson.chapters = null;
   configJson.hasOtp = true;
-  configJson.hasEditBtn = false;
+  configJson.hasEditBtn = argv.e;
   configJson.hasPageHeader = true;
   configJson.hasPageScrollbar = true;
-  configJson.hasRefreshBtn = false;
+  configJson.hasRefreshBtn = argv.r;
   configJson.menuItem = null;
   configJson.pages = null;
   configJson.pathname = null;
@@ -535,11 +547,8 @@ switch (argv.t) {
     processCss();
     processBase('en');
     processJs();
-    // Hard coding for now to avoid the imported book. Should add --ignore flag instead.
-    await findAndProcessFolder(`${srcDir}/en/books/demo`);
-    await findAndProcessFolder(`${srcDir}/en/books/essentials`);
-    await findAndProcessFolder(`${srcDir}/en/pages`);
-    //findAndProcessFolders(`${normalizeDir(srcDir)}`);
+    // Need to add --ignore flag.
+    findAndProcessFolders(`${normalizeDir(srcDir)}`);
     break;
 
   case 'base':

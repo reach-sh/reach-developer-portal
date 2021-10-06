@@ -1,4 +1,7 @@
 ---
 menuItem: mi-docs
-src: ref-programs-compute.md
 ---
+
+# ref-programs-compute.md
+
+Imported into Essentials.

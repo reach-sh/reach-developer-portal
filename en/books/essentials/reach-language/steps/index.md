@@ -1,5 +1,0 @@
----
-menuItem: mi-docs
----
-
-# Steps
