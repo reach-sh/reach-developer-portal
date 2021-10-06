@@ -193,7 +193,9 @@ Options:
   -h, --help      Show help.  [boolean]
   -v, --version   Show version.  [boolean]
   -d, --dir       Specify dirpath.  [string] [default: ""]
+  -e, --edit      Add edit button to page.  [boolean] [default: true]
   -l, --language  Specify language (e.g. en, zh).  [string] [default: "en"]
+  -r, --refresh   Add refresh button to page.  [boolean] [default: true]
   -t, --type      Specify file type.  [string] [required] [choices: "all", "base", "book", "css", "folder", "folders", "js"]
 
 Examples:

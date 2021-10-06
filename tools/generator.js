@@ -50,7 +50,7 @@ const argv = yargs(process.argv.slice(2))
     alias: 'e',
     describe: 'Add edit button to page.',
     type: 'boolean',
-    default: false
+    default: true
   })
   .option('help', {
     alias: 'h',
@@ -67,7 +67,7 @@ const argv = yargs(process.argv.slice(2))
     alias: 'r',
     describe: 'Add refresh button to page.',
     type: 'boolean',
-    default: false
+    default: true
   })
   .option('type', {
     alias: 't',
