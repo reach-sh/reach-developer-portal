@@ -158,7 +158,7 @@ It may contain headings, paragraphs, lists, code snippets, tables, html, etc. as
 
 ## Responsive Defaults
 
-The various screen widths (seen below) determine whether a user sees, on initial load, a book column v. an expander hamburger (on the left) and an on-this-page (otp) column v. an expander hamburger (on the right).
+The various screen widths (seen below) determine whether a user sees, on initial load, a book column versus an expander hamburger (on the left) and an on-this-page (otp) column versus an expander hamburger (on the right).
 
 > **Important**<br/>
 > The user explicitly expanding or collapsing the OTP column sets a "preferred state" flag which the application applies to every medium, large, or extra large page the user visits. Reloading the JavaScript file clears this flag. I could save this state to localStorage, but I don't see an immediate need. 
