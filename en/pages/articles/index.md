@@ -37,6 +37,12 @@ This article confirms that Reach offers many frontend alternatives.
 
 This article helps you bridge the gap between Solidity development and Reach development.
 
+# [Racing non-determinism in decentralized applications](/en/pages/articles/racing-non-determinism-in-dapps/)
+
+<small class="text-muted">By Jay McCarthy on December 9, 2020</small>
+
+This article explains ....
+
 # [How and what to verify](/en/pages/articles/how-and-what-to-verify/)
 
 <small class="text-muted">By Jay McCarthy on August 29, 2020</small>
@@ -49,8 +55,21 @@ This article explains how to use assertions in Reach programs.
 
 This article demonstrates how to ensure that certain variables remain the same before and after loops.
 
+# [How to protect against non-participation](/en/pages/articles/how-to-protect-against-non-participation/)
+
+<small class="text-muted">By Jay McCarthy on August 29, 2020</small>
+
+This article points out what to do when one participant stops participating.
+
 # [How does Reach use version numbers?](/en/pages/articles/how-does-reach-use-version-numbers/)
 
 <small class="text-muted">By Jay McCarthy on August 29, 2020</small>
 
-This article explains the meaning of Reach version numbers.
+This article examines the meaning of Reach version numbers.
+
+# [Determinism, simultaneity, and choice in decentralized applications](/en/pages/articles/determinism-simultaneity-and-choice-in-dapps/)
+
+<small class="text-muted">By Jay McCarthy on August 29, 2020</small>
+
+This article explains that steps can be sequential and simultaneous.
+
