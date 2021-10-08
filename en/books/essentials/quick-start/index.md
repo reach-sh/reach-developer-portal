@@ -4,15 +4,15 @@ menuItem: mi-docs
 
 # Quick Start
 
-This page shows you how to run a Reach *Hello World* decentralized application (DApp) in a terminal:
+This page shows you how to run a Reach *Hello World* decentralized application (DApp) in a [POSIX](https://en.wikipedia.org/wiki/POSIX)-compliant shell:
 
-# Set up your environment
+# Install Make and Docker
 
-Reach assumes the presence of a POSIX-compliant shell and [Docker](https://docs.docker.com/get-docker/).
+Reach assumes the presence of a [POSIX](https://en.wikipedia.org/wiki/POSIX)-compliant shell, [Make](https://www.gnu.org/software/make/), and [Docker](https://docs.docker.com/get-docker/).
 
 ## MacOS and Linux
 
-1. Install [GNU Make](https://www.gnu.org/software/make/) or verify your installation:
+1. Install [Make](https://www.gnu.org/software/make/) or verify your installation:
 
     ``` nonum
     $ make -v
@@ -68,7 +68,7 @@ Reach assumes the presence of a POSIX-compliant shell and [Docker](https://docs.
 
 # Create the app
 
-1. Create a project subfolder (as a child of `~/reach`):
+1. Create a project subfolder (a child of `~/reach`):
 
     ``` nonum
     $ mkdir hello-world

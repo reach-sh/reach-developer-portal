@@ -4,7 +4,23 @@ menuItem: mi-docs
 
 # Development Environment
 
-This page helps you set up the development environment used in many of the examples throughout this site. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) first.
+You can develop Reach applications using any project directory structure and IDE. This page describes the project directory structure and IDE used in the examples throughout the site. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) first.
+
+# Organize your projects
+
+The examples throughout this site use the following project directory structure:
+
+```
+~/reach                      # Root directory.
+~/reach/reach                # Reach script file.
+~/reach/hello-world          # Project directory. See Quick Start.
+~/reach/wisdom-for-sale      # Project directory. See Tutorials.
+~/reach/market-day           # Project directory. See Tutorials.
+~/reach/rock-paper-scissors  # Project directory. See Tutorials.
+~/reach/my-project-01        # Project directory. Your project. Rename.
+~/reach/my-project-02        # Project directory. Your project. Rename.
+~/reach/...
+```
 
 # Add reach to path
 
@@ -26,7 +42,7 @@ To apply this change to your current terminal, rerun your startup file (e.g. clo
 
 Many instructions on this site assume that you have added `~/reach` to `PATH`.
 
-# Install an IDE
+# Install VSCode
 
 1. Install [Visual Studio Code](https://code.visualstudio.com/).
 
