@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
 /************************************************
  vertical
 ************************************************/
@@ -20,7 +23,32 @@ main {height: calc(100% - 56px);}
  responsive
 ************************************************/
 
+:root {
+  --bs-font-monospace: 'JetBrains Mono', monospace !important;
+  --reach-cyan: #6ac6e7;
+  --reach-cyan-light: rgb(106, 198, 231, .5);
+}
+
 /* $grid-breakpoints: (  xs: 0,  sm: 576px,  md: 768px,  lg: 992px,  xl: 1200px,  xxl: 1400px); */
+
+body {
+  font-family: 'Noto Sans Display', sans-serif  !important;
+}
+
+code, .snippet {
+  font-family: var(--bs-font-monospace);
+}
+
+.navbar {
+  background-color: white !important;
+  padding: 4vh 3vh 4vh 3vh;
+  border-bottom: 1px solid lightgray;
+}
+
+.navbar a, .navbar span {
+  color: grey !important;
+  font-weight: lighter;
+}
 
 #book-col.display {display:none;}
 #page-col.display {display:block;}
@@ -75,17 +103,17 @@ a[role="button"] {
 }
 
 /************************************************
- header .navbar-dark .navbar-nav .nav-link
+ header .navbar-light .navbar-nav .nav-link
 ************************************************/
 
-header div.navbar-nav a span, 
-header div.navbar-nav a:hover span, 
+header div.navbar-nav a span,
+header div.navbar-nav a:hover span,
 header div.navbar-nav a.active span,
-.navbar-dark .navbar-nav .nav-link,
-.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-nav .nav-link:hover,
 .nav-link-a,
 .nav-link-a:hover {
-  color: white;
+  color: grey;
 }
 
 header div.navbar-nav a.active span {
@@ -147,13 +175,13 @@ i.fa-angle-right {width:10px;}
 #book-col div.chapter-title:hover,
 #book-col div.page-title:hover,
 #otp-col ul li a:hover {
-  background: gray;
+  background: var(--reach-cyan-light);
   color: white;
 }
 
 #book-col div.chapter-title.active,
 #book-col div.page-title.active,
-#otp-col ul li:not(.top) a.active {background: #1a1c23; color: white;}
+#otp-col ul li:not(.top) a.active {background: var(--reach-cyan); color: white;}
 
 /*i.fas {color: #bfbfbf;}*/
 i.fas:hover {cursor: pointer;}
@@ -205,7 +233,7 @@ i.fas:hover {cursor: pointer;}
 
 #page-col div.hh-viewer-wrapper span.title {
   font-weight: normal;
-  font-size: 22px;
+  font-size: 32px;
 }
 
 #page-col div.hh-viewer-wrapper div.metadata {
@@ -396,7 +424,7 @@ iframe.gray-scale {
 }
 
 #page-col code {
-  color: #9f6314;
+  color: #f45747;
 }
 
 /************************************************
@@ -419,7 +447,7 @@ iframe.gray-scale {
 }
 
 #otp-col ul li a {
-  color: #404040; 
+  color: #404040;
   font-size: 90%;
   display: block;
   padding: 1px 0 1px 4px;
@@ -431,7 +459,7 @@ iframe.gray-scale {
 #otp-col > ul > li > a {font-weight: normal;}
 
 #reach-slides button.carousel-control-prev, #reach-slides button.carousel-control-next {
-  align-items:flex-start; 
+  align-items:flex-start;
   padding: 1.3% 18px;
 }
 
