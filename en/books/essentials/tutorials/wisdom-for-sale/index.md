@@ -45,7 +45,7 @@ Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Develo
 
 1. Clone the [wisdom-for-sale](https://github.com/hagenhaus/wisdom-for-sale) repository:
 
-    ```
+    ``` nonum
     $ cd ~/reach
     $ git clone https://github.com/hagenhaus/wisdom-for-sale.git
     ```
@@ -62,7 +62,7 @@ Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Develo
 
 Copy starter files from the *starter* folder to the *current* folder:
 
-```
+``` nonum
 $ cp starter/* current
 $ cd current
 ```
@@ -85,7 +85,7 @@ Describe each line, and review modern JavaScript usage like async/await.
 
 Run the starter app in the vscode terminal.
 
-```
+``` nonum
 $ REACH_CONNECTOR_MODE=ALGO-devnet reach run
 $ REACH_CONNECTOR_MODE=ETH-devnet reach run
 $ REACH_CONNECTOR_MODE=CFX-devnet reach run
@@ -137,7 +137,7 @@ Change directory in both to `~/reach/wisdom-for-sale/current`.
 
 The left terminal is the *Seller Terminal*. In this terminal, run one of the following:
 
-```
+``` nonum
 $ REACH_CONNECTOR_MODE=ALGO-devnet reach run index seller
 $ REACH_CONNECTOR_MODE=ETH-devnet reach run index seller
 $ REACH_CONNECTOR_MODE=CFX-devnet reach run index seller
@@ -145,7 +145,7 @@ $ REACH_CONNECTOR_MODE=CFX-devnet reach run index seller
 
 The right terminal is the *Buyer Terminal*. In this terminal, run the corresponding command:
 
-```
+``` nonum
 $ REACH_CONNECTOR_MODE=ALGO-devnet reach run index buyer
 $ REACH_CONNECTOR_MODE=ETH-devnet reach run index buyer
 $ REACH_CONNECTOR_MODE=CFX-devnet reach run index buyer
@@ -165,7 +165,7 @@ Discuss ways to pass information to Reach command-line apps. Setting an environm
 
 ## Review current usage
 
-```
+``` js
 stdlib.connector();
 stdlib.parseCurrency();
 stdlib.newTestAccount();
@@ -175,13 +175,13 @@ stdlib.newTestAccount();
 
 Temporarily add the following just below `const stdlib = loadStdlib(process.env)`:
 
-```
+``` js
 console.log(stdlib);
 ```
 
 Run the following in the Seller Terminal:
 
-```
+``` nonum
 $ reach run index seller > output.txt
 ```
 
@@ -207,7 +207,7 @@ Replace `stdlib.parseCurrency(1000)` with `iBalance`.
 
 Add `showBalance` in two places like this:
 
-```
+``` js
 const acc = await stdlib.newTestAccount(iBalance);
 await showBalance(acc);
 const ctc = acc.deploy(backend);
@@ -217,7 +217,7 @@ await showBalance(acc);
 
 Run the app in the Seller Terminal. Here is the output:
 
-```
+``` nonum
 The consensus network is ETH.
 Your role is seller.
 Your balance is 1000 ETH.
@@ -248,7 +248,7 @@ Replace `await backend.Seller(ctc, {})` with `await backend.Seller(ctc, sellerIn
 
 Add a corresponding interact object to *index.rsh* for the seller.
 
-```
+``` js
 // SELLER INTERACT
 const sellerInteract = {
   price: UInt,
@@ -263,7 +263,7 @@ Replace `const S = Participant('Seller', {})` with `const S = Participant('Selle
 
 Add a local step for seller:
 
-```
+``` js
 S.only(() => { const price = declassify(interact.price); });
 S.publish(price);
 S.interact.reportReady(price);
@@ -274,7 +274,7 @@ commit();
 
 Run in the Seller Terminal:
 
-```
+``` nonum
 The consensus network is ETH.
 Your role is seller.
 Your balance is 1000 ETH.

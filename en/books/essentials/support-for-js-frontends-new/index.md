@@ -2,7 +2,7 @@
 menuItem: mi-docs
 ---
 
-# JS Standard Library
+# Support for JS Frontends
 
 The Reach JavaScript Standard Library, a [Node.js package](https://www.npmjs.com/package/@reach-sh/stdlib), provides a generic consensus-network interface for JavaScript frontends and backends that make up Reach DApps. It also provides a variety of utility methods. The `reach run` command installs the package automatically. You can also install it manually:
 
