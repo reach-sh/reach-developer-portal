@@ -5,6 +5,8 @@ menuItem: mi-docs
 
 # Tutorials
 
+We recommend that you complete these tutorials in order starting with Wisdom for Sale.
+
 <div id="tutorial-cards" class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3">
   <div class="col">
     <a href="/en/books/essentials/tutorials/wisdom-for-sale/">
