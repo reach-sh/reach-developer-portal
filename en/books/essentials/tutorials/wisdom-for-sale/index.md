@@ -4,7 +4,7 @@ menuItem: mi-docs
 
 # Wisdom for Sale
 
-<span style="color:red;">Under Construction</span>
+<span style="color:red;">Under Construction - Outline Phase</span>
 
 This tutorial introduces you to Reach DApp development by showing you how to build *Wisdom for Sale*, a command-line and web decentralized application that enables a seller and a buyer to exchange wisdom for crypto via a smart contract running on an Algorand, Ethereum, or Conflux local consensus network:
 
@@ -287,8 +287,51 @@ Your balance is 999.9998 ETH.
 
 ## Add buyer frontend interact
 
+``` js
+// BUYER INTERACT
+const buyerInteract = {
+  confirmPurchase: async (price) => await ask(`Do you want to purchase wisdom for ${toSU(price)} ${suStr} (y/n)?`, yesno)
+};
+```
+
+```
+const acc = await stdlib.newTestAccount(iBalance);
+const info = await ask('Paste contract info:', (s) => s);
+const ctc = acc.attach(backend, info);
+await showBalance(acc);
+await backend.Buyer(ctc, buyerInteract);
+await showBalance(acc);
+```
+
 ## Add buyer backend interact
+
+``` js
+// BUYER INTERACT
+const buyerInteract = {
+  confirmPurchase: Fun([UInt], Bool)
+};
+```
+
+Replace `const B = Participant('Buyer', {})` with `const B = Participant('Buyer', buyerInteract)`.
 
 ## Add buyer local step
 
+``` js
+B.only(() => {
+  const willBuy = declassify(interact.confirmPurchase(price));
+});
+B.publish(willBuy);
+
+if (!willBuy) {
+  commit();
+} else {
+  commit();
+}
+```
+
 ## Test buyer interact
+
+Run both the seller and buyer roles. Copy the contract information from the Seller Terminal to the Buyer Terminal.
+
+# Handle cancelled transaction
+
