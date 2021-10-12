@@ -78,18 +78,19 @@ a[role="button"] {
  header .navbar-dark .navbar-nav .nav-link
 ************************************************/
 
+header a.navbar-brand span,
 header div.navbar-nav a span, 
 header div.navbar-nav a:hover span, 
-header div.navbar-nav a.active span,
 .navbar-dark .navbar-nav .nav-link,
 .navbar-dark .navbar-nav .nav-link:hover,
 .nav-link-a,
 .nav-link-a:hover {
-  color: black;
+  color: #737373;
 }
 
 header div.navbar-nav a.active span {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #666666;
+  color: #4d4d4d;
 }
 
 .nav-link-a {

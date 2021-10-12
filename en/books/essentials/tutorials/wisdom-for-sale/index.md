@@ -4,7 +4,7 @@ menuItem: mi-docs
 
 # Wisdom for Sale
 
-This tutorial introduces you to Reach DApp development by showing you how to build Wisdom for Sale, a command-line and web decentralized application that enables a seller and a buyer to exchange wisdom for crypto via a smart contract running on an Algorand, Ethereum, or Conflux local consensus network:
+This tutorial introduces you to Reach DApp development by showing you how to build command-line and web versions of *Wisdom for Sale*, an application that enables a seller and a buyer to exchange wisdom for crypto via a smart contract running on an Algorand, Ethereum, or Conflux local consensus network. The following output shows a representative exchange between the two participants:
 
 **Seller**
 
@@ -12,13 +12,14 @@ This tutorial introduces you to Reach DApp development by showing you how to bui
 The consensus network is ETH.
 Your role is seller.
 Enter a wise phrase, or press Enter to use a default wise phrase:
-Scatter sunshine.
+The best things in life are free.
 Your balance is 1000 ETH.
 Your wisdom is for sale at 5 ETH.
-Contract info for buyer: 0xABC
+Contract info: "0x222B06043f1878C427A61176750986aadf073bF6"
+  
 The buyer paid 5 ETH to the contract.
 The contract paid 5 ETH to you.
-Your balance is 1004.9975 ETH.
+Your balance is 1004.9981 ETH.
 ```
 
 **Buyer**
@@ -27,17 +28,21 @@ Your balance is 1004.9975 ETH.
 The consensus network is ETH.
 Your role is buyer.
 Paste contract info:
-0xABC
+"0x222B06043f1878C427A61176750986aadf073bF6"
 Your balance is 1000 ETH.
-Do you want to purchase wisdom for 5 ETH?
+Do you want to purchase wisdom for 5 ETH (y/n)?
 y
 You paid 5 ETH to the contract.
 The contract paid 5 ETH to the seller.
-Your new wisdom is "Scatter sunshine."
-Your balance is 994.9996 ETH.
+Your new wisdom is "The best things in life are free."
+Your balance is 994.9997 ETH.
 ```
 
 Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) first.
+
+# Overview
+
+The following video illustrates the stages of Reach DApp development and deployment:
 
 # Clone the repository
 
