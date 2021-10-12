@@ -4,9 +4,7 @@ menuItem: mi-docs
 
 # Wisdom for Sale
 
-<span style="color:red;">Under Construction - Outline Phase</span>
-
-This tutorial introduces you to Reach DApp development by showing you how to build *Wisdom for Sale*, a command-line and web decentralized application that enables a seller and a buyer to exchange wisdom for crypto via a smart contract running on an Algorand, Ethereum, or Conflux local consensus network:
+This tutorial introduces you to Reach DApp development by showing you how to build Wisdom for Sale, a command-line and web decentralized application that enables a seller and a buyer to exchange wisdom for crypto via a smart contract running on an Algorand, Ethereum, or Conflux local consensus network:
 
 **Seller**
 
@@ -81,7 +79,7 @@ load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter
 
 Describe each line, and review modern JavaScript usage like async/await.
 
-# Run your new app
+# Run the app
 
 Run the starter app in the vscode terminal.
 
@@ -333,5 +331,105 @@ if (!willBuy) {
 
 Run both the seller and buyer roles. Copy the contract information from the Seller Terminal to the Buyer Terminal.
 
-# Handle cancelled transaction
+# Add common interact
+
+## Add common frontend interact
+
+``` js
+// COMMON INTERACT
+const commonInteract = {
+  reportCancellation: () => { console.log('The buyer cancelled the order.'); }
+};
+```
+
+Add a `...commonInteract,` property to `sellerInteract` and `buyerInteract`.
+
+## Add common backend interact
+
+``` js
+// COMMON INTERACT
+const commonInteract = {
+  reportCancellation: Fun([], Null)
+};
+```
+
+Add a `...commonInteract,` property to `sellerInteract` and `buyerInteract`.
+
+## Add willBuy conditional
+
+Modify the `if` statement:
+
+``` js
+if (!willBuy) {
+  commit();
+  each([S, B], () => interact.reportCancellation());
+  exit();
+} else {
+  commit();
+}
+```
+
+## Test common interact
+
+Run both the seller and buyer roles. When prompted, cancel the transaction.
+
+```
+The buyer cancelled the order.
+```
+
+## Add "who" and retest
+
+``` js
+const commonInteract = (who) => ({
+  reportCancellation: () => { console.log(`${who == 'buyer' ? 'You' : 'The buyer'} cancelled the order.`); }
+});
+```
+
+Add a `...commonInteract(role),` property to `sellerInteract` and `buyerInteract`.
+
+Retest.
+
+```
+You cancelled the order.
+```
+
+# Complete the transaction
+
+## Modify frontend common interact
+
+```
+const commonInteract = (who) => ({
+  reportPayment: (payment) => console.log(`${who == 'buyer' ? 'You' : 'The buyer'} paid ${toSU(payment)} ${suStr} to the contract.`),
+  reportTransfer: (payment) => console.log(`The contract paid ${toSU(payment)} ${suStr} to ${who == 'seller' ? 'you' : 'the seller'}.`),
+  reportCancellation: () => { console.log(`${who == 'buyer' ? 'You' : 'The buyer'} cancelled the order.`); }
+});
+```
+
+## Modify backend common interact
+
+```
+const commonInteract = {
+  reportPayment: Fun([UInt], Null),
+  reportTransfer: Fun([UInt], Null),
+  reportCancellation: Fun([], Null)
+};
+```
+
+## Add pay and transfer steps
+
+```
+B.pay(price);
+each([S, B], () => interact.reportPayment(price));
+commit();
+
+S.only(() => { const wisdom = declassify(interact.wisdom); });
+S.publish(wisdom);
+transfer(price).to(S);
+commit();
+
+each([S, B], () => interact.reportTransfer(price));
+B.interact.reportWisdom(wisdom);
+```
+
+## Test pay and transfer steps
 

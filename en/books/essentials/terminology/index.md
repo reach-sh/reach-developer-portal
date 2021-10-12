@@ -26,6 +26,8 @@ menuItem: mi-docs
 
 # Decentralized Application (DApp)
 
+# Decentralized Oracle
+
 # Declassification
 
 # Deployment

@@ -46,6 +46,33 @@ hasPageHeader: false
 
 # Reach Developer News
 
+<!--
+## October 2021
+
+<div class="row">
+<div class="col-12 col-lg-8">
+<ul style="padding-left: 1.6rem;">
+<li>sss</li>
+<li>sss</li>
+<li>sss</li>
+<li>sss</li>
+<li>sss</li>
+<li>sss</li>
+</ul>
+</div>
+<div class="col-12 col-lg-4">
+<div class="ratio ratio-16x9" style="max-width:400px;">
+  <iframe 
+    src="https://www.youtube.com/embed/G0X-BZWYrRs?start=5&rel=0" 
+    frameborder="0"
+    loading="lazy"
+    allowfullscreen>
+  </iframe>
+</div>
+</div>
+</div>
+-->
+
 ## September 2021
 
 <div class="row">
