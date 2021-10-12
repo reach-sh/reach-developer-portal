@@ -4,45 +4,25 @@ menuItem: mi-docs
 
 # Wisdom for Sale
 
-This tutorial introduces you to Reach DApp development by showing you how to build command-line and web versions of *Wisdom for Sale*, an application that enables a seller and a buyer to exchange wisdom for crypto via a smart contract running on an Algorand, Ethereum, or Conflux local consensus network. The following output shows a representative exchange between the two participants:
-
-**Seller**
-
-``` nonum
-The consensus network is ETH.
-Your role is seller.
-Enter a wise phrase, or press Enter to use a default wise phrase:
-The best things in life are free.
-Your balance is 1000 ETH.
-Your wisdom is for sale at 5 ETH.
-Contract info: "0x222B06043f1878C427A61176750986aadf073bF6"
-  
-The buyer paid 5 ETH to the contract.
-The contract paid 5 ETH to you.
-Your balance is 1004.9981 ETH.
-```
-
-**Buyer**
-
-``` nonum
-The consensus network is ETH.
-Your role is buyer.
-Paste contract info:
-"0x222B06043f1878C427A61176750986aadf073bF6"
-Your balance is 1000 ETH.
-Do you want to purchase wisdom for 5 ETH (y/n)?
-y
-You paid 5 ETH to the contract.
-The contract paid 5 ETH to the seller.
-Your new wisdom is "The best things in life are free."
-Your balance is 994.9997 ETH.
-```
-
-Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) first.
+This tutorial introduces you to Reach decentralized application (DApp) development. The tutorial is easy and fun, and it prepares you for more advanced Reach tutorials and projects.
 
 # Overview
 
+During this tutorial, you will build a command-line version and a webapp version of [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), an application that enables two participants, a seller and a buyer, to trade wisdom for currency via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network (e.g. devnet) residing in a Docker container on your computer. Your application will create and fund an account for each participant. Then, the seller and buyer will make a deal like this:
+
+<div><img src="seller-buyer.png" class="img-fluid mx-auto my-4 d-block" width=800 loading="lazy"></div>
+
+Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) first.
+
 The following video illustrates the stages of Reach DApp development and deployment:
+
+<p class="ratio ratio-16x9" style="max-width:600px;">
+  <iframe 
+    src="https://www.youtube.com/embed/_hh2Vm9OdZ0" 
+    frameborder="0"  
+    allowfullscreen>
+  </iframe>
+</p>
 
 # Clone the repository
 
