@@ -3,7 +3,7 @@
 ************************************************/
 
 html, body {height: 100%;}
-#book-col, #page-col, #otp-col {height: 100%;  overflow-x: hidden;  overflow-y: auto;}
+#book-col, #page-col, #otp-col { height: 100%; overflow-x: hidden; overflow-y: auto;}
 main {height: calc(100% - 56px);}
 
 #page-col div.hh-viewer h1 {margin-top: 24px; margin-bottom: 16px;}
@@ -183,7 +183,7 @@ i.fas:hover {cursor: pointer;}
 ************************************************/
 
 #book-col {
-  box-shadow: inset -1px 0 3px -2px gray;
+  box-shadow: inset -1px 0 3px -3px #2b506e;
 }
 
 #page-col {
@@ -191,7 +191,7 @@ i.fas:hover {cursor: pointer;}
 }
 
 #otp-col {
-  box-shadow: inset 1px 0 3px -2px gray;
+  box-shadow: inset 1px 0 3px -3px #2b506e;
 }
 
 #page-col div.hh-page-header {
