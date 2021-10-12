@@ -8,7 +8,7 @@ This tutorial introduces you to Reach decentralized application (DApp) developme
 
 # Overview
 
-During this tutorial, you will build a command-line version and a webapp version of [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), an application that enables two participants, a seller and a buyer, to trade wisdom for currency via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network (e.g. devnet) residing in a Docker container on your computer. Your application will create and fund an account for each participant. Then, the seller and buyer will make a deal like this:
+During this tutorial, you will build a command-line version and a webapp version of [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), an application that enables two participants, a seller and a buyer, to trade wisdom for currency via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network (e.g. devnet) residing in a Docker container on your computer. Your DApp will create and fund an account for each participant. Then, it will enable the seller and the buyer to make a deal like this:
 
 <div><img src="seller-buyer.png" class="img-fluid mx-auto my-4 d-block" width=800 loading="lazy"></div>
 
