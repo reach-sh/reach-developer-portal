@@ -30,22 +30,25 @@ jobs:
 
       # These are commands specific to this repository.
       # https://github.com/reach-sh/reach-developer-portal#deploy-the-site-locally
-      - name: Change to the `tools` directory.
-        run: cd tools
-      - name: Install dependencies using Node Package Manger, or `npm`.
-        run: npm install
-      - name: Build custom plugins.
-        run: npm run s1 && npm run s2 && npm run s3 && npm run s4
-      - name: Run the `generator.js` file.
-        run: node generator.js -t all
-      - name: Change back to the parent directory.
-        run: cd ..
+
+      # I used https://stackoverflow.com/a/58142276 as a template for this
+      # next block.
+      - name: Convert source files to website files.
+        # Change to the `tools` directory.
+        working-directory: ./tools
+        run: |
+          npm install
+          npm run s1 && npm run s2 && npm run s3 && npm run s4
+          node generator.js -t all
+
+      # We should automatically be back in the main, parent directory, now.
       - name: Install `http-server`.
         run: npm i --global http-server
       - name: Turn off server caching.
         run: http-server -c-1
 
-      # Create a webpage!
+      # Create a webpage! I grabbed these commands from
+      # https://github.com/reach-sh/reach-developer-portal#create-a-webpage.
       - name: Create a folder, e.g., a folder called `colors-and-shapes`.
         run: mkdir -p en/pages/colors-and-shapes
       - name: Create an `index.md` file inside the newly created folder.
