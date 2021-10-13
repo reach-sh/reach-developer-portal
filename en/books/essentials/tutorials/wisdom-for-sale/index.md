@@ -4,19 +4,25 @@ menuItem: mi-docs
 
 # Wisdom for Sale
 
-This tutorial introduces you to Reach decentralized application (DApp) development. The tutorial is easy and fun, and it prepares you for more advanced Reach tutorials and projects.
+This tutorial introduces you to Reach DApp development. The tutorial is easy and fun, and it prepares you for more advanced Reach tutorials and projects. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) first.
 
 # Overview
 
-During this tutorial, you will build a command-line version and a webapp version of [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), an application that enables two participants, a seller and a buyer, to trade wisdom for currency via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network (e.g. devnet) residing in a Docker container on your computer. Your DApp will create and fund an account for each participant. Then, it will enable the seller and the buyer to make a deal like this:
+During this tutorial, you will build a command-line version and a webapp version of [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), an application that enables two participants, a seller and a buyer, to trade wisdom for currency via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network (e.g. devnet) residing in a Docker container on your computer. Your DApp will create and fund an account for each participant. Then, it will enable the seller and buyer to make a deal.
 
-<div><img src="seller-buyer.png" class="img-fluid mx-auto my-4 d-block" width=800 loading="lazy"></div>
+## The Deal
 
-Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) first.
+The following diagram represents the wisdom-for-sale deal.
 
-The following video illustrates the stages of Reach DApp development and deployment:
+<div><img src="seller-buyer.png" class="img-fluid my-4 d-block" width=800 height=317 loading="lazy"></div>
 
-<p class="ratio ratio-16x9" style="max-width:600px;">
+This particular transaction took place on an Ethereum devnet. The Ethereum cryptocurrency standard token unit is the *Ether* or *ETH*. The tutorial also allows you to perform this transaction on an Algorand or Conflux devnet. The Algorand standard unit is the *ALGO*, and the Conflux standard unit is the *CFX*. As indicated by the final balances in the diagram, the seller received 0.0019 ETH less than the agreed upon price, and the buyer paid 0.0003 ETH more. These expenses represent *gas*, the cost of doing business on a consensus network. The seller paid a little more gas than the buyer because the seller deployed the contract.
+
+## Start-to-finish Video
+
+Speaking of contracts, creating a Reach DApp does *not* entail implementing a smart contract. Rather, it means using the Reach programming language to describe, step by step (in *index.rsh*) participant interactions from which the Reach compiler derives a smart contract. The following video illustrates:
+
+<p class="ratio ratio-16x9 my-4" style="max-width:500px;">
   <iframe 
     src="https://www.youtube.com/embed/_hh2Vm9OdZ0" 
     frameborder="0"  
@@ -24,7 +30,52 @@ The following video illustrates the stages of Reach DApp development and deploym
   </iframe>
 </p>
 
-# Clone the repository
+Developers use the Reach programming language to write (in *index.rsh*) the pre-compiled backend code that, syntactically, follows modern JavaScript rules. Here is an appreviated sample:
+
+[index.rsh](https://github.com/hagenhaus/wisdom-for-sale/blob/master/starter/index.rsh)
+``` js
+load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.rsh
+```
+
+The Reach compiler transforms *reach.rsh* into *index.main.mjs*, the compiled backend code composed of two parts:
+
+1. The Gateway facilitates communication between your frontend and the consensus network. It is compiler-generated JavaScript: 
+
+    ``` js
+    export const _version = '0.1.5';
+    export const _backendVersion = 3;
+    ...
+    export async function Buyer(ctc, interact) {
+      ...
+    };
+
+    export async function Seller(ctc, interact) {
+      ...
+    };
+    ```
+
+1. The Smart Contract is deployed to the consensus network where it facilitates participant transactions. It is compiler-generated JSON and (network-specific) bytecode:
+
+    ``` js
+    const _ETH = {
+      ABI: `[...]`,
+      Bytecode: `0x6080604052604051610b19 ...`,
+      BytecodeLen: 2841,
+      Which: `oD`,
+      version: 3,
+      views: {}
+    };
+    ```
+
+> This tutorial presents frontends written in JavaScript, but Reach also supports, via the [Reach RPC Server](/en/books/essentials/support-for-rpc-frontends/), frontends written in various languages.
+
+Also mentioned in the video are (1) the Reach [JavaScript Standard Library](/en/books/essentials/support-for-js-frontends/) which supports Reach applications by providing properties and methods dealing with accounts, arithmetic, big numbers, comparisons, consensus network providers, contracts, debugging, encryption, randomization, and time, (2) interact objects which are JavaScript objects that enable communication between Reach frontends and backends, explained in detail below, and (3) the Reach Verification Engine which helps to ensure that the immutable smart contract you deploy will run without errors like forgetting to transfer all the otherwise unretrievable tokens out of smart contract account before the contract exits.
+
+# Start the tutorial
+
+Before you start the hands-on tutorial, be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/).
+
+## Clone the repository
 
 1. Clone the [wisdom-for-sale](https://github.com/hagenhaus/wisdom-for-sale) repository:
 
@@ -41,7 +92,7 @@ The following video illustrates the stages of Reach DApp development and deploym
 
 1. Understand use of *readme.md* in the *current* folder.
 
-# Copy the starter files
+## Copy the starter files
 
 Copy starter files from the *starter* folder to the *current* folder:
 
