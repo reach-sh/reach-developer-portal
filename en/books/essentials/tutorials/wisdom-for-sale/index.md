@@ -4,13 +4,15 @@ menuItem: mi-docs
 
 # Wisdom for Sale
 
+<span style="color:red;">Under construction. To provide feedback about this tutorial, click the pencil icon, click issues, and create an issue. Thanks!</span>
+
 This tutorial introduces you to Reach DApp development. The tutorial is easy and fun, and it prepares you for more advanced Reach tutorials and projects. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) first.
 
 # Overview
 
 During this tutorial, you will build a command-line version and a webapp version of [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), an application that enables two participants, a seller and a buyer, to trade wisdom for currency via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network (e.g. devnet) residing in a Docker container on your computer. Your DApp will create and fund an account for each participant. Then, it will enable the seller and buyer to make a deal.
 
-## The Deal
+## Wisdom for Tokens
 
 The following diagram represents the wisdom-for-sale deal.
 
@@ -71,11 +73,9 @@ The Reach compiler transforms *reach.rsh* into *index.main.mjs*, the compiled ba
 
 Also mentioned in the video are (1) the Reach [JavaScript Standard Library](/en/books/essentials/support-for-js-frontends/) which supports Reach applications by providing properties and methods dealing with accounts, arithmetic, big numbers, comparisons, consensus network providers, contracts, debugging, encryption, randomization, and time, (2) interact objects which are JavaScript objects that enable communication between Reach frontends and backends, explained in detail below, and (3) the Reach Verification Engine which helps to ensure that the immutable smart contract you deploy will run without errors like forgetting to transfer all the otherwise unretrievable tokens out of smart contract account before the contract exits.
 
-# Start the tutorial
+# Clone the repository
 
-Before you start the hands-on tutorial, be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/).
-
-## Clone the repository
+Before proceeding, be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/).
 
 1. Clone the [wisdom-for-sale](https://github.com/hagenhaus/wisdom-for-sale) repository:
 
@@ -86,38 +86,56 @@ Before you start the hands-on tutorial, be sure to complete [Quick Start](/en/bo
 
 1. Open the repository in vscode.
 
-1. Understand the directory structure.
+    <p><img src="vscode-initial.png" class="img-fluid" width=700 loading="lazy"></p>
 
-1. See the *current* folder. Do work here.
+1. Copy *index.mjs* and *index.rsh* from the *starter* folder to the *current* folder. Do all your work in the *current* folder.
 
-1. Understand use of *readme.md* in the *current* folder.
+# Review the starter files
 
-## Copy the starter files
+## index.mjs
 
-Copy starter files from the *starter* folder to the *current* folder:
+Open [index.mjs](https://github.com/hagenhaus/wisdom-for-sale/blob/master/starter/index.mjs) in vscode.
 
-``` nonum
-$ cp starter/* current
-$ cd current
-```
-
-Open the starter files.
-
-[index.mjs](https://github.com/hagenhaus/wisdom-for-sale/blob/master/starter/index.mjs)
 ``` js
 load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.mjs
 ```
 
-[index.rsh](https://github.com/hagenhaus/wisdom-for-sale/blob/master/starter/index.rsh)
+* Line 1: Import the Reach JS Standard Library loader.
+* Line 2: Import the JS backend compiled from index.rsh.
+* Line 3: Import a Reach Node.js package to help with command-line i/o.
+* Line 5: Load the Reach JS Stdlib for the consensus network specified by the `REACH_CONNECTOR_MODE`.
+* Line 6: Display the consensus network type.
+* Line 8: Hard-code the role. You will change this later.
+* Line 9: Display the role.
+* Line 11: Enable enclosed code to await the fulfillment of promises.
+* Line 14: Code for when you run this app as the seller.
+* Line 15: Create an account for the seller. *parseCurrency* transforms units from standard to atomic.
+* Line 16: Get a reference to the contract.
+* Line 17: Call `Seller(ctc, interact)` in *index.main.mjs* which deploys the contract.
+* Line 24: Tell *ask.mjs* that you are finished.
+
+## index.rsh
+
+Open [index.rsh](https://github.com/hagenhaus/wisdom-for-sale/blob/master/starter/index.rsh) in vscode.
+
 ``` js
 load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.rsh
 ```
 
-Describe each line, and review modern JavaScript usage like async/await.
+* Line 1: Instruction to the compiler.
+* Line 3: Reach standard application initialization.
+* Line 4: Define a constant to represent the seller. The `{}` indicates an empty interact object.
+* Line 5: Define a constant to represent the buyer. Same.
+* Line 6: Finalize participant and other options.
+* Line 8: Terminate computation.
 
 # Run the app
 
-Run the starter app in the vscode terminal.
+The following diagram illustrates your environment before you run your starter app. Your application consists of your frontend (index.mjs), your backend (index.rsh), and the Reach Docker environment where everything will run: the Reach compiler, your application, the consensus network devnets, and your smart contract. 
+
+<p><img src="reach-run-1.png" class="img-fluid" width=420 loading="lazy"></p>
+
+Now, run your starter app in the vscode terminal three times, once for each supported consensus network. Use the commands below in succession, and note the output:
 
 ``` nonum
 $ REACH_CONNECTOR_MODE=ALGO-devnet reach run
@@ -125,7 +143,33 @@ $ REACH_CONNECTOR_MODE=ETH-devnet reach run
 $ REACH_CONNECTOR_MODE=CFX-devnet reach run
 ```
 
-What happens when you run `reach run`?
+<p><img src="vscode-run.png" class="img-fluid" width=700 loading="lazy"></p>
+
+Here's what happens when you run `reach run`:
+
+1. sss
+
+    <p><img src="reach-run-2.png" class="img-fluid" width=420 loading="lazy"></p>
+
+1. sss
+
+    <p><img src="reach-run-3.png" class="img-fluid" width=420 loading="lazy"></p>
+
+1. sss
+
+    <p><img src="reach-run-4.png" class="img-fluid" width=420 loading="lazy"></p>
+
+1. sss
+
+    <p><img src="reach-run-5.png" class="img-fluid" width=420 loading="lazy"></p>
+
+1. sss
+
+    <p><img src="reach-run-6.png" class="img-fluid" width=420 loading="lazy"></p>
+
+1. sss
+
+    <p><img src="reach-run-7.png" class="img-fluid" width=420 loading="lazy"></p>
 
 ## Review build files
 
@@ -140,14 +184,6 @@ You see the following directory and files appear. Some files disappear.
 Understand significance.
 
 Explain `reach scaffold`.
-
-## Review Docker environment
-
-You see 
-
-current
-solution
-starter
 
 # Pass arguments
 
