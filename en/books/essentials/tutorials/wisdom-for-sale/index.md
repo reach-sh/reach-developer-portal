@@ -39,9 +39,9 @@ Developers use the Reach programming language to write (in *index.rsh*) the pre-
 load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.rsh
 ```
 
-The Reach compiler transforms *reach.rsh* into *index.main.mjs*, the compiled backend code composed of two parts:
+The Reach compiler transforms *reach.rsh* into *index.main.mjs* which is composed of two parts:
 
-1. The Gateway facilitates communication between your frontend and the consensus network. It is compiler-generated JavaScript: 
+1. The Compiled Backend facilitates communication between your frontend and the consensus network. It is compiler-generated JavaScript: 
 
     ``` js
     export const _version = '0.1.5';
@@ -100,6 +100,8 @@ Open [index.mjs](https://github.com/hagenhaus/wisdom-for-sale/blob/master/starte
 load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.mjs
 ```
 
+Below is a line-by-line description:
+
 * Line 1: Import the Reach JS Standard Library loader.
 * Line 2: Import the JS backend compiled from index.rsh.
 * Line 3: Import a Reach Node.js package to help with command-line i/o.
@@ -122,6 +124,8 @@ Open [index.rsh](https://github.com/hagenhaus/wisdom-for-sale/blob/master/starte
 load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.rsh
 ```
 
+Below is a line-by-line description:
+
 * Line 1: Instruction to the compiler.
 * Line 3: Reach standard application initialization.
 * Line 4: Define a constant to represent the seller. The `{}` indicates an empty interact object.
@@ -131,11 +135,11 @@ load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter
 
 # Run the app
 
-The following diagram illustrates your environment before you run your starter app. Your application consists of your frontend (index.mjs), your backend (index.rsh), and the Reach Docker environment where everything will run: the Reach compiler, your application, the consensus network devnets, and your smart contract. 
+The following diagram illustrates your environment before you run the starter app. Your application consists of a frontend (index.mjs), a backend (index.rsh), and the Reach Docker environment where everything will run including the Reach compiler, your application, the consensus network devnets, and the smart contract. 
 
 <p><img src="reach-run-1.png" class="img-fluid" width=420 loading="lazy"></p>
 
-Now, run your starter app in the vscode terminal three times, once for each supported consensus network. Use the commands below in succession, and note the output:
+Now, run your starter app in the vscode terminal three times, once for each supported consensus network. Use the commands below in succession:
 
 ``` nonum
 $ REACH_CONNECTOR_MODE=ALGO-devnet reach run
@@ -145,83 +149,119 @@ $ REACH_CONNECTOR_MODE=CFX-devnet reach run
 
 <p><img src="vscode-run.png" class="img-fluid" width=700 loading="lazy"></p>
 
-Here's what happens when you run `reach run`:
+Here is sample output:
 
-1. sss
+```
+current % REACH_CONNECTOR_MODE=ALGO-devnet reach run
+Verifying knowledge assertions
+Verifying for generic connector
+  Verifying when ALL participants are honest
+  Verifying when NO participants are honest
+  Verifying when ONLY "Buyer" is honest
+  Verifying when ONLY "Seller" is honest
+Checked 4 theorems; No failures!
+[+] Building 0.2s (7/7) FINISHED
+ => [internal] load build definition from Dockerfile                                         0.0s
+ => => transferring dockerfile: 234B                                                         0.0s
+ => [internal] load .dockerignore                                                            0.0s
+ => => transferring context: 75B                                                             0.0s
+ => [internal] load metadata for docker.io/reachsh/runner:0.1.5                              0.0s
+ => [internal] load build context                                                            0.0s
+ => => transferring context: 4.60kB                                                          0.0s
+ => CACHED [1/2] FROM docker.io/reachsh/runner:0.1.5                                         0.0s
+ => [2/2] COPY . /app                                                                        0.0s
+ => exporting to image                                                                       0.0s
+ => => exporting layers                                                                      0.0s
+ => => writing image sha256:13e69eb72504bbc85074476e5d1183b6ad2734a5eabc9e56c2138023d64a507a 0.0s
+ => => naming to docker.io/reachsh/reach-app-current:latest                                  0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+Creating reach2021-10-13t14-26-55z-vcv1_reach-app-current_run ... done
+
+> @reach-sh/current@ index /app
+> node --experimental-modules --unhandled-rejections=strict index.mjs
+
+The consensus network is ALGO.
+Your role is seller.
+```
+
+Below is a line-by-line description:
+
+* Line 1: The Reach Compiler inputs *reach.rsh*.
 
     <p><img src="reach-run-2.png" class="img-fluid" width=420 loading="lazy"></p>
 
-1. sss
+    And, it outputs *index.main.mjs* consisting of the compiled backend (blue) and the smart contract (dark orange):
 
     <p><img src="reach-run-3.png" class="img-fluid" width=420 loading="lazy"></p>
 
-1. sss
+* Line 2: The Reach Verification Engine validates the smart contract:
 
     <p><img src="reach-run-4.png" class="img-fluid" width=420 loading="lazy"></p>
 
-1. sss
+* Lines 10-22: The process builds a Docker image for your application.
 
     <p><img src="reach-run-5.png" class="img-fluid" width=420 loading="lazy"></p>
 
-1. sss
+    Note the mention of *Dockerfile* and *.dockerignore*. The `reach run` command creates the following set of files, deleting all but *index.main.mjs* on completion:
+
+    ``` nonum
+    build/index.main.mjs
+    .dockerignore
+    .gitignore
+    Dockerfile
+    package.json
+    ```
+
+    For some of your Reach projects, you may find it useful to retain and edit these files, especially *package.json*. To create and retain these files, run `reach scaffold`.
+
+* Line 24: The process checks the new image for vulnerabilities.
 
     <p><img src="reach-run-6.png" class="img-fluid" width=420 loading="lazy"></p>
 
-1. sss
+* Line 27: The process runs your app in a container built from the image.
 
     <p><img src="reach-run-7.png" class="img-fluid" width=420 loading="lazy"></p>
 
-## Review build files
-
-You see the following directory and files appear. Some files disappear.
-
-* build/index.main.mjs
-* .dockerignore
-* .gitignore
-* Dockerfile
-* package.json
-
-Understand significance.
-
-Explain `reach scaffold`.
+* Line 30-31: Output from your application frontend.
 
 # Pass arguments
 
-This section represents the first change that the developer makes to the project.
+In this section, you modify the starter app to accept a command-line argument specifying whether to run as the seller or buyer. Although this change does not involve Reach directly, it does emphasize that your application represents two different participants negotiating via the same contract.
 
-Replace `const role = 'seller';` with the following:
+1. In *index.mjs*, replace `const role = 'seller';` with the following:
 
-``` js
-if (process.argv.length < 3 || ['seller', 'buyer'].includes(process.argv[2]) == false) {
-  console.log('Usage: reach run index [seller|buyer]');
-  process.exit(0);
-}
-const role = process.argv[2];
-```
+    ``` js
+    if (process.argv.length < 3 || ['seller', 'buyer'].includes(process.argv[2]) == false) {
+      console.log('Usage: reach run index [seller|buyer]');
+      process.exit(0);
+    }
+    const role = process.argv[2];
+    ```
 
-## Run in two terminals
+1. Open two terminals (i.e. shells), and change directory in both to `~/reach/wisdom-for-sale/current`:
 
-Open two terminals (i.e. shells) positioned side by side.
+    <p><img src="terminals-empty.png" class="img-fluid" width=700 loading="lazy"></p>
 
-Change directory in both to `~/reach/wisdom-for-sale/current`.
+    The left terminal is the *Seller Terminal*, and the right is the *Buyer Terminal*.
 
-The left terminal is the *Seller Terminal*. In this terminal, run one of the following:
+1. In the Seller Terminal, run one of the following:
 
-``` nonum
-$ REACH_CONNECTOR_MODE=ALGO-devnet reach run index seller
-$ REACH_CONNECTOR_MODE=ETH-devnet reach run index seller
-$ REACH_CONNECTOR_MODE=CFX-devnet reach run index seller
-```
+    ``` nonum
+    $ REACH_CONNECTOR_MODE=ALGO-devnet reach run index seller
+    $ REACH_CONNECTOR_MODE=ETH-devnet reach run index seller
+    $ REACH_CONNECTOR_MODE=CFX-devnet reach run index seller
+    ```
 
-The right terminal is the *Buyer Terminal*. In this terminal, run the corresponding command:
+1. In the *Buyer Terminal*, run the corresponding command:
 
-``` nonum
-$ REACH_CONNECTOR_MODE=ALGO-devnet reach run index buyer
-$ REACH_CONNECTOR_MODE=ETH-devnet reach run index buyer
-$ REACH_CONNECTOR_MODE=CFX-devnet reach run index buyer
-```
+    ``` nonum
+    $ REACH_CONNECTOR_MODE=ALGO-devnet reach run index buyer
+    $ REACH_CONNECTOR_MODE=ETH-devnet reach run index buyer
+    $ REACH_CONNECTOR_MODE=CFX-devnet reach run index buyer
+    ```
 
-Try all of them if you like. Use these two terminal for the rest of the tutorial.
+1. Repeat for the other consensus networks.
 
 ## About adding Node packages
 
