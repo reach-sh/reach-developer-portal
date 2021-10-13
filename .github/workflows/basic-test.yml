@@ -1,0 +1,57 @@
+name: Basic Test
+
+# Run this test anytime someone pushes to a branch.
+on: [push]
+
+# Checkout
+# https://docs.github.com/en/actions/quickstart#creating-your-first-workflow
+# to learn more about syntax for GitHub Actions.
+# "jobs" appears to be a GitHub Action keyword.
+jobs:
+  # We pick the name "tests".
+  tests:
+    # On what software do you want this test to run?
+    runs-on: ubuntu-latest
+    # I copied and pasted the first three "run" steps from
+    # https://docs.github.com/en/actions/quickstart#creating-your-first-workflow
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out this repository's code.
+        uses: actions/checkout@v2
+      # I copied and pasted the next several "run" steps from
+      # https://docs.github.com/en/actions/quickstart#creating-your-first-workflow
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in this repository.
+        run: |
+          ls ${{ github.workspace }}
+
+      # These are commands specific to this repository.
+      # https://github.com/reach-sh/reach-developer-portal#deploy-the-site-locally
+      - name: Change to the `tools` directory.
+        run: cd tools
+      - name: Install dependencies using Node Package Manger, or `npm`.
+        run: npm install
+      - name: Build custom plugins.
+        run: npm run s1 && npm run s2 && npm run s3 && npm run s4
+      - name: Run the `generator.js` file.
+        run: node generator.js -t all
+      - name: Change back to the parent directory.
+        run: cd ..
+      - name: Install `http-server`.
+        run: npm i --global http-server
+      - name: Turn off server caching.
+        run: http-server -c-1
+
+      # Create a webpage!
+      - name: Create a folder, e.g., a folder called `colors-and-shapes`.
+        run: mkdir -p en/pages/colors-and-shapes
+      - name: Create an `index.md` file inside the newly created folder.
+        run: touch en/pages/colors-and-shapes/index.md
+      - name: Generate the webpage!
+        run: node tools/generator.js -t folder -d en/pages/colors-and-shapes
+
+      # Print out the status of this job.
+      - run: echo "🍏 This job's status is ${{ job.status }}."
