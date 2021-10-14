@@ -4,7 +4,7 @@ menuItem: mi-docs
 
 # Wisdom for Sale
 
-This tutorial introduces you to Reach DApp development. The tutorial is easy and fun, and it prepares you for more advanced Reach tutorials and projects. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) first.
+This tutorial introduces you to Reach DApp development. The tutorial is easy and fun, and it prepares you for more advanced Reach tutorials and projects. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) before proceeding.
 
 # Overview
 
@@ -90,9 +90,7 @@ Before proceeding, be sure to complete [Quick Start](/en/books/essentials/quick-
 
 # Review the starter files
 
-## index.mjs
-
-Open [index.mjs](https://github.com/hagenhaus/wisdom-for-sale/blob/master/starter/index.mjs) in vscode.
+**index.mjs**
 
 ``` js
 load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.mjs
@@ -114,9 +112,7 @@ Below is a line-by-line description:
 * Line 17: Call `Seller(ctc, interact)` in *index.main.mjs* which deploys the contract.
 * Line 24: Tell *ask.mjs* that you are finished.
 
-## index.rsh
-
-Open [index.rsh](https://github.com/hagenhaus/wisdom-for-sale/blob/master/starter/index.rsh) in vscode.
+**index.rsh**
 
 ``` js
 load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.rsh

@@ -4,7 +4,7 @@ menuItem: mi-docs
 
 # Wisdom for Sale
 
-This tutorial introduces you to Reach DApp development and prepares you for more advanced Reach tutorials and projects. It is primarily task-based, but it includes several Learn More buttons throughout. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) before proceeding.
+This tutorial introduces you to Reach DApp development and prepares you for more advanced Reach tutorials and projects. It is primarily task-based, but it includes several *Information* buttons throughout. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) before proceeding.
 
 # Overview
 
@@ -50,7 +50,165 @@ Mentioned in the video are (1) the Reach [JavaScript Standard Library](/en/books
 
 # Clone the repository
 
+Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) before proceeding.
+
+1. Clone the [wisdom-for-sale](https://github.com/hagenhaus/wisdom-for-sale) repository:
+
+    ``` nonum
+    $ cd ~/reach
+    $ git clone https://github.com/hagenhaus/wisdom-for-sale.git
+    ```
+
+1. Open the repository in vscode.
+
+    <p><img src="vscode-initial.png" class="img-fluid" width=700 loading="lazy"></p>
+
+1. Copy *index.mjs* and *index.rsh* from the *starter* folder to the *current* folder, and open both files.
+
+<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#rsf" aria-expanded="false">
+  <i class="fas fa-info-circle me-2"></i><span>Review Starter Files</span>
+</button>
+
+<span class="collapse" id="rsf">
+
+**index.mjs**
+
+``` js
+load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.mjs
+```
+
+Below is a line-by-line description:
+
+* Line 1: Import the Reach JS Standard Library loader.
+* Line 2: Import the JS backend compiled from index.rsh.
+* Line 3: Import a Reach Node.js package to help with command-line i/o.
+* Line 5: Load the Reach JS Stdlib for the consensus network specified by the `REACH_CONNECTOR_MODE`.
+* Line 6: Display the consensus network type.
+* Line 8: Hard-code the role. You will change this later.
+* Line 9: Display the role.
+* Line 11: Enable enclosed code to await the fulfillment of promises.
+* Line 14: Code for when you run this app as the seller.
+* Line 15: Create an account for the seller. *parseCurrency* transforms units from standard to atomic.
+* Line 16: Get a reference to the contract.
+* Line 17: Call `Seller(ctc, interact)` in *index.main.mjs* which deploys the contract.
+* Line 24: Tell *ask.mjs* that you are finished.
+
+**index.rsh**
+
+``` js
+load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.rsh
+```
+
+Below is a line-by-line description:
+
+* Line 1: Instruction to the compiler.
+* Line 3: Reach standard application initialization.
+* Line 4: Define a constant to represent the seller. The `{}` indicates an empty interact object.
+* Line 5: Define a constant to represent the buyer. Same.
+* Line 6: Finalize participant and other options.
+* Line 8: Terminate computation.
+
+<hr style="background-color:green;opacity:1;height:5px;"/>
+</span>
+
 # Run the app
+
+Run your starter app in the vscode terminal three times, once for each supported consensus network. Use the commands below in succession:
+
+``` nonum
+$ REACH_CONNECTOR_MODE=ALGO-devnet reach run
+$ REACH_CONNECTOR_MODE=ETH-devnet reach run
+$ REACH_CONNECTOR_MODE=CFX-devnet reach run
+```
+
+<p><img src="vscode-run.png" class="img-fluid" width=700 loading="lazy"></p>
+
+In your current environment, most executables -- the Reach Compiler, the consensus network devnets, your application, and the smart contract -- run in Docker containers instantiated from Reach Docker images.
+
+<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#ebp" aria-expanded="false">
+  <i class="fas fa-info-circle me-2"></i><span>Explore Build Output</span>
+</button>
+
+<span class="collapse" id="ebp">
+
+Here is sample output:
+
+```
+current % REACH_CONNECTOR_MODE=ALGO-devnet reach run
+Verifying knowledge assertions
+Verifying for generic connector
+  Verifying when ALL participants are honest
+  Verifying when NO participants are honest
+  Verifying when ONLY "Buyer" is honest
+  Verifying when ONLY "Seller" is honest
+Checked 4 theorems; No failures!
+[+] Building 0.2s (7/7) FINISHED
+ => [internal] load build definition from Dockerfile                                         0.0s
+ => => transferring dockerfile: 234B                                                         0.0s
+ => [internal] load .dockerignore                                                            0.0s
+ => => transferring context: 75B                                                             0.0s
+ => [internal] load metadata for docker.io/reachsh/runner:0.1.5                              0.0s
+ => [internal] load build context                                                            0.0s
+ => => transferring context: 4.60kB                                                          0.0s
+ => CACHED [1/2] FROM docker.io/reachsh/runner:0.1.5                                         0.0s
+ => [2/2] COPY . /app                                                                        0.0s
+ => exporting to image                                                                       0.0s
+ => => exporting layers                                                                      0.0s
+ => => writing image sha256:13e69eb72504bbc85074476e5d1183b6ad2734a5eabc9e56c2138023d64a507a 0.0s
+ => => naming to docker.io/reachsh/reach-app-current:latest                                  0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+Creating reach2021-10-13t14-26-55z-vcv1_reach-app-current_run ... done
+
+> @reach-sh/current@ index /app
+> node --experimental-modules --unhandled-rejections=strict index.mjs
+
+The consensus network is ALGO.
+Your role is seller.
+```
+
+Below is a line-by-line description:
+
+* Line 1: The Reach Compiler inputs *reach.rsh*.
+
+    <p><img src="reach-run-2.png" class="img-fluid" width=420 loading="lazy"></p>
+
+    And, it outputs *index.main.mjs* consisting of the compiled backend (blue) and the smart contract (dark orange):
+
+    <p><img src="reach-run-3.png" class="img-fluid" width=420 loading="lazy"></p>
+
+* Line 2: The Reach Verification Engine validates the smart contract:
+
+    <p><img src="reach-run-4.png" class="img-fluid" width=420 loading="lazy"></p>
+
+* Lines 10-22: The process builds a Docker image for your application.
+
+    <p><img src="reach-run-5.png" class="img-fluid" width=420 loading="lazy"></p>
+
+    Note the mention of *Dockerfile* and *.dockerignore*. The `reach run` command creates the following set of files, deleting all but *index.main.mjs* on completion:
+
+    ``` nonum
+    build/index.main.mjs
+    .dockerignore
+    .gitignore
+    Dockerfile
+    package.json
+    ```
+
+    For some of your Reach projects, you may find it useful to retain and edit these files, especially *package.json*. To create and retain these files, run `reach scaffold` before running `reach run`.
+
+* Line 24: The process checks the new image for vulnerabilities.
+
+    <p><img src="reach-run-6.png" class="img-fluid" width=420 loading="lazy"></p>
+
+* Line 27: The process runs your app in a container built from the image.
+
+    <p><img src="reach-run-7.png" class="img-fluid" width=420 loading="lazy"></p>
+
+* Line 30-31: Your application outputs these messages.
+
+<hr style="background-color:green;opacity:1;height:5px;"/>
+</span>
 
 # Pass arguments
 
