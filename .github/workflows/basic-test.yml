@@ -43,7 +43,7 @@ jobs:
 
       # We should automatically be back in the main, parent directory, now.
       - name: Install `http-server`.
-        run: npm i --global http-server
+        run: sudo npm i --global http-server
       - name: Turn off server caching.
         run: http-server -c-1
 
