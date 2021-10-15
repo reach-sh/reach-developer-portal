@@ -514,7 +514,7 @@ Not done yet.
     }
     ```
 
-1. Run the app in the Seller Terminal and in the Buyer Terminal. The Buyer will prompt you to provide the contract info and to decide whether to purchase the wisdom. Answer `n` to the second prompt.
+1. Run the app in the Seller and Buyer Terminals. Provide the contract info to the buyer when prompted. Answer `y` or `n` when asked whether to buy wisdom.
 
 The seller creates the contract, retrieves a contract reference in the form of contract info, and makes the info available to the buyer who uses it to find and run the smart contract.
 
@@ -531,105 +531,130 @@ Not done yet.
 <hr style="background-color:#6c757d;opacity:1;height:5px;"/>
 </span>
 
-# Add common interact
+# Add common interact objects
 
-## Add common frontend interact
+1. Add a common interact object to *index.mjs*, shared by the seller and buyer:
 
-``` js
-// COMMON INTERACT
-const commonInteract = {
-  reportCancellation: () => { console.log('The buyer cancelled the order.'); }
-};
-```
+    ``` js
+    // COMMON INTERACT
+    const commonInteract = {
+      reportCancellation: () => { console.log('The buyer cancelled the order.'); }
+    };
+    ```
 
-Add a `...commonInteract,` property to `sellerInteract` and `buyerInteract`.
+1. Add the `...commonInteract` object to `sellerInteract` and `buyerInteract` in *index.mjs*:
 
-## Add common backend interact
+    ``` js
+    const sellerInteract = {
+      ...commonInteract,
+    };
 
-``` js
-// COMMON INTERACT
-const commonInteract = {
-  reportCancellation: Fun([], Null)
-};
-```
+    const buyerInteract = {
+      ...commonInteract,
+    };
+    ```
 
-Add a `...commonInteract,` property to `sellerInteract` and `buyerInteract`.
+1. Add a common interact object to *index.rsh*:
 
-## Add willBuy conditional
+    ``` js
+    // COMMON INTERACT
+    const commonInteract = {
+      reportCancellation: Fun([], Null)
+    };
+    ```
 
-Modify the `if` statement:
+1. Add the `...commonInteract` object to `sellerInteract` and `buyerInteract` in *index.rsh*:
 
-``` js
-if (!willBuy) {
-  commit();
-  each([S, B], () => interact.reportCancellation());
-  exit();
-} else {
-  commit();
-}
-```
+    ``` js
+    const sellerInteract = {
+      ...commonInteract
+    };
 
-## Test common interact
+    const buyerInteract = {
+      ...commonInteract
+    };
+    ```
 
-Run both the seller and buyer roles. When prompted, cancel the transaction.
+1. Report cancellation in *index.rsh*:
 
-```
-The buyer cancelled the order.
-```
+    ``` js
+    if (!willBuy) {
+      commit();
+      each([S, B], () => interact.reportCancellation());
+      exit();
+    } else {
+      commit();
+    }
+    ```
 
-## Add "who" and retest
+1. Run the app in the Seller and Buyer Terminals. Answer `n` when asked whether to buy wisdom. Both terminals should display the following output:
 
-``` js
-const commonInteract = (who) => ({
-  reportCancellation: () => { console.log(`${who == 'buyer' ? 'You' : 'The buyer'} cancelled the order.`); }
-});
-```
+    ``` nonum
+    The buyer cancelled the order.
+    ```
 
-Add a `...commonInteract(role),` property to `sellerInteract` and `buyerInteract`.
+1. Modify `commonInteract` in *index.mjs* to accept and use a `role` argument:
 
-Retest.
+    ``` js
+    const commonInteract = (role) => ({
+      reportCancellation: () => { console.log(`${role == 'buyer' ? 'You' : 'The buyer'} cancelled the order.`); }
+    });
+    ```
 
-```
-You cancelled the order.
-```
+1. Modify `sellerInteract` and `buyerInteract` in *index.mjs* to pass `role` to *commonInteract*:
+
+    ```
+    const sellerInteract = {
+      ...commonInteract(role),
+    }
+
+    const buyerInteract = {
+      ...commonInteract(role),
+    }
+    ```
+
+1. Retest. The app (running as the buyer) should output the following:
+
+    ```
+    You cancelled the order.
+    ```
 
 # Complete the transaction
 
-## Modify frontend common interact
+1. Modify `commonInteract` in *index.mjs*:
 
-```
-const commonInteract = (who) => ({
-  reportPayment: (payment) => console.log(`${who == 'buyer' ? 'You' : 'The buyer'} paid ${toSU(payment)} ${suStr} to the contract.`),
-  reportTransfer: (payment) => console.log(`The contract paid ${toSU(payment)} ${suStr} to ${who == 'seller' ? 'you' : 'the seller'}.`),
-  reportCancellation: () => { console.log(`${who == 'buyer' ? 'You' : 'The buyer'} cancelled the order.`); }
-});
-```
+    ``` js
+    const commonInteract = (role) => ({
+      reportPayment: (payment) => console.log(`${role == 'buyer' ? 'You' : 'The buyer'} paid ${toSU(payment)} ${suStr} to the contract.`),
+      reportTransfer: (payment) => console.log(`The contract paid ${toSU(payment)} ${suStr} to ${role == 'seller' ? 'you' : 'the seller'}.`),
+      reportCancellation: () => { console.log(`${role == 'buyer' ? 'You' : 'The buyer'} cancelled the order.`); }
+    });
+    ```
 
-## Modify backend common interact
+1. Modify `commonInteract` in *index.rsh*:
 
-```
-const commonInteract = {
-  reportPayment: Fun([UInt], Null),
-  reportTransfer: Fun([UInt], Null),
-  reportCancellation: Fun([], Null)
-};
-```
+    ``` js
+    const commonInteract = {
+      reportPayment: Fun([UInt], Null),
+      reportTransfer: Fun([UInt], Null),
+      reportCancellation: Fun([], Null)
+    };
+    ```
 
-## Add pay and transfer steps
+1. Add pay and transfer steps in *index.rsh*:
 
-```
-B.pay(price);
-each([S, B], () => interact.reportPayment(price));
-commit();
+    ``` js
+    B.pay(price);
+    each([S, B], () => interact.reportPayment(price));
+    commit();
 
-S.only(() => { const wisdom = declassify(interact.wisdom); });
-S.publish(wisdom);
-transfer(price).to(S);
-commit();
+    S.only(() => { const wisdom = declassify(interact.wisdom); });
+    S.publish(wisdom);
+    transfer(price).to(S);
+    commit();
 
-each([S, B], () => interact.reportTransfer(price));
-B.interact.reportWisdom(wisdom);
-```
+    each([S, B], () => interact.reportTransfer(price));
+    B.interact.reportWisdom(wisdom);
+    ```
 
-## Test pay and transfer steps
-
+1. Test.
