@@ -10,9 +10,11 @@ This tutorial introduces you to Reach DApp development and prepares you for more
 
 During this tutorial, you will build command-line and webapp versions of [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), an application that enables two participants, a seller and a buyer, to trade wisdom for currency via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network (e.g. devnet) residing in a Docker container on your computer. Your DApp will create and fund two accounts, one for each participant. Then, it will enable the seller and buyer to make a deal.
 
-<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#deal" aria-expanded="false">
+<div class="d-grid">
+<button class="btn btn-secondary btn-sm text-start" type="button" data-bs-toggle="collapse" data-bs-target="#deal" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>Seller-Buyer Diagram</span>
 </button>
+</div>
 
 <span class="collapse" id="deal">
 
@@ -22,14 +24,16 @@ The following diagram represents the wisdom-for-sale deal.
 
 This particular transaction took place on an Ethereum devnet. The Ethereum cryptocurrency standard token unit is the *Ether* or *ETH*. The tutorial also allows you to perform this transaction on an Algorand or Conflux devnet. The Algorand standard unit is the *ALGO*, and the Conflux standard unit is the *CFX*. As indicated by the final balances in the diagram, the seller received 0.0019 ETH less than the agreed upon price, and the buyer paid 0.0003 ETH more. These expenses represent *gas*, the cost of doing business on a consensus network. The seller paid a little more gas than the buyer because the seller deployed the contract.
 
-<hr style="background-color:green;opacity:1;height:5px;"/>
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
 </span>
 
 Creating a Reach DApp does *not* entail implementing a smart contract. Rather, it involves using the Reach programming language to describe, step by step, participant interactions from which the Reach compiler derives a smart contract.
 
-<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#stf" aria-expanded="false">
-  <i class="fas fa-info-circle me-2"></i><span>Develop-Deploy Video</span>
+<div class="d-grid">
+<button class="btn btn-secondary btn-sm text-start" type="button" data-bs-toggle="collapse" data-bs-target="#stf" aria-expanded="false">
+  <i class="fas fa-info-circle me-2"></i><span>Develop & Deploy Video</span>
 </button>
+</div>
 
 <span class="collapse" id="stf">
 
@@ -45,7 +49,7 @@ This video provides a mental framework for understanding Reach development and d
 
 Mentioned in the video are (1) the Reach [JavaScript Standard Library](/en/books/essentials/support-for-js-frontends/) which supports Reach applications by providing properties and methods dealing with accounts, arithmetic, big numbers, comparisons, consensus network providers, contracts, debugging, encryption, randomization, and time, (2) interact objects which are JavaScript objects that enable communication between Reach frontends and backends, explained in detail below, and (3) the Reach Verification Engine which helps to ensure that the immutable smart contract you deploy will run without errors like the error of forgetting to transfer all the otherwise unretrievable tokens out of a smart contract account before the contract exits.
 
-<hr style="background-color:green;opacity:1;height:5px;"/>
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
 </span>
 
 # Clone the repository
@@ -65,9 +69,11 @@ Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Develo
 
 1. Copy *index.mjs* and *index.rsh* from the *starter* folder to the *current* folder, and open both files.
 
-<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#rsf" aria-expanded="false">
+<div class="d-grid">
+<button class="btn btn-secondary btn-sm text-start" type="button" data-bs-toggle="collapse" data-bs-target="#rsf" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>Review Starter Files</span>
 </button>
+</div>
 
 <span class="collapse" id="rsf">
 
@@ -108,12 +114,12 @@ Below is a line-by-line description:
 * Line 6: Finalize participant and other options.
 * Line 8: Terminate computation.
 
-<hr style="background-color:green;opacity:1;height:5px;"/>
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
 </span>
 
 # Run the app
 
-Run your starter app in the vscode terminal three times, once for each supported consensus network. Use the commands below in succession:
+Run your starter app in the vscode terminal three times, once for each supported consensus network, using the commands below in succession:
 
 ``` nonum
 $ REACH_CONNECTOR_MODE=ALGO-devnet reach run
@@ -125,9 +131,11 @@ $ REACH_CONNECTOR_MODE=CFX-devnet reach run
 
 In your current environment, most executables -- the Reach Compiler, the consensus network devnets, your application, and the smart contract -- run in Docker containers instantiated from Reach Docker images.
 
-<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#ebp" aria-expanded="false">
+<div class="d-grid">
+<button class="btn btn-secondary btn-sm text-start" type="button" data-bs-toggle="collapse" data-bs-target="#ebp" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>Explore Build Output</span>
 </button>
+</div>
 
 <span class="collapse" id="ebp">
 
@@ -207,154 +215,321 @@ Below is a line-by-line description:
 
 * Line 30-31: Your application outputs these messages.
 
-<hr style="background-color:green;opacity:1;height:5px;"/>
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
 </span>
 
-# Pass arguments
+# Pass role as argument
+
+Modify the starter app to accept a command-line argument specifying whether to run as the seller or buyer. Although this change does not involve Reach directly, it does emphasize that your application represents two different participants negotiating via the same contract.
+
+1. In *index.mjs*, replace `const role = 'seller';` with the following:
+
+    ``` js
+    if (process.argv.length < 3 || ['seller', 'buyer'].includes(process.argv[2]) == false) {
+      console.log('Usage: reach run index [seller|buyer]');
+      process.exit(0);
+    }
+    const role = process.argv[2];
+    ```
+
+1. Open two terminals (i.e. shells), and change directory in both to `~/reach/wisdom-for-sale/current`:
+
+    <p><img src="terminals-empty.png" class="img-fluid" width=700 loading="lazy"></p>
+
+    The left terminal is the *Seller Terminal*, and the right is the *Buyer Terminal*.
+
+1. In the Seller Terminal, run one of the following:
+
+    ``` nonum
+    $ REACH_CONNECTOR_MODE=ALGO-devnet reach run index seller
+    $ REACH_CONNECTOR_MODE=ETH-devnet reach run index seller
+    $ REACH_CONNECTOR_MODE=CFX-devnet reach run index seller
+    ```
+
+    When you pass arguments to `reach run`, the first one must be the name of the `index.rsh` file without the extension (i.e. `index`). Application output should be the following:
+
+    ``` nonum
+    The consensus network is ALGO|ETH|CFX.
+    Your role is seller.
+    ```
+
+1. In the Buyer Terminal, run the corresponding command (one of the following):
+
+    ``` nonum
+    $ REACH_CONNECTOR_MODE=ALGO-devnet reach run index buyer
+    $ REACH_CONNECTOR_MODE=ETH-devnet reach run index buyer
+    $ REACH_CONNECTOR_MODE=CFX-devnet reach run index buyer
+    ```
+
+    Output:
+
+    ``` nonum
+    The consensus network is ALGO|ETH|CFX.
+    Your role is buyer.
+    ```
+
+1. Repeat for the other consensus networks.
+
+You can, instead, use a Node.js package like [Minimist](https://www.npmjs.com/package/minimist), [Commander](https://www.npmjs.com/package/commander), [Meow](https://www.npmjs.com/package/meow), [Yargs](https://www.npmjs.com/package/yargs), or [Vorpal](https://www.npmjs.com/package/vorpal).
+
+<div class="d-grid">
+<button class="btn btn-secondary btn-sm text-start" type="button" data-bs-toggle="collapse" data-bs-target="#npi" aria-expanded="false">
+  <i class="fas fa-info-circle me-2"></i><span>Node Package Integration</span>
+</button>
+</div>
+
+<span class="collapse" id="npi">
+
+Not done yet.
+
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+</span>
+
+You cannot pass information to your Reach DApp via environment variables. The [reach](https://github.com/reach-sh/reach-lang/blob/master/reach) script exports only a limited set of environment variables within the Docker container where it runs your app, so it does not support exporting `role` (e.g. `ROLE=seller reach run`) or any other custom value as an environment variable.
 
 # Use the Reach Stdlib
 
-Add the following just below `const stdlib = loadStdlib(process.env)`:
+The Reach [JavaScript Standard Library](/en/books/essentials/support-for-js-frontends/) supports Reach applications by providing properties and methods dealing with accounts, arithmetic, big numbers, comparisons, consensus network providers, contracts, debugging, encryption, randomization, and time.
 
-``` js
-const suStr = stdlib.standardUnit;
-const toAU = (su) => stdlib.parseCurrency(su);
-const toSU = (au) => stdlib.formatCurrency(au, 4);
-const iBalance = toAU(1000);
-const showBalance = async (acc) => console.log(`Your balance is ${toSU(await stdlib.balanceOf(acc))} ${suStr}.`);
-```
+1. Add the following just below `const stdlib = loadStdlib(process.env)`:
 
-Explain each of these.
+    ``` js
+    const suStr = stdlib.standardUnit;
+    const toAU = (su) => stdlib.parseCurrency(su);
+    const toSU = (au) => stdlib.formatCurrency(au, 4);
+    const iBalance = toAU(1000);
+    const showBalance = async (acc) => console.log(`Your balance is ${toSU(await stdlib.balanceOf(acc))} ${suStr}.`);
+    ```
 
-Replace `stdlib.parseCurrency(1000)` with `iBalance`.
+1. Find Line 1 below and change it to Line 2:
 
-Add `showBalance` in two places like this:
+    ``` js
+    const acc = await stdlib.newTestAccount(stdlib.parseCurrency(1000));
+    const acc = await stdlib.newTestAccount(iBalance);
+    ```
 
-``` js
-const acc = await stdlib.newTestAccount(iBalance);
-await showBalance(acc);
-const ctc = acc.deploy(backend);
-await backend.Seller(ctc, {});
-await showBalance(acc);
-```
+1. Add `showBalance` in two places like this:
 
-Run the app in the Seller Terminal. Here is the output:
+    ``` js
+    if (role === 'seller') {
+      const acc = await stdlib.newTestAccount(iBalance);
+      await showBalance(acc);
+      const ctc = acc.deploy(backend);
+      await backend.Seller(ctc, {});
+      await showBalance(acc);
+    }
+    ```
 
-``` nonum
-The consensus network is ETH.
-Your role is seller.
-Your balance is 1000 ETH.
-Your balance is 1000 ETH.
-```
+1. Run the app in the Seller Terminal. 
 
-# Add seller interact
+    ``` nonum
+    $ REACH_CONNECTOR_MODE=ALGO-devnet reach run index seller
+    ```
 
-## Add seller frontend interact
+    Below is the output. Eventually, the two `Your balance` lines will display the seller's account balances before and after the transaction.
 
-Add an interact object to *index.mjs* for the seller.
+    ``` nonum
+    The consensus network is ALGO.
+    Your role is seller.
+    Your balance is 1000 ALGO.
+    Your balance is 1000 ALGO.
+    ```
 
-``` js
-// SELLER INTERACT
-const sellerInteract = {
-  price: toAU(5),
-  wisdom: 'Scatter sunshine.',
-  reportReady: async (price) => {
-    console.log(`Your wisdom is for sale at ${toSU(price)} ${suStr}.`);
-    console.log(`Contract info for buyer: ${await ctc.getInfo()}.`);
-  }
-};
-```
+Consensus network tokens are measured in (divisible) standard units and (indivisible) atomic units, and Reach apps often convert between the two.
 
-Replace `await backend.Seller(ctc, {})` with `await backend.Seller(ctc, sellerInteract);`.
+<div class="d-grid">
+<button class="btn btn-secondary btn-sm text-start" type="button" data-bs-toggle="collapse" data-bs-target="#ausu" aria-expanded="false">
+  <i class="fas fa-info-circle me-2"></i><span>About toAU and toSU</span>
+</button>
+</div>
 
-## Add seller backend interact
+<span class="collapse" id="ausu">
 
-Add a corresponding interact object to *index.rsh* for the seller.
+Not done yet.
 
-``` js
-// SELLER INTERACT
-const sellerInteract = {
-  price: UInt,
-  wisdom: Bytes(128),
-  reportReady: Fun([UInt], Null)
-};
-```
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+</span>
 
-Replace `const S = Participant('Seller', {})` with `const S = Participant('Seller', sellerInteract)`.
+# Add seller interact objects
 
-## Add seller local step
+1. Add an interact object (Lines 4-12) to *index.mjs* for the seller:
 
-Add a local step for seller:
+    ``` js
+    // SELLER
+    if (role === 'seller') {
 
-``` js
-S.only(() => { const price = declassify(interact.price); });
-S.publish(price);
-S.interact.reportReady(price);
-commit();
-```
+      // SELLER INTERACT
+      const sellerInteract = {
+        price: toAU(5),
+        wisdom: 'Scatter sunshine.',
+        reportReady: async (price) => {
+          console.log(`Your wisdom is for sale at ${toSU(price)} ${suStr}.`);
+          console.log(`Contract info: ${JSON.stringify(await ctc.getInfo())}`);
+        }
+      };
 
-## Test seller interact
+      ...
+    }
+    ```
 
-Run in the Seller Terminal:
+1. Find Line 1 below and change it to Line 2:
 
-``` nonum
-The consensus network is ETH.
-Your role is seller.
-Your balance is 1000 ETH.
-Your wisdom is for sale at 5 ETH.
-Contract info for buyer: 0xbBD687F2cCa8AC0cB4c51ff0Da9632eF32aC1F7D.
-Your balance is 999.9998 ETH.
-```
+    ``` js
+    await backend.Seller(ctc, {});
+    await backend.Seller(ctc, sellerInteract);
+    ```
 
-# Add buyer interact
+1. Add a corresponding interact object (Lines 3-8) to *index.rsh* for the seller:
 
-## Add buyer frontend interact
+    ``` js
+    'reach 0.1';
 
-``` js
-// BUYER INTERACT
-const buyerInteract = {
-  confirmPurchase: async (price) => await ask(`Do you want to purchase wisdom for ${toSU(price)} ${suStr} (y/n)?`, yesno)
-};
-```
+    // SELLER INTERACT
+    const sellerInteract = {
+      price: UInt,
+      wisdom: Bytes(128),
+      reportReady: Fun([UInt], Null)
+    };
 
-```
-const acc = await stdlib.newTestAccount(iBalance);
-const info = await ask('Paste contract info:', (s) => s);
-const ctc = acc.attach(backend, info);
-await showBalance(acc);
-await backend.Buyer(ctc, buyerInteract);
-await showBalance(acc);
-```
+    ...
+    ```
 
-## Add buyer backend interact
+1. Find Line 1 below and change it to Line 2:
 
-``` js
-// BUYER INTERACT
-const buyerInteract = {
-  confirmPurchase: Fun([UInt], Bool)
-};
-```
+    ``` js
+    const S = Participant('Seller', {});
+    const S = Participant('Seller', sellerInteract);
+    ```
 
-Replace `const B = Participant('Buyer', {})` with `const B = Participant('Buyer', buyerInteract)`.
+1. Add actions (Lines 3-6) for seller in *index.rsh*:
 
-## Add buyer local step
+    ``` js
+      deploy();
 
-``` js
-B.only(() => {
-  const willBuy = declassify(interact.confirmPurchase(price));
-});
-B.publish(willBuy);
+      S.only(() => { const price = declassify(interact.price); });
+      S.publish(price);
+      S.interact.reportReady(price);
+      commit();
 
-if (!willBuy) {
-  commit();
-} else {
-  commit();
-}
-```
+      exit();
+    ```
 
-## Test buyer interact
+1. Run in the Seller Terminal:
 
-Run both the seller and buyer roles. Copy the contract information from the Seller Terminal to the Buyer Terminal.
+    ``` nonum
+    $ REACH_CONNECTOR_MODE=ETH-devnet reach run index seller
+    ```
+
+    Output should resemble the following:
+
+    ``` nonum
+    The consensus network is ETH.
+    Your role is seller.
+    Your balance is 1000 ETH.
+    Your wisdom is for sale at 5 ETH.
+    Contract info for buyer: 0xbBD687F2cCa8AC0cB4c51ff0Da9632eF32aC1F7D.
+    Your balance is 999.9998 ETH.
+    ```
+
+Interact objects facilitate communication between the frontend (i.e. `index.mjs`) and backend (i.e. `index.main.mjs`) of Reach applications. Recall that `index.rsh` is the pre-compiled version of `index.main.mjs`.
+
+<div class="d-grid">
+<button class="btn btn-secondary btn-sm text-start" type="button" data-bs-toggle="collapse" data-bs-target="#aio" aria-expanded="false">
+  <i class="fas fa-info-circle me-2"></i><span>About Interact Objects</span>
+</button>
+</div>
+
+<span class="collapse" id="aio">
+
+Not done yet.
+
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+</span>
+
+Each Reach backend action (e.g. `declassify(interact.price)`) takes place within the context of a *local step*, *step*, or *consensus step*. Actions involving one participant take place within a *local step*. Those involving all participants take place within a *step*. Those involving the contract itself take place within a *consensus step*. 
+
+<div class="d-grid">
+<button class="btn btn-secondary btn-sm text-start" type="button" data-bs-toggle="collapse" data-bs-target="#as" aria-expanded="false">
+  <i class="fas fa-info-circle me-2"></i><span>About Steps</span>
+</button>
+</div>
+
+<span class="collapse" id="as">
+
+Not done yet.
+
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+</span>
+
+# Add buyer interact objects
+
+1. Add an interact object and supporting code to *index.mjs* for the buyer:
+
+    ``` js
+    // BUYER
+    else {
+
+      // BUYER INTERACT
+      const buyerInteract = {
+        confirmPurchase: async (price) => await ask(`Do you want to purchase wisdom for ${toSU(price)} ${suStr} (y/n)?`, yesno)
+      };
+
+      const acc = await stdlib.newTestAccount(iBalance);
+      const info = await ask('Paste contract info:', (s) => JSON.parse(s));
+      const ctc = acc.attach(backend, info);
+      await showBalance(acc);
+      await backend.Buyer(ctc, buyerInteract);
+      await showBalance(acc);
+    }
+    ```
+
+1. Add a corresponding interact object to *index.rsh* (under `sellerInteract`) for the buyer:
+
+    ``` js
+    // BUYER INTERACT
+    const buyerInteract = {
+      confirmPurchase: Fun([UInt], Bool)
+    };
+    ```
+
+1. Find Line 1 below and change it to Line 2:
+
+    ``` js
+    const S = Participant('Buyer', {});
+    const S = Participant('Buyer', buyerInteract);
+    ```
+
+1. Add actions for buyer in *index.rsh*:
+
+    ``` js
+    B.only(() => {
+      const willBuy = declassify(interact.confirmPurchase(price));
+    });
+    B.publish(willBuy);
+
+    if (!willBuy) {
+      commit();
+    } else {
+      commit();
+    }
+    ```
+
+1. Run the app in the Seller Terminal and in the Buyer Terminal. The Buyer will prompt you to provide the contract info and to decide whether to purchase the wisdom. Answer `n` to the second prompt.
+
+The seller creates the contract, retrieves a contract reference in the form of contract info, and makes the info available to the buyer who uses it to find and run the smart contract.
+
+<div class="d-grid">
+<button class="btn btn-secondary btn-sm text-start" type="button" data-bs-toggle="collapse" data-bs-target="#ci" aria-expanded="false">
+  <i class="fas fa-info-circle me-2"></i><span>About Contract Info</span>
+</button>
+</div>
+
+<span class="collapse" id="ci">
+
+Not done yet.
+
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+</span>
 
 # Add common interact
 
