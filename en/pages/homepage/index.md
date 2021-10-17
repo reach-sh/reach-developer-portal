@@ -77,21 +77,21 @@ hasPageHeader: false
 
 <div class="row">
 <div class="col-12 col-lg-8">
-<ul style="padding-left: 1.6rem;">
-<li>Improved <a href="https://github.com/reach-sh/reach-lang/blob/master/reach">Reach Script</a>.</li>
-<li>Reduced Docker image download sizes.</li>
-<li>Created <a href="https://github.com/reach-sh/ARCs/blob/reach-wallet/ARCs/arc-0011.md">Algorand Wallet Reach Browser Spec</a>.</li>
-<li>Added support for <a href="https://confluxnetwork.org">Conflux</a>.</li>
-<li>Added support for running local nodes on <a href="https://www.trufflesuite.com/ganache">Ganache</a>.</li>
-<li>Upgraded Reach version of Algorand DevNet to 2.92.9.1.</li>
-<li>Integrating <a href="https://unity.com">Unity Game Engine</a> with Reach.</li>
-<li>Submitted proposal to support <a href="https://cardano.org">Cardano</a>.</li>
-<li>Building an Automated Market Maker (AMM) Decentralized Exchange (DEX).</li>
-<li>Welcomed seven new employees.</li>
-<li>Added items to <a href="https://swag.reach.sh/">ReachMart</a> swag store.</li>
-<li>Completed the Conflux Bounty Hack.</li>
-<li>Shout out to Chris Nevers and the Specialty Team.</li>
-</ul>
+
+* Improved [Reach Script](https://github.com/reach-sh/reach-lang/blob/master/reach).
+* Reduced Docker image download sizes.
+* Created [Algorand Wallet Reach Browser Spec](https://github.com/reach-sh/ARCs/blob/reach-wallet/ARCs/arc-0011.md").
+* Added support for [Conflux](https://confluxnetwork.org").
+* Added support for running local nodes on [Ganache](https://www.trufflesuite.com/ganache").
+* Upgraded Reach version of Algorand DevNet to 2.92.9.1.
+* Integrating [Unity Game Engine](https://unity.com") with Reach.
+* Submitted proposal to support [Cardano](https://cardano.org").
+* Building an Automated Market Maker (AMM) Decentralized Exchange (DEX).
+* Welcomed seven new employees.
+* Added items to [ReachMart](https://swag.reach.sh/") swag store.
+* Completed the Conflux Bounty Hack.
+* Shout out to Chris Nevers and the Specialty Team.
+
 </div>
 <div class="col-12 col-lg-4">
 <div class="ratio ratio-16x9" style="max-width:400px;">
@@ -109,19 +109,19 @@ hasPageHeader: false
 
 <div class="row">
 <div class="col-12 col-lg-8">
-<ul style="padding-left: 1.6rem;">
-<li>Added capability to mint tokens from within a contract on Algorand and Ethereum.</li>
-<li>Added capability to cache and query network transactions locally.</li>
-<li>Redefind timeouts in terms of real-world time instead of consensus network block counts.</li>
-<li>Started utilizing <a href="https://developer.algorand.org/articles/introducing-algorand-virtual-machine-avm-09-release">Algorand Virtual Machine (AVM) 0.9</a>.</li>
-<li>Added capability to verify that a Reach DApp is interacting with the intended contract.</li>
-<li>Added support for TypeScript (in addition to JavaScript).</li>
-<li>Added <a href="/en/books/essentials/reach-language/error-codes/">Error Code</a> documentation.</li>
-<li>Working on a full <a href="https://confluxnetwork.org/">Conflux</a> integration.</li>
-<li>Added better versioning to the Reach <a href="/en/pages/changelog/">Changelog</a>.</li>
-<li>Welcomed four new employees.</li>
-<li>Reached 2000 developer milestone.</li>
-</ul>
+
+* Added capability to mint tokens from within a contract on Algorand and Ethereum.
+* Added capability to cache and query network transactions locally.
+* Redefind timeouts in terms of real-world time instead of consensus network block counts.
+* Started utilizing [Algorand Virtual Machine (AVM) 0.9](https://developer.algorand.org/articles/introducing-algorand-virtual-machine-avm-09-release").
+* Added capability to verify that a Reach DApp is interacting with the intended contract.
+* Added support for TypeScript (in addition to JavaScript).
+* Added [Error Code](/en/books/essentials/reach-language/error-codes/") documentation.
+* Working on a full [Conflux](https://confluxnetwork.org/") integration.
+* Added better versioning to the Reach [Changelog](/en/pages/changelog/").
+* Welcomed four new employees.
+* Reached 2000 developer milestone.
+
 </div>
 <div class="col-12 col-lg-4">
 <div class="ratio ratio-16x9" style="max-width:400px;">

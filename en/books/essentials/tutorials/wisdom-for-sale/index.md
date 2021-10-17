@@ -4,7 +4,7 @@ menuItem: mi-docs
 
 # Wisdom for Sale
 
-This tutorial introduces you to Reach DApp development and prepares you for more advanced Reach tutorials and projects. It is primarily task-based, but it includes several information sections that you can expand to learn more. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) before proceeding.
+This tutorial introduces you to Reach DApp development and prepares you for more advanced Reach tutorials and projects. It is primarily task-based, but it includes several Information Buttons that you can click to learn more. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) before proceeding.
 
 # Overview
 
@@ -139,7 +139,7 @@ $ REACH_CONNECTOR_MODE=ALGO-devnet reach run
 
 To become familiar, run your DApp in the vscode terminal using combinations of your choice.
 
-> Example output in this tutorial reflects `REACH_CONNECTOR_MODE=ALGO-devnet`.
+> For consistency, output in this tutorial reflects `REACH_CONNECTOR_MODE=ALGO-devnet`.
 
 Where does your DApp run? In your current environment, the Reach Compiler, the consensus network devnets, your application, and the smart contract run on your computer in Docker containers instantiated from Reach Docker images.
 
@@ -232,13 +232,13 @@ Below is a line-by-line description:
 
 This section shows you how to modify the starter app to accept a command-line argument specifying whether to run as the seller or buyer. Although this change does not involve Reach directly, it does emphasize that your application represents two different participants negotiating via the same contract.
 
-1. Find the following line in *index.mjs*:
+1. In *index.mjs*, find the following line:
 
     ``` js nonum
     const role = 'seller';
     ```
 
-1. Replace it with the code below, and save the file:
+1. Replace it with the following, and save the file:
 
     ``` js nonum
     if (process.argv.length < 3 || ['seller', 'buyer'].includes(process.argv[2]) == false) {
@@ -266,7 +266,7 @@ This section shows you how to modify the starter app to accept a command-line ar
     $ reach run index seller
     ```
 
-    When you pass arguments to `reach run`, the first one must be the name of the `index.rsh` file without the extension (i.e. `index`). 
+    When you pass arguments to `reach run`, the first one must be the name of the `index.rsh` file without the extension (i.e. `index`) as seen above. 
     
     Application output should resemble the following:
 
@@ -288,7 +288,7 @@ This section shows you how to modify the starter app to accept a command-line ar
     Your role is buyer.
     ```
 
-Later (perhaps after you finish the tutorial) you can replace this simple way of handling command-line arguments in your Reach DApp with a more sophisticated one using one of several Node.js packages like [Minimist](https://www.npmjs.com/package/minimist), [Commander](https://www.npmjs.com/package/commander), [Meow](https://www.npmjs.com/package/meow), [Yargs](https://www.npmjs.com/package/yargs), and [Vorpal](https://www.npmjs.com/package/vorpal).
+Later (perhaps after you finish the tutorial) you can replace this simple way of handling command-line arguments in your Reach DApp with a more sophisticated one using a Node.js package like [Minimist](https://www.npmjs.com/package/minimist), [Commander](https://www.npmjs.com/package/commander), [Meow](https://www.npmjs.com/package/meow), [Yargs](https://www.npmjs.com/package/yargs), and [Vorpal](https://www.npmjs.com/package/vorpal).
 
 <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#npi" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>Node Package Integration</span>
@@ -307,13 +307,13 @@ The [reach](https://github.com/reach-sh/reach-lang/blob/master/reach) script exp
 
 This section helps you explore standard and atomic units using the [JavaScript Standard Library](/en/books/essentials/support-for-js-frontends/). Regarding tokens, each consensus network has a (divisible) standard unit and an (indivisible) atomic unit. Users usually want to see standard units. A smart contract, on the other hand, *always* deals with atomic units. So, your DApp needs to convert between the two frequently. `parseCurrency` converts from standard to atomic. `formatCurrency` converts from atomic to standard. 
 
-1. Find the following line in *index.mjs*:
+1. In *index.mjs*, find the following line:
 
     ``` js nonum
     console.log(`The consensus network is ${stdlib.connector}.`);
     ```
 
-1. Append the following, and run your DApp as seller to view the standard and atomic units for your network:
+1. Add the following below it, and run your DApp as the seller to view the standard and atomic units for your network:
 
     ``` js nonum
     console.log(`The standard unit is ${stdlib.standardUnit}`);
@@ -374,14 +374,14 @@ This section helps you explore standard and atomic units using the [JavaScript S
 
     You use `iBalance` and `showBalance` in the next steps.
 
-1. Find and replace Line 1 (below) with Line 2 in *index.mjs* to utilize `iBalance`:
+1. In *index.mjs*, find and replace Line 1 (below) with Line 2 to utilize `iBalance`:
 
     ``` js
     const acc = await stdlib.newTestAccount(stdlib.parseCurrency(1000));
     const acc = await stdlib.newTestAccount(iBalance);
     ```
 
-1. Insert `showBalance` (as shown below) to show the account balance before and after contract deployment, and run again:
+1. In *index.mjs*, insert `showBalance` (as shown below) to show the account balance before and after contract deployment, and run again:
 
     ``` js nonum
     const acc = await stdlib.newTestAccount(stdlib.parseCurrency(1000));
@@ -400,11 +400,11 @@ This section helps you explore standard and atomic units using the [JavaScript S
     Your balance is 1000 ALGO.
     ```
 
-    Soon, the second balance will reflect the results of transactions and network usage.
+    The second balance is now poised to reflect the results of the transactions you will implement below.
 
-# Get contract info (seller)
+# Deploy the contract (seller)
 
-This section shows you how to have the seller (1) deploy the contract and (2) return the contract information used (later) by the buyer to identify and attach to the contract. Contract information format varies depending on the consensus network. Here are examples:
+This section shows you how to have the seller (1) deploy the contract and (2) return the contract information used later by the buyer to attach to the contract. The format of contract information varies depending on the consensus network. Here are examples:
 
 |Conensus Network|Contract Information Example|
 |-|-|
@@ -414,7 +414,7 @@ This section shows you how to have the seller (1) deploy the contract and (2) re
 
 Be sure to include the quotation marks (if present) when you copy & paste contract information from the Seller Terminal to the Buyer Terminal.
 
-1. Find the following line in *index.mjs*:
+1. In *index.mjs*, find the following line:
 
     ``` js nonum
     const sellerInteract = { ...commonInteract };
@@ -433,23 +433,28 @@ Be sure to include the quotation marks (if present) when you copy & paste contra
     };
     ```
 
-1. Find the following line in *index.rsh*:
+1. In *index.rsh*, find the following line:
 
     ``` js nonum
     const sellerInteract = { ...commonInteract };
     ```
 
-1. Replace it with the following:
+1. Replace it with the following Reach code:
 
-    ``` js nonum
+    ``` js
     const sellerInteract = {
       ...commonInteract,
       price: UInt,
       reportReady: Fun([UInt], Null),
     };
     ```
+    
+    * Line 1: `sellerInteract` is a user-defined Reach object.
+    * Line 2: The spread syntax `...` adds all `commonInteract` properties (none yet) to the object.
+    * Line 3: `price ` is a `UInt`, a Reach-defined unsigned integer. 
+    * Line 4: `reportReady` is a function that takes a `UInt` as an argument and returns nothing.
 
-1. Add Lines 3-6 for the seller in *index.rsh*, and run your DApp as the seller:
+1. In *index.rsh*, add Lines 3-6, and run your DApp as the seller:
 
     ``` js
     deploy();
@@ -462,6 +467,15 @@ Be sure to include the quotation marks (if present) when you copy & paste contra
     exit();
     ```
 
+    * Line 1: `deploy` initializes the DApp, and transitions to a step.
+    * Line 3: `S.only()` transitions to a local step in which seller gets `price`.
+    * Line 4: `S.publish()` transitions to a consensus step.
+    * Line 5: `S.interact` transitions to a local step in which seller passes `price` to frontend.
+    * Line 6: `commit()` transitions to a step.
+    * Line 8: `exit()` halts the contract forever.
+
+    The next section includes an Information Button about the Reach programming language.
+
     Output should resemble the following:
 
     ``` nonum
@@ -473,9 +487,9 @@ Be sure to include the quotation marks (if present) when you copy & paste contra
     Your balance is 999.996 ALGO.
     ```
 
-    The seller creates the contract, retrieves contract information, and makes it available to the buyer who uses it to find smart contract.
+    The seller creates the contract, retrieves the contract information, and makes it available to the buyer who will (shortly) use the information to attach to the contract. Note that simply deploying the contract cost the seller gas.
 
-Interact objects facilitate communication between the frontend (i.e. `index.mjs`) and backend (i.e. `index.main.mjs`) of Reach applications. Recall that `index.rsh` is the pre-compiled version of `index.main.mjs`.
+The interact objects introduced in this section facilitate communication between the frontend (e.g. `index.mjs`) and backend (e.g. `index.main.mjs`) of Reach applications, remembering that `index.rsh` is the pre-compiled version of `index.main.mjs`.
 
 <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#aio" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>About Interact Objects</span>
@@ -488,56 +502,54 @@ Not done yet.
 <hr style="background-color:#6c757d;opacity:1;height:5px;"/>
 </span>
 
-# Use contract info (buyer)
+# Attach to the contract (buyer)
 
-START WORKING HERE.
+This section shows you how to have the buyer attach to the contact.
 
-This section shows you how to facilitate communication (for the buyer) between the frontend and backend of your DApp using interact objects.
+1. In *index.mjs*, find the following line:
 
-1. Add an interact object and supporting code to *index.mjs* for the buyer:
-
-    ``` js
-    // BUYER
-    else {
-
-      // BUYER INTERACT
-      const buyerInteract = {
-        confirmPurchase: async (price) => await ask(`Do you want to purchase wisdom for ${toSU(price)} ${suStr} (y/n)?`, yesno)
-      };
-
-      const acc = await stdlib.newTestAccount(iBalance);
-      const info = await ask('Paste contract info:', (s) => JSON.parse(s));
-      const ctc = acc.attach(backend, info);
-      await showBalance(acc);
-      await backend.Buyer(ctc, buyerInteract);
-      await showBalance(acc);
-    }
+    ``` js nonum
+    const buyerInteract = { ...commonInteract };
     ```
 
-1. Add a corresponding interact object to *index.rsh* (under `sellerInteract`) for the buyer:
+1. Replace it with the following:
 
-    ``` js
-    // BUYER INTERACT
+    ``` js nonum
     const buyerInteract = {
+      ...commonInteract,
+      confirmPurchase: async (price) => await ask(`Do you want to purchase wisdom for ${toSU(price)} ${suStr} (y/n)?`, yesno)
+    };
+
+    const acc = await stdlib.newTestAccount(iBalance);
+    const info = await ask('Paste contract info:', (s) => JSON.parse(s));
+    const ctc = acc.attach(backend, info);
+    await showBalance(acc);
+    await backend.Buyer(ctc, buyerInteract);
+    await showBalance(acc);
+    ```
+
+1. In *index.rsh*, find the following line:
+
+    ``` js nonum
+    const buyerInteract = { ...commonInteract };
+    ```
+
+1. Replace it with the following:
+
+    ``` js nonum
+    const buyerInteract = {
+      ...commonInteract,
       confirmPurchase: Fun([UInt], Bool)
     };
     ```
 
-1. Find Line 1 below and change it to Line 2:
+1. In *index.rsh*, add the following before `exit()`, and run your DApp as both the seller and the buyer:
 
-    ``` js
-    const S = Participant('Buyer', {});
-    const S = Participant('Buyer', buyerInteract);
-    ```
-
-1. Add actions for buyer in *index.rsh*:
-
-    ``` js
+    ``` js nonum
     B.only(() => {
       const willBuy = declassify(interact.confirmPurchase(price));
     });
     B.publish(willBuy);
-
     if (!willBuy) {
       commit();
     } else {
@@ -545,22 +557,57 @@ This section shows you how to facilitate communication (for the buyer) between t
     }
     ```
 
+    Output should resemble the following:
+
+    <div class="row gx-3">
+    <div class="col-12 col-lg-auto">
+
+    ``` nonum
+    Your role is seller.
+    The consensus network is ALGO.
+    Your balance is 1000 ALGO.
+    Your wisdom is for sale at 5 ALGO.
+    Contract info: 23
+    Your balance is 999.997 ALGO.
+    ```
+
+    </div>
+    <div class="col-12 col-lg-auto">
+
+    ``` nonum
+    Your role is buyer.
+    The consensus network is ALGO.
+    Paste contract info:
+    23
+    Your balance is 1000 ALGO.
+    Do you want to purchase wisdom for 5 ALGO (y/n)?
+    n
+    Your balance is 999.998 ALGO.
+    ```
+
+    </div>
+    </div>
+
+<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#atrl" aria-expanded="false">
+  <i class="fas fa-info-circle me-2"></i><span>About the Reach Language</span>
+</button>
+
+<span class="collapse" id="atrl">
+
+Not done yet.
+
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+</span>
+
+# Next
+
 1. Run the app in the Seller and Buyer Terminals. Provide the contract info to the buyer when prompted. Answer `y` or `n` when asked whether to buy wisdom.
 
 The seller creates the contract, retrieves a contract reference in the form of contract info, and makes the info available to the buyer who uses it to find and run the smart contract.
 
 Each Reach backend action (e.g. `declassify(interact.price)`) takes place within the context of a *local step*, *step*, or *consensus step*. Actions involving one participant take place within a *local step*. Those involving all participants take place within a *step*. Those involving the contract itself take place within a *consensus step*. 
 
-<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#as" aria-expanded="false">
-  <i class="fas fa-info-circle me-2"></i><span>About Steps</span>
-</button>
 
-<span class="collapse" id="as">
-
-Not done yet.
-
-<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
-</span>
 
 # Add common interact objects
 
