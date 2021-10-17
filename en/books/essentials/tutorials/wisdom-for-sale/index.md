@@ -4,7 +4,7 @@ menuItem: mi-docs
 
 # Wisdom for Sale
 
-This tutorial introduces you to Reach DApp development and prepares you for more advanced Reach tutorials and projects. It is primarily task-based, but it includes several Information Buttons that you can click to learn more. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) before proceeding.
+This tutorial introduces you to Reach DApp development and prepares you for more advanced Reach tutorials and projects. Primarily tasked-based, the tutorial also includes several information buttons that you can click to learn more. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) and [Development Environment](/en/books/essentials/developer-environment/) before proceeding.
 
 # Overview
 
@@ -77,7 +77,7 @@ This section shows you how to clone the tutorial repository. Be sure to complete
 load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.mjs
 ```
 
-Below is a line-by-line description:
+Below is a line-by-line description of this JavaScript code:
 
 * Line 1: Import the Reach JS Standard Library loader.
 * Line 2: Import the JS backend compiled from index.rsh.
@@ -103,7 +103,7 @@ Below is a line-by-line description:
 load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.rsh
 ```
 
-Below is a line-by-line description:
+Below is a line-by-line description of this Reach code:
 
 * Line 1: Instruction to the compiler.
 * Lines 3-5: Define empty (for now) objects.
@@ -381,7 +381,7 @@ This section helps you explore standard and atomic units using the [JavaScript S
     const acc = await stdlib.newTestAccount(iBalance);
     ```
 
-1. In *index.mjs*, insert `showBalance` (as shown below) to show the account balance before and after contract deployment, and run again:
+1. In *index.mjs*, insert `showBalance` in two places (as shown below) to show the account balance before and after contract deployment:
 
     ``` js nonum
     const acc = await stdlib.newTestAccount(stdlib.parseCurrency(1000));
@@ -391,7 +391,7 @@ This section helps you explore standard and atomic units using the [JavaScript S
     await showBalance(acc);
     ```
 
-    Output should resemble the following:
+1. Run your DApp again. Output should resemble the following:
 
     ``` nonum
     Your role is seller.
@@ -433,6 +433,8 @@ Be sure to include the quotation marks (if present) when you copy & paste contra
     };
     ```
 
+    You add a `wisdom` property to the `sellerInteract` later in the tutorial.
+
 1. In *index.rsh*, find the following line:
 
     ``` js nonum
@@ -454,7 +456,7 @@ Be sure to include the quotation marks (if present) when you copy & paste contra
     * Line 3: `price ` is a `UInt`, a Reach-defined unsigned integer. 
     * Line 4: `reportReady` is a function that takes a `UInt` as an argument and returns nothing.
 
-1. In *index.rsh*, add Lines 3-6, and run your DApp as the seller:
+1. In *index.rsh*, add Lines 3-6:
 
     ``` js
     deploy();
@@ -474,9 +476,9 @@ Be sure to include the quotation marks (if present) when you copy & paste contra
     * Line 6: `commit()` transitions to a step.
     * Line 8: `exit()` halts the contract forever.
 
-    The next section includes an Information Button about the Reach programming language.
+    The next section includes an information button about the Reach programming language.
 
-    Output should resemble the following:
+1. Run your DApp as the seller. Output should resemble the following:
 
     ``` nonum
     Your role is seller.
@@ -514,10 +516,10 @@ This section shows you how to have the buyer attach to the contact.
 
 1. Replace it with the following:
 
-    ``` js nonum
+    ``` js
     const buyerInteract = {
       ...commonInteract,
-      confirmPurchase: async (price) => await ask(`Do you want to purchase wisdom for ${toSU(price)} ${suStr} (y/n)?`, yesno)
+      confirmPurchase: async (price) => await ask(`Do you want to purchase wisdom for ${toSU(price)} ${suStr}?`, yesno)
     };
 
     const acc = await stdlib.newTestAccount(iBalance);
@@ -528,27 +530,32 @@ This section shows you how to have the buyer attach to the contact.
     await showBalance(acc);
     ```
 
+    * Line 3: `ask` and `yesno` are functions in `@reach-sh/stdlib/ask.mjs`. `yesno` accepts only `y` or `n`.
+    * Line 7: You must parse contract information (so, it must be parsable).
+
 1. In *index.rsh*, find the following line:
 
     ``` js nonum
     const buyerInteract = { ...commonInteract };
     ```
 
-1. Replace it with the following:
+1. Replace it with the following Reach code:
 
-    ``` js nonum
+    ``` js
     const buyerInteract = {
       ...commonInteract,
       confirmPurchase: Fun([UInt], Bool)
     };
     ```
 
-1. In *index.rsh*, add the following before `exit()`, and run your DApp as both the seller and the buyer:
+    * Line 1: `buyerInteract` is a user-defined Reach object.
+    * Line 2: The spread syntax `...` adds all `commonInteract` properties (none yet) to the object.
+    * Line 3: `confirmPurchase` is a function that takes a `UInt` and returns a `Bool`.
 
-    ``` js nonum
-    B.only(() => {
-      const willBuy = declassify(interact.confirmPurchase(price));
-    });
+1. In *index.rsh*, add the following before `exit()`:
+
+    ``` js
+    B.only(() => { const willBuy = declassify(interact.confirmPurchase(price)); });
     B.publish(willBuy);
     if (!willBuy) {
       commit();
@@ -557,7 +564,13 @@ This section shows you how to have the buyer attach to the contact.
     }
     ```
 
-    Output should resemble the following:
+    * Line 1: `confirmPurchase` passes `price` and returns `true` or `false` from frontend.
+    * Line 2: `S.publish()` transitions to a consensus step.
+    * Line 4: `commit()` transitions to a step.
+
+    The bottom of this section includes an information button about the Reach programming language.
+
+1. Run your DApp as both the seller and the buyer. Output should resemble the following:
 
     <div class="row gx-3">
     <div class="col-12 col-lg-auto">
@@ -580,7 +593,7 @@ This section shows you how to have the buyer attach to the contact.
     Paste contract info:
     23
     Your balance is 1000 ALGO.
-    Do you want to purchase wisdom for 5 ALGO (y/n)?
+    Do you want to purchase wisdom for 5 ALGO?
     n
     Your balance is 999.998 ALGO.
     ```
@@ -588,8 +601,10 @@ This section shows you how to have the buyer attach to the contact.
     </div>
     </div>
 
+Reach programs are state machines. States include *step*, *local step*, and *consensus step*. State transitions include *deploy*, *publish*, *commit*, etc. Click the button to learn more.
+
 <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#atrl" aria-expanded="false">
-  <i class="fas fa-info-circle me-2"></i><span>About the Reach Language</span>
+  <i class="fas fa-info-circle me-2"></i><span>About the Reach Programming Language</span>
 </button>
 
 <span class="collapse" id="atrl">
@@ -599,61 +614,39 @@ Not done yet.
 <hr style="background-color:#6c757d;opacity:1;height:5px;"/>
 </span>
 
-# Next
+# Cancel a transaction
 
-1. Run the app in the Seller and Buyer Terminals. Provide the contract info to the buyer when prompted. Answer `y` or `n` when asked whether to buy wisdom.
+This section shows you how to cancel a transaction.
 
-The seller creates the contract, retrieves a contract reference in the form of contract info, and makes the info available to the buyer who uses it to find and run the smart contract.
+1. In *index.mjs*, find the following line:
 
-Each Reach backend action (e.g. `declassify(interact.price)`) takes place within the context of a *local step*, *step*, or *consensus step*. Actions involving one participant take place within a *local step*. Those involving all participants take place within a *step*. Those involving the contract itself take place within a *consensus step*. 
-
-
-
-# Add common interact objects
-
-1. Add a common interact object to *index.mjs*, shared by the seller and buyer:
-
-    ``` js
-    // COMMON INTERACT
-    const commonInteract = {
-      reportCancellation: () => { console.log('The buyer cancelled the order.'); }
-    };
+    ``` js nonum
+    const commonInteract = {};
     ```
 
-1. Add the `...commonInteract` object to `sellerInteract` and `buyerInteract` in *index.mjs*:
+1. Replace it with the following:
 
-    ``` js
-    const sellerInteract = {
-      ...commonInteract,
-    };
-
-    const buyerInteract = {
-      ...commonInteract,
-    };
+    ``` js nonum
+      const commonInteract = {
+        reportCancellation: () => { console.log(`The buyer cancelled the order.`); }
+      };
     ```
 
-1. Add a common interact object to *index.rsh*:
+1. In *index.rsh*, find the following line:
 
-    ``` js
-    // COMMON INTERACT
+    ``` js nonum
+    const commonInteract = {};
+    ```
+
+1. Replace it with the following:
+
+    ``` js nonum
     const commonInteract = {
       reportCancellation: Fun([], Null)
     };
     ```
 
-1. Add the `...commonInteract` object to `sellerInteract` and `buyerInteract` in *index.rsh*:
-
-    ``` js
-    const sellerInteract = {
-      ...commonInteract
-    };
-
-    const buyerInteract = {
-      ...commonInteract
-    };
-    ```
-
-1. Report cancellation in *index.rsh*:
+1. In *index.rsh*, add Lines 3 and 4 to existing code:
 
     ``` js
     if (!willBuy) {
@@ -665,23 +658,40 @@ Each Reach backend action (e.g. `declassify(interact.price)`) takes place within
     }
     ```
 
-1. Run the app in the Seller and Buyer Terminals. Answer `n` when asked whether to buy wisdom. Both terminals should display the following output:
+1. Run your DApp as both the seller and the buyer. Answer `n` when asked to buy wisdom. Output should include the following:
+
+    <div class="row gx-3">
+    <div class="col-12 col-lg-auto">
 
     ``` nonum
+    Your role is seller.
     The buyer cancelled the order.
     ```
 
-1. Modify `commonInteract` in *index.mjs* to accept and use a `role` argument:
+    </div>
+    <div class="col-12 col-lg-auto">
 
-    ``` js
+    ``` nonum
+    Your role is buyer.
+    The buyer cancelled the order.
+    ```
+
+    </div>
+    </div>
+
+    In the Buyer Terminal, it might be more consistent to output *You cancelled the order* instead of *The buyer cancelled the order*. The following steps implement this slight change.
+
+1. In *index.mjs*, modify commonInteract:
+
+    ``` js nonum
     const commonInteract = (role) => ({
       reportCancellation: () => { console.log(`${role == 'buyer' ? 'You' : 'The buyer'} cancelled the order.`); }
     });
     ```
 
-1. Modify `sellerInteract` and `buyerInteract` in *index.mjs* to pass `role` to *commonInteract*:
+1. In *index.mjs*, modify `sellerInteract` and `buyerInteract` to pass `role` to *commonInteract*:
 
-    ```
+    ``` js nonum
     const sellerInteract = {
       ...commonInteract(role),
     }
@@ -691,50 +701,162 @@ Each Reach backend action (e.g. `declassify(interact.price)`) takes place within
     }
     ```
 
-1. Retest. The app (running as the buyer) should output the following:
+1. Rerun you DApp. Now, buyer output should include *You cancelled the order*:
 
+    <div class="row gx-3">
+    <div class="col-12 col-lg-auto">
+
+    ``` nonum
+    Your role is seller.
+    The buyer cancelled the order.
     ```
+
+    </div>
+    <div class="col-12 col-lg-auto">
+
+    ``` nonum
+    Your role is buyer.
     You cancelled the order.
     ```
 
-# Complete the transaction
+    </div>
+    </div>
 
-1. Modify `commonInteract` in *index.mjs*:
+# Complete a transaction
 
-    ``` js
-    const commonInteract = (role) => ({
-      reportPayment: (payment) => console.log(`${role == 'buyer' ? 'You' : 'The buyer'} paid ${toSU(payment)} ${suStr} to the contract.`),
-      reportTransfer: (payment) => console.log(`The contract paid ${toSU(payment)} ${suStr} to ${role == 'seller' ? 'you' : 'the seller'}.`),
-      reportCancellation: () => { console.log(`${role == 'buyer' ? 'You' : 'The buyer'} cancelled the order.`); }
-    });
+This section shows you how to get wisdom from the seller on the frontend, and swap it for tokens on the backend.
+
+1. In *index.mjs*, add a `wisdom` property to `sellerInteract`:
+
+    ``` js nonum
+    wisdom: await ask('Enter a wise phrase, or press Enter to use a default wise phrase:', (s) => {
+      let w = !s ? 'Scatter sunshine.' : s;
+      if (!s) { console.log(w); }
+      return w;
+    }),
     ```
 
-1. Modify `commonInteract` in *index.rsh*:
+    This code prompts the seller for wisdom *before* the seller deploys the contract.
 
-    ``` js
-    const commonInteract = {
-      reportPayment: Fun([UInt], Null),
-      reportTransfer: Fun([UInt], Null),
-      reportCancellation: Fun([], Null)
-    };
+1. Run your DApp as the seller to test the new input mechanism. You can Ctrl-C to exit.
+
+1. In *index.rsh*, add a *wisdom* property to *sellerInteract*:
+
+    ``` js nonum
+    wisdom: Bytes(128)
     ```
 
-1. Add pay and transfer steps in *index.rsh*:
+1. In *index.rsh*, add the following before *exit()*:
 
-    ``` js
+    ``` js 
+      S.only(() => { const wisdom = declassify(interact.wisdom); });
+      S.publish(wisdom);
+      commit();
+
+      B.pay(price);
+      transfer(price).to(S);
+      commit();
+    ```
+
+    * Lines 1-3: Retrieve wisdom from frontend. 
+    * Line 5: The buyer pays the contract.
+    * Line 6: The contract pays the seller.
+
+1. Run your DApp as the seller and the buyer. Answer `y` when asked to buy wisdom. Output should resemble the following:
+
+    <div class="row gx-3">
+    <div class="col-12 col-lg-auto">
+
+    ``` nonum
+    Your role is seller.
+    The consensus network is ALGO.
+    Enter a wise phrase, or press Enter for default:
+    Scatter sunshine.
+    Your balance is 1000 ALGO.
+    Your wisdom is for sale at 5 ALGO.
+    Contract info: 100
+    Your balance is 1004.996 ALGO.
+    ```
+
+    </div>
+    <div class="col-12 col-lg-auto">
+
+    ``` nonum
+    Your role is buyer.
+    The consensus network is ALGO.
+    Paste contract info:
+    100
+    Your balance is 1000 ALGO.
+    Do you want to purchase wisdom for 5 ALGO?
+    y
+    Your balance is 994.995 ALGO.
+    ```
+
+    </div>
+    </div>
+
+    The buyer still needs to acquire the wisdom. And, it might be nice to inform the seller and the buyer when the `pay` and `transfer` actions take place. The next steps add these improvements.
+
+1. In *index.mjs*, add `reportPayment` and `reportTransfer` to `commonInteract`:
+
+    ``` js nonum
+    reportPayment: (payment) => console.log(`${role == 'buyer' ? 'You' : 'The buyer'} paid ${toSU(payment)} ${suStr} to the contract.`),
+    reportTransfer: (payment) => console.log(`The contract paid ${toSU(payment)} ${suStr} to ${role == 'seller' ? 'you' : 'the seller'}.`)
+    ```
+
+1. In *index.rsh*, add the same properties to `commonInteract`:
+
+    ``` js nonum
+    reportPayment: Fun([UInt], Null),
+    reportTransfer: Fun([UInt], Null)
+    ```
+
+1. In *index.rsh*, add (to existing code) calls to `reportPayment` and `reportTransfer`:
+
+    ``` js nonum
     B.pay(price);
     each([S, B], () => interact.reportPayment(price));
-    commit();
-
-    S.only(() => { const wisdom = declassify(interact.wisdom); });
-    S.publish(wisdom);
     transfer(price).to(S);
-    commit();
-
     each([S, B], () => interact.reportTransfer(price));
-    B.interact.reportWisdom(wisdom);
+    commit();
     ```
 
-1. Test.
+1. Run your DApp as the seller and the buyer. Answer `y` when asked to buy wisdom. Output should resemble the following:
+
+    <div class="row gx-3">
+    <div class="col-12 col-lg-auto">
+
+    ``` nonum
+    Your role is seller.
+    The consensus network is ALGO.
+    Enter a wise phrase, or press Enter for default:
+    
+    Scatter sunshine.
+    Your balance is 1000 ALGO.
+    Your wisdom is for sale at 5 ALGO.
+    Contract info: 111
+    The buyer paid 5 ALGO to the contract.
+    The contract paid 5 ALGO to you.
+    Your balance is 1004.9969 ALGO.
+    ```
+
+    </div>
+    <div class="col-12 col-lg-auto">
+
+    ``` nonum
+    Your role is buyer.
+    The consensus network is ALGO.
+    Paste contract info:
+    111
+    Your balance is 1000 ALGO.
+    Do you want to purchase wisdom for 5 ALGO?
+    y
+    You paid 5 ALGO to the contract.
+    The contract paid 5 ALGO to the seller.
+    Your balance is 994.996 ALGO.
+    ```
+
+    </div>
+    </div>
 
 # Create the webapp
