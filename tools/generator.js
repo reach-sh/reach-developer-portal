@@ -67,7 +67,7 @@ const argv = yargs(process.argv.slice(2))
     alias: 'r',
     describe: 'Add refresh button to page.',
     type: 'boolean',
-    default: true
+    default: false
   })
   .option('type', {
     alias: 't',

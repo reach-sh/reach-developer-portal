@@ -104,6 +104,7 @@ window.addEventListener('resize', () => {
 ************************************************************************************************/
 
 const getWebpage = async (folder, hash, updateHistory) => {
+  console.log('getWebpage');
 
   folder = folder == '/' || folder == `/${lang}/` ? homepage : folder;
   const url = `${window.location.origin}${folder}`;
@@ -322,19 +323,20 @@ const getWebpage = async (folder, hash, updateHistory) => {
 ************************************************************************************************/
 
 const followLink = async (href) => {
+  console.log('followLink');
   let a = document.createElement('a');
   a.href = href;
 
-  console.log(a.pathname);
-  console.log(a.hash);
+  //console.log(a.pathname);
+  //if(a.hash) {console.log(a.hash)};
 
   if (a.hostname === window.location.hostname) {
     if (currentPage.folder == a.pathname && a.hash) {
       if (a.hash === '#on-this-page') {
-        history.pushState(null, null, currentPage.folder);
+        window.history.pushState(null, null, currentPage.folder);
         document.getElementById('page-col').scrollTo(0, 0);
       } else {
-        history.pushState(null, null, a.hash);
+        window.history.pushState(null, null, a.hash);
         document.getElementById(a.hash.substring(1)).scrollIntoView();
       }
     }

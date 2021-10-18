@@ -81,21 +81,19 @@ Below is a line-by-line description of this JavaScript code:
 
 * Line 1: Import the Reach JS Standard Library loader.
 * Line 2: Import the JS backend compiled from index.rsh.
-* Line 3: Import a Reach Node.js package to help with command-line i/o.
-* Line 5: Hard-code the role. You will change this later.
-* Line 6: Display the role.
-* Line 8: Load the Reach JS Stdlib for the consensus network specified by `REACH_CONNECTOR_MODE` env var.
-* Line 9: Display the consensus network type.
-* Line 11: Enable enclosed code to await the fulfillment of promises.
-* Line 13: Define empty (for now) object.
-* Line 16: Code for when you run this app as the seller.
-* Line 17: Define empty (for now) object.
-* Line 19: Create an account for the seller. *parseCurrency* transforms units from standard to atomic.
-* Line 20: Get a reference to the contract.
-* Line 21: Initiate interaction with contract for seller.
-* Line 25: Code for when you run this app as the buyer.
-* Line 26: Define empty (for now) object.
-* Line 29: Call process.exit(0).
+* Line 4: Hard-code the role. You will change this later.
+* Line 5: Display the role.
+* Line 7: Load the Reach JS Stdlib for the consensus network specified by `REACH_CONNECTOR_MODE` env var.
+* Line 8: Display the consensus network type.
+* Line 10: Enable enclosed code to await the fulfillment of promises.
+* Line 12: Define empty (for now) object.
+* Line 15: Code for when you run this app as the seller.
+* Line 16: Define empty (for now) object.
+* Line 18: Create an account for the seller. *parseCurrency* transforms units from standard to atomic.
+* Line 19: Get a reference to the contract.
+* Line 20: Initiate interaction with contract for seller.
+* Line 24: Code for when you run this app as the buyer.
+* Line 25: Define empty (for now) object.
 
 **index.rsh**
 
@@ -228,7 +226,7 @@ Below is a line-by-line description:
 <hr style="background-color:#6c757d;opacity:1;height:5px;"/>
 </span>
 
-# Pass role as argument
+# Pass a role argument
 
 This section shows you how to modify the starter app to accept a command-line argument specifying whether to run as the seller or buyer. Although this change does not involve Reach directly, it does emphasize that your application represents two different participants negotiating via the same contract.
 
@@ -404,7 +402,7 @@ This section helps you explore standard and atomic units using the [JavaScript S
 
 # Deploy the contract (seller)
 
-This section shows you how to have the seller (1) deploy the contract and (2) return the contract information used later by the buyer to attach to the contract. The format of contract information varies depending on the consensus network. Here are examples:
+This section shows you how to have the seller (1) deploy the contract and (2) return the contract information to be used later by the buyer to attach to the contract. The format of contract information varies depending on the consensus network. Here are examples:
 
 |Conensus Network|Contract Information Example|
 |-|-|
@@ -412,7 +410,20 @@ This section shows you how to have the seller (1) deploy the contract and (2) re
 |Conflux|`"NET999:TYPE.CONTRACT:ACDWGDGH6DKDAJ528Y5CCWMX8NBVPHXU72S3FPF8CY"`|
 |Ethereum|`"0x403372276F841d7451E6417Cc7B17fDD159FE34C"`|
 
-Be sure to include the quotation marks (if present) when you copy & paste contract information from the Seller Terminal to the Buyer Terminal.
+In this tutorial, the seller outputs the contract information to the Seller Terminal, and the buyer copies & pastes the contract information from the Seller Terminal to the Buyer Terminal (including the quotation marks if persent). In real life, the seller would need to search for a contract name and its associated contract information in some repository. 
+
+<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#fsci" aria-expanded="false">
+  <i class="fas fa-info-circle me-2"></i><span>Storing and Finding Contract Information</span>
+</button>
+
+<span class="collapse" id="fsci">
+
+Not done yet.
+
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+</span>
+
+Follow these directions to have the seller deploy the contract and return the contract information:
 
 1. In *index.mjs*, find the following line:
 
@@ -491,7 +502,7 @@ Be sure to include the quotation marks (if present) when you copy & paste contra
 
     The seller creates the contract, retrieves the contract information, and makes it available to the buyer who will (shortly) use the information to attach to the contract. Note that simply deploying the contract cost the seller gas.
 
-The interact objects introduced in this section facilitate communication between the frontend (e.g. `index.mjs`) and backend (e.g. `index.main.mjs`) of Reach applications, remembering that `index.rsh` is the pre-compiled version of `index.main.mjs`.
+The interact objects introduced in this section facilitate communication between the frontend (e.g. `index.mjs`) and backend (e.g. `index.main.mjs`) of Reach applications, (remembering that `index.rsh` is the pre-compiled version of `index.main.mjs`).
 
 <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#aio" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>About Interact Objects</span>
@@ -506,7 +517,15 @@ Not done yet.
 
 # Attach to the contract (buyer)
 
-This section shows you how to have the buyer attach to the contact.
+This section shows you how to have the buyer attach to the contact. It also introduces *@reach-sh/stdlib/ask.mjs*, a minimal Reach Node.js package for command-line input.
+
+1. In *index.mjs*, add the following near the top of the file:
+
+    ``` js nonum
+    import { ask, yesno, done } from '@reach-sh/stdlib/ask.mjs';
+    ```
+
+1. And, add `done();` just before `})();` at the bottom of the file. 
 
 1. In *index.mjs*, find the following line:
 
@@ -730,7 +749,7 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
 
     ``` js nonum
     wisdom: await ask('Enter a wise phrase, or press Enter to use a default wise phrase:', (s) => {
-      let w = !s ? 'Scatter sunshine.' : s;
+      let w = !s ? 'Build health community.' : s;
       if (!s) { console.log(w); }
       return w;
     }),
@@ -771,7 +790,7 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     Your role is seller.
     The consensus network is ALGO.
     Enter a wise phrase, or press Enter for default:
-    Scatter sunshine.
+    Build health community.
     Your balance is 1000 ALGO.
     Your wisdom is for sale at 5 ALGO.
     Contract info: 100
@@ -821,6 +840,8 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     commit();
     ```
 
+    The buyer pays `price` to the contract which transfers `price` to the seller.
+
 1. Run your DApp as the seller and the buyer. Answer `y` when asked to buy wisdom. Output should resemble the following:
 
     <div class="row gx-3">
@@ -831,7 +852,7 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     The consensus network is ALGO.
     Enter a wise phrase, or press Enter for default:
     
-    Scatter sunshine.
+    Build health community.
     Your balance is 1000 ALGO.
     Your wisdom is for sale at 5 ALGO.
     Contract info: 111
@@ -859,4 +880,4 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     </div>
     </div>
 
-# Create the webapp
+# Create a webapp
