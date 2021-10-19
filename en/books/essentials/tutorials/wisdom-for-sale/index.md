@@ -881,3 +881,23 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     </div>
 
 # Create a webapp
+
+https://www.npmjs.com/package/@reach-sh/stdlib
+
+<script src="https://cdn.jsdelivr.net/npm/@reach-sh/stdlib@latest/dist/browser/reachsdk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reach-sh/stdlib@0.1.5-rc.1/dist/browser/reachsdk.min.js"></script>
+
+```
+$ export REACH_CONNECTOR_MODE=ALGO-devnet
+$ export REACH_CONNECTOR_MODE=ETH-devnet
+$ reach devnet
+```
+
+```
+$ cd solutions
+$ http-server -c-1
+```
+
+How is this webapp unrealistic?
+
+Often the seller deploys a contract and then exits. 
