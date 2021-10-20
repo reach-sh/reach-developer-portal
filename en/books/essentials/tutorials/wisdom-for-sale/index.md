@@ -880,24 +880,143 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     </div>
     </div>
 
-# Create a webapp
+# View the contract
 
-https://www.npmjs.com/package/@reach-sh/stdlib
+This section shows you how to have the buyer (before attaching) peek into the deployed contract to view the price, and explains why viewing declassified contract data before attaching is sometimes necessary.
 
-<script src="https://cdn.jsdelivr.net/npm/@reach-sh/stdlib@latest/dist/browser/reachsdk.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@reach-sh/stdlib@0.1.5-rc.1/dist/browser/reachsdk.min.js"></script>
+Below is the *index.mjs* version of `confirmPurchase` from the `buyerInteract` object:
 
-```
-$ export REACH_CONNECTOR_MODE=ALGO-devnet
-$ export REACH_CONNECTOR_MODE=ETH-devnet
-$ reach devnet
+``` js nonum
+confirmPurchase: async (price) => await ask(`Do you want to purchase wisdom for ${toSU(price)} ${suStr}?`, yesno),
 ```
 
-```
-$ cd solutions
-$ http-server -c-1
+The backend calls the function (passing `price`), and the frontend displays `price` to the buyer, asks for a decision, waits for the answer, and returns `true` or `false` to the backend. Effective for a command-line app, this approach doesn't work as well for a webapp which might use a modal in place of `ask-yesno`:
+
+<div><img src="modal.png" class="img-fluid my-4 d-block" width=400 loading="lazy"></div>
+
+Using Bootstrap as a example, here is how to display a modal:
+
+``` js nonum
+const modal = new bootstrap.Modal(document.getElementById('confirm-modal'), {})
+modal.show();
 ```
 
-How is this webapp unrealistic?
+Note that `modal.show()` does not display the modal and wait for an answer. Rather, it returns immediately to the caller (before the modal appears), and, to get the answer, the application listens (asynchronously) for *Yes* and *No* button events. So, the application cannot call `modal.show()` from within `confirmPurchase`, wait for an answer, and return `true` or `false` to the backend.
 
-Often the seller deploys a contract and then exits. 
+Instead, a webapp can do the following prior to attaching to the contract:
+
+1. Get and display the price to the buyer.
+1. Get confirmation from the buyer.
+
+Once confirmed, the webapp can attach to the contract and complete the transaction (skipping the existing `confirmPurchase` by, for now, always returning `true`). The following directions show you how to obtain `price` from the contract before attaching:
+
+1. In *index.rsh*, add Lines 4 and 10:
+
+    ``` js
+    export const main = Reach.App(() => {
+      const S = Participant('Seller', sellerInteract);
+      const B = Participant('Buyer', buyerInteract);
+      const V = View('Main', { price: UInt });
+      deploy();
+
+      S.only(() => { const price = declassify(interact.price); });
+      S.publish(price);
+      S.interact.reportReady(price);
+      V.price.set(price);
+      commit();
+    ```
+
+1. In *index.mjs*, add Lines 4 and 5 (in the Buyer section):
+
+    ``` js
+    const acc = await stdlib.newTestAccount(iBalance);
+    const info = await ask('Paste contract info:', (s) => JSON.parse(s));
+    const ctc = acc.attach(backend, info);
+    const price = await ctc.getViews().Main.price();
+    console.log(`The price of wisdom is ${price[0] == 'None' ? '0' : toSU(price[1])} ${suStr}.`);
+    await showBalance(acc);
+    await backend.Buyer(ctc, buyerInteract);
+    await showBalance(acc);
+    ```
+
+1. Run your DApp as the seller and the buyer. Buyer output should include the following:
+
+    ```
+    The price of wisdom is 5 ETH.
+    ```
+
+Using a view, the buyer is able to obtain `price` before attaching to the contract.
+
+<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#apav" aria-expanded="false">
+  <i class="fas fa-info-circle me-2"></i><span>About Participants and Views</span>
+</button>
+
+<span class="collapse" id="apav">
+
+Not done yet.
+
+<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+</span>
+
+# Examine the webapp
+
+The [wisdom-for-sale](https://github.com/hagenhaus/wisdom-for-sale) repository includes a [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)-based webapp implementation that you can inspect and modify. You need node.js and npm installed on your computer because you will need the [http-server](https://www.npmjs.com/package/http-server) package (or similar) to run the webapp. Below are directions for running and inspecting the DApp:
+
+> This webapp runs successfully on Ethereum at this point. If you get it running on Algorand or Conflux, please provide feedback or a pull request. Thank you! This section is the least complete at this point. I will add code explanations soon.
+
+1. Copy [index.html](https://github.com/hagenhaus/wisdom-for-sale/blob/master/solution/index.html) and [webapp.mjs](https://github.com/hagenhaus/wisdom-for-sale/blob/master/solution/webapp.mjs) from the solution directory to your current directory.
+
+1. Stop and remove all your Reach containers:
+
+    ```
+    $ reach down
+    ```
+
+1. Open two terminals (i.e. shells), and change directory in both to `~/reach/wisdom-for-sale/current`:
+
+    <p><img src="eth-devnet-webapp.png" class="img-fluid" width=700 loading="lazy"></p>
+
+1. In the ETH Devnet Terminal, run the following:
+
+    ``` nonum
+    $ export REACH_CONNECTOR_MODE=ETH-devnet
+    $ reach devnet
+    ```
+
+1. In the Webapp Terminal, run the following:
+
+    ``` nonum
+    $ npm i --global http-server # Install the package globally.
+    $ http-server -c-1 -p 8080   # Run the webapp
+    ```
+
+    Output should look similar to the following:
+
+    ``` nonum
+    Starting up http-server, serving ./
+
+    http-server settings: 
+    CORS: disabled
+    Cache: -1 seconds
+    Connection Timeout: 120 seconds
+    Directory Listings: visible
+    AutoIndex: visible
+    Serve GZIP Files: false
+    Serve Brotli Files: false
+    Default File Extension: none
+
+    Available on:
+      http://127.0.0.1:8080
+      http://192.168.1.4:8080
+    Hit CTRL-C to stop the server
+    ```
+
+1. Browse to the url.
+
+1. Click *Choose a DevNet*, and select *Ethereum*. The Deploy button should turn green.
+
+1. Click *Deploy*. The *Attach* button should turn green.
+
+1. Click *Attach*, and then click *Yes*. The *Reset* button should turn green.
+
+1. Click *Reset*, and try it again with a different `Price` and `Wisdom` string.
