@@ -5,7 +5,6 @@ const currentPage = {
   src: null
 };
 
-let updateOtp = false;
 const github = 'https://github.com/reach-sh/reach-developer-portal/blob/master';
 
 const pathnameToId = (pathname) => { return pathname.replace(/^\/|\/$/g, '').replace(/\//g, '_'); }
@@ -93,6 +92,83 @@ window.addEventListener('resize', () => {
     establishDisplay();
   }
 });
+
+/************************************************************************************************
+* scrollHandler
+************************************************************************************************/
+
+const scrollHandler = (event) => {
+  if (document.querySelectorAll('#otp-col li.dynamic').length == false) {
+    event.target.onscroll = null;
+  } else {
+    let found = false;
+
+    let arr = document.querySelectorAll('#page-col div.hh-viewer h1, #page-col div.hh-viewer h2');
+    if (arr.length) {
+      for (let i = arr.length - 1; i >= 0; i--) {
+        let rect = arr[i].getBoundingClientRect();
+        if (rect.y <= 80.0) {
+          found = true;
+          updateHistory(arr[i].id);
+          setOtpItemToActive(arr[i].id);
+          break;
+        }
+      }
+      if (found == false) {
+        updateHistory('on-this-page');
+        setOtpItemToActive('on-this-page');
+      }
+    }
+  }
+}
+
+/************************************************************************************************
+* scrollPage
+************************************************************************************************/
+
+const scrollPage = (id) => {
+  if (id == 'on-this-page') {
+    document.getElementById('page-col').scrollTo(0, 0);
+  }
+  else {
+    document.getElementById(id).scrollIntoView();
+  }
+}
+
+/************************************************************************************************
+* updateHistory
+************************************************************************************************/
+
+const updateHistory = (id) => {
+  if (id == 'on-this-page') {
+    window.history.pushState(null, null, `${window.location.origin}${currentPage.folder}`);
+  }
+  else {
+    window.history.pushState(null, null, `${window.location.origin}${currentPage.folder}#${id}`);
+  }
+}
+
+/************************************************************************************************
+* setOtpItemToActive
+************************************************************************************************/
+
+const setOtpItemToActive = (id) => {
+  let link = null;
+  if (id == 'on-this-page') {
+    link = document.querySelector('#otp-col ul li a[href="#on-this-page"]');
+    if (link.classList.contains('active') == false) {
+      document.querySelector('#otp-col a.active').classList.remove('active');
+      link.classList.add('active');
+    }
+  }
+  else {
+    link = document.querySelector('#otp-col ul li a[href="' + "#" + id + '"]');
+    if (link.classList.contains('active') == false) {
+      document.querySelector('#otp-col a.active').classList.remove('active');
+      link.classList.add('active');
+    }
+  }
+}
 
 /************************************************************************************************
 * getWebpage
@@ -301,17 +377,15 @@ const getWebpage = async (folder, hash, updateHistory) => {
 
     // Scroll to proper place and update history
     currentPage.folder = folder;
-    if (hash && hash !== '#on-this-page') {
-      document.getElementById(hash.substring(1)).scrollIntoView();
-      if (updateHistory) {
-        window.history.pushState(null, null, `${window.location.origin}${folder}${hash}`);
-      }
+    if (hash) {
+      scrollPage(hash.substring(1));
+      updateHistory(hash.substring(1));
+      setOtpItemToActive(hash.substring(1));
     } else {
-      document.getElementById('page-col').scrollTo(0, 0);
-      if (updateHistory) {
-        window.history.pushState('{}', '', `${window.location.origin}${folder}`);
-      }
+      scrollPage('on-this-page');
+      window.history.pushState(null, null, `${window.location.origin}${currentPage.folder}`);
     }
+
   } catch (error) {
     console.log(error);
   }
@@ -333,11 +407,13 @@ const followLink = async (href) => {
   if (a.hostname === window.location.hostname) {
     if (currentPage.folder == a.pathname && a.hash) {
       if (a.hash === '#on-this-page') {
-        window.history.pushState(null, null, currentPage.folder);
-        document.getElementById('page-col').scrollTo(0, 0);
+        scrollPage('on-this-page');
+        updateHistory('on-this-page');
+        setOtpItemToActive('on-this-page');
       } else {
-        window.history.pushState(null, null, a.hash);
-        document.getElementById(a.hash.substring(1)).scrollIntoView();
+        scrollPage(a.hash.substring(1));
+        updateHistory(a.hash.substring(1));
+        setOtpItemToActive(a.hash.substring(1));
       }
     }
     else {
@@ -437,39 +513,12 @@ document.getElementById('about-this-book').addEventListener('click', (event) => 
 /************************************************************************************************
 * onPageColScroll
 ************************************************************************************************/
-
+/*
 document.getElementById('page-col').addEventListener('scroll', function (event) {
-  if (!document.querySelectorAll('#otp-col li.dynamic').length) {
-    event.target.onscroll = null;
-  } else if (updateOtp == false) {
-    updateOtp = true;
-  } else {
-    let found = false;
-
-    let a = document.querySelectorAll('#page-col div.hh-viewer h1, #page-col div.hh-viewer h2');
-    if (a.length) {
-      for (let i = a.length - 1; i >= 0; i--) {
-        let rect = a[i].getBoundingClientRect();
-        if (rect.y <= 80.0) {
-          found = true;
-          let link = document.querySelector('#otp-col ul li a[href="' + "#" + a[i].id + '"]');
-          if (!link.classList.contains('active')) {
-            document.querySelector('#otp-col a.active').classList.remove('active');
-            link.classList.add('active');
-            window.history.pushState(null, null, `${window.location.origin}${currentPage.folder}#${a[i].id}`);
-          }
-          break;
-        }
-      }
-      if (found == false) {
-        if (!document.querySelector("#otp-col a[href='#on-this-page']").classList.contains('active')) {
-          document.querySelector('#otp-col a.active').classList.remove('active');
-          document.querySelector("#otp-col a[href='#on-this-page']").classList.add('active');
-        }
-      }
-    }
-  }
+  scrollHandler(event);
 });
+*/
+document.getElementById('page-col').addEventListener('scroll', scrollHandler);
 
 /************************************************************************************************
 * on load

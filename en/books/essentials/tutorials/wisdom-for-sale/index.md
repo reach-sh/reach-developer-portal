@@ -10,7 +10,7 @@ This tutorial introduces you to Reach DApp development and prepares you for more
 
 During this tutorial, you will build [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), an application that enables two participants, a seller and a buyer, to trade wisdom for currency via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network residing in a Docker container on your computer. Your DApp will create and fund two accounts, one for each participant. Then, it will enable the seller and buyer to make a deal.
 
-<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#deal" aria-expanded="false">
+<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#deal" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>Seller-Buyer Diagram</span>
 </button>
 
@@ -22,12 +22,12 @@ The following diagram represents the wisdom-for-sale deal.
 
 This particular transaction took place on an Algorand devnet. The Algorand cryptocurrency standard token unit is the *ALGO*. As indicated by the final balances in the diagram, the seller received 0.006 ALGO less than the agreed upon price, and the buyer paid 0.003 ALGO more. These expenses represent *gas*, the cost of doing business on a consensus network. The seller paid a little more gas than the buyer because the seller deployed the contract.
 
-<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
 </span>
 
 Creating a Reach DApp does *not* entail implementing a smart contract. Rather, it involves using the Reach programming language to describe, step by step, participant interactions from which the Reach compiler derives a smart contract.
 
-<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#stf" aria-expanded="false">
+<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#stf" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>Develop & Deploy Video</span>
 </button>
 
@@ -45,7 +45,7 @@ This video provides a mental framework for understanding Reach development and d
 
 Mentioned in the video are (1) the Reach [JavaScript Standard Library](/en/books/essentials/support-for-js-frontends/) which supports Reach applications by providing properties and methods dealing with accounts, arithmetic, big numbers, comparisons, consensus network providers, contracts, debugging, encryption, randomization, and time, (2) interact objects which are JavaScript objects that enable communication between Reach frontends and backends, explained in detail below, and (3) the Reach Verification Engine which helps to ensure that the immutable smart contract you deploy will run without errors like the error of forgetting to transfer all the otherwise unretrievable tokens out of a smart contract account before the contract exits.
 
-<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
 </span>
 
 # Clone the repository
@@ -65,7 +65,7 @@ This section shows you how to clone the tutorial repository. Be sure to complete
 
 1. Copy *index.mjs* and *index.rsh* from the *starter* folder to the *current* folder, and open both new files.
 
-<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#rsf" aria-expanded="false">
+<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#rsf" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>Review Starter Files</span>
 </button>
 
@@ -111,7 +111,7 @@ Below is a line-by-line description of this Reach code:
 * Line 10: Finalize participant and other options, and proceed to a Reach step.
 * Line 12: Terminate computation.
 
-<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
 </span>
 
 # Run the DApp
@@ -141,7 +141,7 @@ To become familiar, run your DApp in the vscode terminal using combinations of y
 
 Where does your DApp run? In your current environment, the Reach Compiler, the consensus network devnets, your application, and the smart contract run on your computer in Docker containers instantiated from Reach Docker images.
 
-<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#ebp" aria-expanded="false">
+<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#ebp" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>Explore Build Output</span>
 </button>
 
@@ -223,7 +223,7 @@ Below is a line-by-line description:
 
 * Line 30-31: Your application outputs these messages.
 
-<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
 </span>
 
 # Pass a role argument
@@ -288,7 +288,7 @@ This section shows you how to modify the starter app to accept a command-line ar
 
 Later (perhaps after you finish the tutorial) you can replace this simple way of handling command-line arguments in your Reach DApp with a more sophisticated one using a Node.js package like [Minimist](https://www.npmjs.com/package/minimist), [Commander](https://www.npmjs.com/package/commander), [Meow](https://www.npmjs.com/package/meow), [Yargs](https://www.npmjs.com/package/yargs), and [Vorpal](https://www.npmjs.com/package/vorpal).
 
-<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#npi" aria-expanded="false">
+<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#npi" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>Node Package Integration</span>
 </button>
 
@@ -296,7 +296,7 @@ Later (perhaps after you finish the tutorial) you can replace this simple way of
 
 Not done yet.
 
-<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
 </span>
 
 The [reach](https://github.com/reach-sh/reach-lang/blob/master/reach) script exports only a pre-determined list of environment variables (e.g. `REACH_CONNECTOR_MODE`) within the Docker container where it runs your DApp, so it does not support custom environment variables (e.g. `ROLE=seller reach run`).
@@ -412,7 +412,7 @@ This section shows you how to have the seller (1) deploy the contract and (2) re
 
 In this tutorial, the seller outputs the contract information to the Seller Terminal, and the buyer copies & pastes the contract information from the Seller Terminal to the Buyer Terminal (including the quotation marks if persent). In real life, the seller would need to search for a contract name and its associated contract information in some repository. 
 
-<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#fsci" aria-expanded="false">
+<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#fsci" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>Storing and Finding Contract Information</span>
 </button>
 
@@ -420,7 +420,7 @@ In this tutorial, the seller outputs the contract information to the Seller Term
 
 Not done yet.
 
-<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
 </span>
 
 Follow these directions to have the seller deploy the contract and return the contract information:
@@ -504,7 +504,7 @@ Follow these directions to have the seller deploy the contract and return the co
 
 The interact objects introduced in this section facilitate communication between the frontend (e.g. `index.mjs`) and backend (e.g. `index.main.mjs`) of Reach applications, (remembering that `index.rsh` is the pre-compiled version of `index.main.mjs`).
 
-<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#aio" aria-expanded="false">
+<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#aio" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>About Interact Objects</span>
 </button>
 
@@ -512,7 +512,7 @@ The interact objects introduced in this section facilitate communication between
 
 Not done yet.
 
-<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
 </span>
 
 # Attach to the contract (buyer)
@@ -622,7 +622,7 @@ This section shows you how to have the buyer attach to the contact. It also intr
 
 Reach programs are state machines. States include *step*, *local step*, and *consensus step*. State transitions include *deploy*, *publish*, *commit*, etc. Click the button to learn more.
 
-<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#atrl" aria-expanded="false">
+<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#atrl" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>About the Reach Programming Language</span>
 </button>
 
@@ -630,7 +630,7 @@ Reach programs are state machines. States include *step*, *local step*, and *con
 
 Not done yet.
 
-<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
 </span>
 
 # Cancel a transaction
@@ -947,7 +947,7 @@ Once confirmed, the webapp can attach to the contract and complete the transacti
 
 Using a view, the buyer is able to obtain `price` before attaching to the contract.
 
-<button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#apav" aria-expanded="false">
+<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#apav" aria-expanded="false">
   <i class="fas fa-info-circle me-2"></i><span>About Participants and Views</span>
 </button>
 
@@ -955,7 +955,7 @@ Using a view, the buyer is able to obtain `price` before attaching to the contra
 
 Not done yet.
 
-<hr style="background-color:#6c757d;opacity:1;height:5px;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
 </span>
 
 # Examine the webapp

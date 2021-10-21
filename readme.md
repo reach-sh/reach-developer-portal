@@ -183,6 +183,10 @@ The various screen widths (seen below) determine whether a user sees, on initial
 
 <p><img src="./assets/w-xs.png" width=280></p>
 
+## Themes
+
+Reach colors are reddish (#F45747), light blueish (#6AC6E7), and inkish (#1A1C23).
+
 ## About the generator
 
 A Node.js command-line application, the site generator which, for the most part, transforms markdown files into html files, will continue to evolve over the next few months. Here is the current help menu:
