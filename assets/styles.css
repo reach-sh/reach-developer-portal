@@ -68,7 +68,7 @@ em {color:var(--bs-body-color); font-weight:normal;}
 ************************************************/
 
 button,
-a[role="button"] {
+a[role="button"]:not(.step) {
   border-color: rgba(0, 0, 0, 0.1) !important;
   color: #6c757d;
   padding: 0.25rem 0.5rem;

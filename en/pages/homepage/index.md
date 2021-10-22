@@ -9,41 +9,18 @@ menuItem: mi-home
 <section class="text-center">
   <div class="row">
     <div class="col-12">
-      <p class="lead">Reach is a programming language for building blockchain applications.</b></p>
+      <p class="lead">Reach is the programming language for building blockchain applications.</b></p>
       <p class="lead">New to Reach DApp development?</b></p>
     </div>
   </div>
+  </section>
 
-  <div class="d-none d-lg-block">
-    <img src="first-steps.png" width=700 height=237 usemap="#image-map-700">
-    <map name="image-map-700">
-        <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="157,11,285,92" shape="rect">
-        <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="157,149,285,230" shape="rect">
-        <area target="" alt="Development Environment" title="Development Environment" href="/en/books/essentials/development-environment/" coords="356,78,485,161" shape="rect">
-        <area target="" alt="Tutorials" title="Tutorials" href="/en/books/essentials/tutorials/" coords="525,80,652,160" shape="rect">
-    </map>
+  <div class="row gx-2">
+    <div class="col-6 col-md-3 my-3"><a class="btn btn-secondary step" href="/en/books/essentials/" role="button" style="width:100%;">1. Overview</a></div>
+    <div class="col-6 col-md-3 my-3"><a class="btn btn-secondary step" href="/en/books/essentials/quick-start/" role="button" style="width:100%;">2. Quick Start</a></div>
+    <div class="col-6 col-md-3 my-3"><a class="btn btn-secondary step" href="/en/books/essentials/development-environment/" role="button" style="width:100%;">3. Set up</a></div>
+    <div class="col-6 col-md-3 my-3"><a class="btn btn-secondary step" href="/en/books/essentials/tutorials/" role="button" style="width:100%;">4. Tutorials</a></div>
   </div>
-
-  <div class="d-none d-md-block d-lg-none">
-    <img src="first-steps.png" width=600 height=203 usemap="#image-map-600">
-    <map name="image-map-600">
-        <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="136,9,244,78" shape="rect">
-        <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="135,128,244,197" shape="rect">
-        <area target="" alt="Development Environment" title="Development Environment" href="/en/books/essentials/development-environment/" coords="306,69,416,139" shape="rect">
-        <area target="" alt="Tutorials" title="Tutorials" href="/en/books/essentials/tutorials/" coords="450,68,559,137" shape="rect">
-    </map>
-  </div>
-
-  <div class="d-block d-md-none">
-    <img src="first-steps.png" width=400 height=135 usemap="#image-map-400">
-    <map name="image-map-400">
-        <area target="" alt="Overview Video" title="Overview Video" href="/en/books/essentials/" coords="91,8,163,52" shape="rect">
-        <area target="" alt="Quick Start" title="Quick Start" href="/en/books/essentials/quick-start/" coords="91,85,164,131" shape="rect">
-        <area target="" alt="Development Environment" title="Development Environment" href="/en/books/essentials/development-environment/" coords="205,46,276,92" shape="rect">
-        <area target="" alt="Tutorials" title="Tutorials" href="/en/books/essentials/tutorials/" coords="300,48,372,91" shape="rect">
-    </map>
-  </div>
-</section>
 
 # Reach Developer News
 
