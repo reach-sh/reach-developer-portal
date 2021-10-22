@@ -4,7 +4,7 @@ menuItem: mi-docs
 
 # Quick Start
 
-This page shows you how to run a Reach *Hello World* decentralized application (DApp) in a [POSIX](https://en.wikipedia.org/wiki/POSIX)-compliant shell:
+This page shows you how to run a Reach *Hello World* decentralized application (DApp) in a [POSIX](https://en.wikipedia.org/wiki/POSIX)-compliant shell. 
 
 # Install Make and Docker
 

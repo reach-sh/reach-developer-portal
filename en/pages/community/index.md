@@ -1,9 +1,9 @@
 ---
 hasOtp: false
-menuItem: mi-calendar
+menuItem: mi-community
 ---
 
-# Calendar
+# Community
 
 <div class="row justify-content-center">
   <div id="spinner" class="col-auto">

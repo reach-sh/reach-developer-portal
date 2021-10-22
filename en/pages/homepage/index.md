@@ -1,6 +1,7 @@
 ---
 hasOtp: false
 hasPageHeader: false
+menuItem: mi-home
 ---
 
 # Welcome Developers!
@@ -46,19 +47,25 @@ hasPageHeader: false
 
 # Reach Developer News
 
-<!--
 ## October 2021
 
 <div class="row">
 <div class="col-12 col-lg-8">
-<ul style="padding-left: 1.6rem;">
-<li>sss</li>
-<li>sss</li>
-<li>sss</li>
-<li>sss</li>
-<li>sss</li>
-<li>sss</li>
-</ul>
+
+* Fine-tuned the Conflux integration.
+* Built a [Unity](https://en.wikipedia.org/wiki/Unity_(game_engine)) integration. See [video](https://youtu.be/_yj1YHQNOUY) and [repo](https://github.com/Zetsuboii/reach-rpc-unity).
+* Continued work on the AMM Decentralized Exchange (DEX).
+* Initiated work on Reach ID (universal wallet).
+* Moving ahead with support for [Cosmos](https://cosmos.network/).
+* Proposed support for [Cardano](https://cardano.org/). See [POC here](https://bit.ly/3BemxiO).
+* Hired Tim Johnson for mobile.
+* Hired Hamir Mahal for IDE integrations.
+* Hired JP Miller for curriculum development.
+* Continuing to hire. See the [job postings](https://angel.co/company/reach-sh).
+* Continued work on the new Reach Developer Portal.
+* Continued [Better on Blockchain](https://www.youtube.com/results?search_query=better+on+blockchain+episode+reach-sh&sp=CAISBBABGAI%253D) podcast.
+* Moving ahead with Latin America Bounty Hack. 
+
 </div>
 <div class="col-12 col-lg-4">
 <div class="ratio ratio-16x9" style="max-width:400px;">
@@ -71,7 +78,6 @@ hasPageHeader: false
 </div>
 </div>
 </div>
--->
 
 ## September 2021
 

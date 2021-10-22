@@ -88,7 +88,7 @@ header div.navbar-nav a:hover span,
   color: white;
 }
 
-header div.navbar-nav a.active span {
+header a.active span {
   border-bottom: 2px solid white;
   color: white;
 }
@@ -484,3 +484,14 @@ iframe.gray-scale {
   top: -9999px !important;
   left: -9999px !important;
 }
+
+/************************************************
+ AngelList
+************************************************/
+
+.angellist_jobs-tags {color: #333333 !important;}
+
+.angellist_jobs-title-link,
+.angellist_jobs-title-link:hover,
+.angellist_jobs-title-link:visited,
+.angellist_jobs-title-link:active {font-weight: bold !important; }
