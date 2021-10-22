@@ -4,24 +4,15 @@ menuItem: mi-docs
 
 # Rock Paper Scissors
 
-# Install and Initialize
+This tutorial assumes that the developer has completed the following:
 
-# Scaffolding and Setup
+1. [Overview]()
+1. [Quick Start]()
+1. [Development Environment]()
+1. [Wisdom for Sale](https://reach-sh.github.io/en/books/essentials/tutorials/wisdom-for-sale/)
+1. [Market Day](https://reach-sh.github.io/en/books/essentials/tutorials/market-day/)
 
-# Rock, Paper, and Scissors
+Based on Jay's Rock Paper Scissors tutorial set, this tutorial (which should fit on this one page) focuses on the Reach language. Things to do:
 
-# Bets and Wagers
-
-# Trust and Commitments
-
-# Timeouts and Participation
-
-# Play and Play Again
-
-# Interaction and Independence
-
-# Web Interaction
-
-# Onward and Further
-
-# Rock, Paper, Scissors in Python
+1. Complete all the tutorials.
+1. Re-imagine the original tutorial set based on the prequisites listed above.
