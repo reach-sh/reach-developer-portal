@@ -8,32 +8,19 @@ This tutorial introduces you to Reach DApp development and prepares you for more
 
 # Overview
 
-During this tutorial, you will build [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), an application that enables two participants, a seller and a buyer, to trade wisdom for currency via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network residing in a Docker container on your computer. Your DApp will create and fund two accounts, one for each participant. Then, it will enable the seller and buyer to make a deal.
+During this tutorial, you will build [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), an application that enables two participants, a seller and a buyer, to trade wisdom for currency via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network residing in a Docker container on your computer. Your DApp will create and fund two accounts, one for each participant. Then, it will enable the seller and buyer to make a deal. 
 
-<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#deal" aria-expanded="false">
-  <i class="fas fa-info-circle me-2"></i><span>Seller-Buyer Diagram</span>
-</button>
+## Diagram
 
-<span class="collapse" id="deal">
-
-The following diagram represents the wisdom-for-sale deal.
+The following diagram represents the wisdom-for-sale deal:
 
 <div><img src="seller-buyer.png" class="img-fluid my-4 d-block" width=800 height=314 loading="lazy"></div>
 
 This particular transaction took place on an Algorand devnet. The Algorand cryptocurrency standard token unit is the *ALGO*. As indicated by the final balances in the diagram, the seller received 0.006 ALGO less than the agreed upon price, and the buyer paid 0.003 ALGO more. These expenses represent *gas*, the cost of doing business on a consensus network. The seller paid a little more gas than the buyer because the seller deployed the contract.
 
-<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
-</span>
+## Video
 
-Creating a Reach DApp does *not* entail implementing a smart contract. Rather, it involves using the Reach programming language to describe, step by step, participant interactions from which the Reach compiler derives a smart contract.
-
-<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#stf" aria-expanded="false">
-  <i class="fas fa-info-circle me-2"></i><span>Develop & Deploy Video</span>
-</button>
-
-<span class="collapse" id="stf">
-
-This video provides a mental framework for understanding Reach development and deployment.
+Creating a Reach DApp does *not* entail implementing a smart contract. Rather, it involves using the Reach programming language to describe, step by step, participant interactions from which the Reach compiler derives a smart contract. This video provides a mental framework for understanding Reach development and deployment:
 
 <p class="ratio ratio-16x9 my-4" style="max-width:500px;">
   <iframe 
@@ -44,9 +31,6 @@ This video provides a mental framework for understanding Reach development and d
 </p>
 
 Mentioned in the video are (1) the Reach [JavaScript Standard Library](/en/books/essentials/support-for-js-frontends/) which supports Reach applications by providing properties and methods dealing with accounts, arithmetic, big numbers, comparisons, consensus network providers, contracts, debugging, encryption, randomization, and time, (2) interact objects which are JavaScript objects that enable communication between Reach frontends and backends, explained in detail below, and (3) the Reach Verification Engine which helps to ensure that the immutable smart contract you deploy will run without errors like the error of forgetting to transfer all the otherwise unretrievable tokens out of a smart contract account before the contract exits.
-
-<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
-</span>
 
 # Clone the repository
 
