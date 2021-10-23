@@ -118,4 +118,4 @@ menuItem: mi-home
 </div>
 </div>
 
-For older montly updates, see the [Reach Youtube](https://www.youtube.com/c/Reachsh/search?query=monthly%20update) video list.
+For earlier monthly updates, see the [Reach Youtube](https://www.youtube.com/c/Reachsh/search?query=monthly%20update) video list.
