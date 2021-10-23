@@ -944,7 +944,17 @@ Not done yet.
 
 # Examine the webapp
 
-The [wisdom-for-sale](https://github.com/hagenhaus/wisdom-for-sale) repository includes a [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)-based webapp implementation that you can inspect and modify. You need node.js and npm installed on your computer because you will need the [http-server](https://www.npmjs.com/package/http-server) package (or similar) to run the webapp. Below are directions for running and inspecting the DApp:
+The [wisdom-for-sale](https://github.com/hagenhaus/wisdom-for-sale) repository includes a [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)-based webapp implementation that you can inspect and modify:
+
+<p class="ratio ratio-16x9 my-4" style="max-width:500px;">
+  <iframe 
+    src="https://www.youtube.com/embed/dOssmYL2ULA" 
+    frameborder="0"  
+    allowfullscreen>
+  </iframe>
+</p>
+
+You need node.js and npm installed on your computer because you will need the [http-server](https://www.npmjs.com/package/http-server) package (or similar) to run the webapp. Below are directions for running and inspecting the DApp:
 
 1. Copy [index.html](https://github.com/hagenhaus/wisdom-for-sale/blob/master/solution/index.html) and [webapp.mjs](https://github.com/hagenhaus/wisdom-for-sale/blob/master/solution/webapp.mjs) from the solution directory to your current directory.
 
