@@ -30,8 +30,6 @@ Creating a Reach DApp does *not* entail implementing a smart contract. Rather, i
   </iframe>
 </p>
 
-<p><a href="develop-and-deploy-overview.pdf" target="_blank">sss</a></p>
-
 Mentioned in the video are (1) the Reach [JavaScript Standard Library](/en/books/essentials/support-for-js-frontends/) which supports Reach applications by providing properties and methods dealing with accounts, arithmetic, big numbers, comparisons, consensus network providers, contracts, debugging, encryption, randomization, and time, (2) interact objects which are JavaScript objects that enable communication between Reach frontends and backends, explained in detail below, and (3) the Reach Verification Engine which helps to ensure that the immutable smart contract you deploy will run without errors like the error of forgetting to transfer all the otherwise unretrievable tokens out of a smart contract account before the contract exits.
 
 # Clone the repository
