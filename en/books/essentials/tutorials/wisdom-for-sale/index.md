@@ -368,7 +368,7 @@ This section helps you explore standard and atomic units using the [JavaScript S
     ``` js nonum
     const acc = await stdlib.newTestAccount(stdlib.parseCurrency(1000));
     await showBalance(acc);
-    const ctc = acc.deploy(backend);
+    const ctc = acc.contract(backend);
     await backend.Seller(ctc, sellerInteract);
     await showBalance(acc);
     ```
@@ -946,21 +946,33 @@ Not done yet.
 
 The [wisdom-for-sale](https://github.com/hagenhaus/wisdom-for-sale) repository includes a [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)-based webapp implementation that you can inspect and modify. You need node.js and npm installed on your computer because you will need the [http-server](https://www.npmjs.com/package/http-server) package (or similar) to run the webapp. Below are directions for running and inspecting the DApp:
 
-> This webapp runs successfully on Ethereum at this point. If you get it running on Algorand or Conflux, please provide feedback or a pull request. Thank you! This section is the least complete at this point. I will add code explanations soon.
-
 1. Copy [index.html](https://github.com/hagenhaus/wisdom-for-sale/blob/master/solution/index.html) and [webapp.mjs](https://github.com/hagenhaus/wisdom-for-sale/blob/master/solution/webapp.mjs) from the solution directory to your current directory.
 
 1. Stop and remove all your Reach containers:
 
-    ```
+    ``` nonum
     $ reach down
     ```
 
-1. Open two terminals (i.e. shells), and change directory in both to `~/reach/wisdom-for-sale/current`:
+1. Open five terminals (i.e. shells), and change directory in each to `~/reach/wisdom-for-sale/current`:
 
-    <p><img src="eth-devnet-webapp.png" class="img-fluid" width=700 loading="lazy"></p>
+    <p><img src="webapp-windows.png" class="img-fluid" width=800 loading="lazy"></p>
 
-1. In the ETH Devnet Terminal, run the following:
+1. In the ALGO Terminal, run the following:
+
+    ``` nonum
+    $ export REACH_CONNECTOR_MODE=ALGO-devnet
+    $ reach devnet
+    ```
+
+1. In the CFX Terminal, run the following:
+
+    ``` nonum
+    $ export REACH_CONNECTOR_MODE=CFX-devnet
+    $ reach devnet
+    ```
+
+1. In the ETH Terminal, run the following:
 
     ``` nonum
     $ export REACH_CONNECTOR_MODE=ETH-devnet
@@ -970,8 +982,8 @@ The [wisdom-for-sale](https://github.com/hagenhaus/wisdom-for-sale) repository i
 1. In the Webapp Terminal, run the following:
 
     ``` nonum
-    $ npm i --global http-server # Install the package globally.
-    $ http-server -c-1 -p 8080   # Run the webapp
+    $ npm i --global http-server # Install the package globally if you haven't already.
+    $ http-server -c-1 -p 8080   # Run the webapp.
     ```
 
     Output should look similar to the following:
@@ -995,12 +1007,16 @@ The [wisdom-for-sale](https://github.com/hagenhaus/wisdom-for-sale) repository i
     Hit CTRL-C to stop the server
     ```
 
-1. Browse to the url.
+1. Browse to one of the urls listed above. `http://localhost:8080` should probably work, too.
 
-1. Click *Choose a DevNet*, and select *Ethereum*. The Deploy button should turn green.
+1. Click *Choose a DevNet*, and select *Algorand*. The Deploy button should turn green.
 
 1. Click *Deploy*. The *Attach* button should turn green.
 
 1. Click *Attach*, and then click *Yes*. The *Reset* button should turn green.
 
 1. Click *Reset*, and try it again with a different `Price` and `Wisdom` string.
+
+1. Click *Choose a DevNet*, select *Ethereum*, and repeat the Deploy, Attach, Reset steps.
+
+Note that the webapp doesn't run reliably on Conflux yet. I'm working on it.
