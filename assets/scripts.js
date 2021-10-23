@@ -404,7 +404,9 @@ const followLink = async (href) => {
   //console.log(a.pathname);
   //if(a.hash) {console.log(a.hash)};
 
-  if (a.hostname === window.location.hostname) {
+  if (a.pathname.endsWith('.pdf')) {
+    window.open(a.href, '_blank').focus();
+  } else if (a.hostname === window.location.hostname) {
     if (currentPage.folder == a.pathname && a.hash) {
       if (a.hash === '#on-this-page') {
         scrollPage('on-this-page');
@@ -415,8 +417,7 @@ const followLink = async (href) => {
         updateHistory(a.hash.substring(1));
         setOtpItemToActive(a.hash.substring(1));
       }
-    }
-    else {
+    } else {
       await getWebpage(a.pathname, a.hash, true);
     }
   } else {

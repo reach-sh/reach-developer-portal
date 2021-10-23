@@ -20,7 +20,7 @@ This particular transaction took place on an Algorand devnet. The Algorand crypt
 
 ## Video
 
-Creating a Reach DApp does *not* entail implementing a smart contract. Rather, it involves using the Reach programming language to describe, step by step, participant interactions from which the Reach compiler derives a smart contract. The video below provides a mental framework for understanding Reach development and deployment.
+Creating a Reach DApp does *not* entail implementing a smart contract. Rather, it involves using the Reach programming language to describe, step by step, participant interactions from which the Reach compiler derives a smart contract. The video below provides a mental framework for understanding Reach development and deployment. You can also [click here](https://docs.google.com/presentation/d/1fzrBNkwzzC7DPL7reAOG6Vwy2bEjLp9CJBLnKAPg2yc/present?usp=sharing) to view (in a new tab) the slides in the video as a Google Presentation. 
 
 <p class="ratio ratio-16x9 my-4" style="max-width:500px;">
   <iframe 
