@@ -179,7 +179,7 @@ const setOtpItemToActive = (id) => {
 *   #create-a-project
 ************************************************************************************************/
 
-const getWebpage = async (folder, hash, updateHistory) => {
+const getWebpage = async (folder, hash, shallUpdateHistory) => {
   console.log('getWebpage');
 
   folder = folder == '/' || folder == `/${lang}/` ? homepage : folder;
@@ -379,7 +379,7 @@ const getWebpage = async (folder, hash, updateHistory) => {
     currentPage.folder = folder;
     if (hash) {
       scrollPage(hash.substring(1));
-      updateHistory(hash.substring(1));
+      if (shallUpdateHistory) { updateHistory(hash.substring(1)); }
       setOtpItemToActive(hash.substring(1));
     } else {
       scrollPage('on-this-page');

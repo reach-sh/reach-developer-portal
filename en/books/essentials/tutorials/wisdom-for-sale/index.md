@@ -20,15 +20,17 @@ This particular transaction took place on an Algorand devnet. The Algorand crypt
 
 ## Video
 
-Creating a Reach DApp does *not* entail implementing a smart contract. Rather, it involves using the Reach programming language to describe, step by step, participant interactions from which the Reach compiler derives a smart contract. This video provides a mental framework for understanding Reach development and deployment:
+Creating a Reach DApp does *not* entail implementing a smart contract. Rather, it involves using the Reach programming language to describe, step by step, participant interactions from which the Reach compiler derives a smart contract. The video below provides a mental framework for understanding Reach development and deployment.
 
 <p class="ratio ratio-16x9 my-4" style="max-width:500px;">
   <iframe 
-    src="https://www.youtube.com/embed/4MJqPNelqCE" 
+    src="https://www.youtube.com/embed/4MJqPNelqCE"
     frameborder="0"  
     allowfullscreen>
   </iframe>
 </p>
+
+<p><a href="develop-and-deploy-overview.pdf" target="_blank">sss</a></p>
 
 Mentioned in the video are (1) the Reach [JavaScript Standard Library](/en/books/essentials/support-for-js-frontends/) which supports Reach applications by providing properties and methods dealing with accounts, arithmetic, big numbers, comparisons, consensus network providers, contracts, debugging, encryption, randomization, and time, (2) interact objects which are JavaScript objects that enable communication between Reach frontends and backends, explained in detail below, and (3) the Reach Verification Engine which helps to ensure that the immutable smart contract you deploy will run without errors like the error of forgetting to transfer all the otherwise unretrievable tokens out of a smart contract account before the contract exits.
 
