@@ -529,12 +529,13 @@ This section shows you how to have the buyer attach to the contact. It also intr
     const info = await ask('Paste contract info:', (s) => JSON.parse(s));
     const ctc = acc.attach(backend, info);
     await showBalance(acc);
-    await backend.Buyer(ctc, buyerInteract);
+    await ctc.p.Buyer(buyerInteract)
     await showBalance(acc);
     ```
 
     * Line 3: `ask` and `yesno` are functions in `@reach-sh/stdlib/ask.mjs`. `yesno` accepts only `y` or `n`.
     * Line 7: You must parse contract information (so, it must be parsable).
+    * Line 10: You can substitute *participants* for *p*.
 
 1. In *index.rsh*, find the following line:
 
@@ -919,7 +920,7 @@ Once confirmed, the webapp can attach to the contract and complete the transacti
     const price = await ctc.getViews().Main.price();
     console.log(`The price of wisdom is ${price[0] == 'None' ? '0' : toSU(price[1])} ${suStr}.`);
     await showBalance(acc);
-    await backend.Buyer(ctc, buyerInteract);
+    await ctc.p.Buyer(buyerInteract)
     await showBalance(acc);
     ```
 
