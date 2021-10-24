@@ -15,11 +15,9 @@ menuItem: mi-home
   </div>
   </section>
 
-  <div class="row gx-2">
-    <div class="col-6 col-md-3 my-3"><a class="btn btn-secondary step" href="/en/books/essentials/" role="button" style="width:100%;">1. Overview</a></div>
-    <div class="col-6 col-md-3 my-3"><a class="btn btn-secondary step" href="/en/books/essentials/quick-start/" role="button" style="width:100%;">2. Quick Start</a></div>
-    <div class="col-6 col-md-3 my-3"><a class="btn btn-secondary step" href="/en/books/essentials/development-environment/" role="button" style="width:100%;">3. Set up</a></div>
-    <div class="col-6 col-md-3 my-3"><a class="btn btn-secondary step" href="/en/books/essentials/tutorials/" role="button" style="width:100%;">4. Tutorials</a></div>
+  <div class="row justify-content-md-center gx-2">
+    <div class="col-6 col-md-3 my-3"><a class="btn btn-secondary step" href="/en/books/essentials/" role="button" style="width:100%;">Overview</a></div>
+    <div class="col-6 col-md-3 my-3"><a class="btn btn-secondary step" href="/en/books/essentials/tutorials/" role="button" style="width:100%;">Tutorials</a></div>
   </div>
 
 # Reach Developer News

@@ -462,22 +462,26 @@ iframe.gray-scale {
 }
 */
 
-#tutorial-cards a,
-#tutorial-cards a:active,
-#tutorial-cards a:visited,
-#tutorial-cards a:hover,
-#tutorial-cards a:focus {
+/************************************************
+ Tutorial Cards
+************************************************/
+
+#page-col div.card a,
+#page-col div.card a:active,
+#page-col div.card a:visited,
+#page-col div.card a:hover,
+#page-col div.card a:focus {
   color: var(--bs-body-color);
 }
 
-#tutorial-cards a:hover div.card,
-#tutorial-cards a:focus div.card {
-  border-color: gray;
+#page-col div.card a:hover,
+#page-col div.card a:focus {
+  background: var(--soft6);
 }
 
-#tutorial-cards div.card-body {
-  padding-bottom: 0;
-}
+/************************************************
+ banish
+************************************************/
 
 .banish {
   position: absolute !important;
