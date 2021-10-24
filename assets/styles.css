@@ -480,9 +480,9 @@ iframe.gray-scale {
   color: var(--bs-body-color);
 }
 
-#page-col div.card a:hover,
-#page-col div.card a:focus {
-  background: var(--soft6);
+#page-col div.card:hover,
+#page-col div.card:focus {
+  box-shadow: 0px 1px 3px #cccccc;
 }
 
 /************************************************
