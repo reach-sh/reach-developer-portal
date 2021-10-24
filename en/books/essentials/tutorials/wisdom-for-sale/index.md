@@ -1036,61 +1036,63 @@ Note that the webapp doesn't run reliably on Conflux yet. I'm working on it.
 
 # Self Assessment
 
-1. <a data-bs-toggle="collapse" href="#standard-atomic" aria-expanded="false">Do smart contracts use standard or atomic units?</a>
+Click on the question to view the answer.
+
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#standard-atomic" aria-expanded="false">Do smart contracts use standard or atomic units?</p>
 
     <div class="collapse mb-3" id="standard-atomic">
       <div class="card card-body">Smart contracts use atomic (indivisible) units. User interfaces, on the other hand, often use standard units to present cryptocurrency amounts to users. Therefore, Reach frontends frequently need to convert between the two. The Reach JS Stdlib function parseCurrency converts from standard to atomic, and the function formatCurrency converts from atomic to standard.</div>
     </div>
 
-1. <a data-bs-toggle="collapse" href="#participants" aria-expanded="false">Reach DApps create smart contracts that enable ____ to interact on consensus networks.</a>
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#participants" aria-expanded="false">Reach DApps create smart contracts that enable ____ to interact on consensus networks.</p>
 
     <div class="collapse mb-3" id="participants">
       <div class="card card-body">Participants. A Reach program describes participant interactions from which the Reach compiler derives a smart contract.</div>
     </div>
 
-1. <a data-bs-toggle="collapse" href="#interact" aria-expanded="false">Name the objects that comprise the interface between Reach frontend and backend participants.</a>
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#interact" aria-expanded="false">Name the objects that comprise the interface between Reach frontend and backend participants.</p>
 
     <div class="collapse mb-3" id="interact">
       <div class="card card-body">Interact objects enable Reach frontend and backend participants to communicate.</div>
     </div>
 
-1. <a data-bs-toggle="collapse" href="#filenames" aria-expanded="false">Name the Reach default frontend and backend files.</a>
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#filenames" aria-expanded="false">Name the Reach default frontend and backend files.</p>
 
     <div class="collapse mb-3" id="filenames">
       <div class="card card-body">index.mjs and index.rsh are the default frontend and backend filenames respectively. The Reach compiler compiles index.rsh into index.main.mjs.</div>
     </div>
 
-1. <a data-bs-toggle="collapse" href="#bytecode" aria-expanded="false">In addition to participant backends, what does index.main.mjs contain?</a>
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#bytecode" aria-expanded="false">In addition to participant backends, what does index.main.mjs contain?</p>
 
     <div class="collapse mb-3" id="bytecode">
       <div class="card card-body">It also contains the smart contract bytecode for each supported consensus network.</div>
     </div>
 
-1. <a data-bs-toggle="collapse" href="#verification-engine" aria-expanded="false">When does the Reach Verification Engine run?</a>
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#verification-engine" aria-expanded="false">When does the Reach Verification Engine run?</p>
 
     <div class="collapse mb-3" id="verification-engine">
       <div class="card card-body">Compile time.</div>
     </div>
 
-1. <a data-bs-toggle="collapse" href="#js-stdlibs" aria-expanded="false">Can Reach DApps run on local Dockerized devnets?</a>
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#js-stdlibs" aria-expanded="false">Can Reach DApps run on local Dockerized devnets?</p>
 
     <div class="collapse mb-3" id="js-stdlibs">
       <div class="card card-body">Yes. Running Reach DApps on local Dockerized devnets is a convenient way to develop and test.</div>
     </div>
 
-1. <a data-bs-toggle="collapse" href="#conn-mode" aria-expanded="false">Name the environment variable used by Reach to determine the target consensus network.</a>
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#conn-mode" aria-expanded="false">Name the environment variable used by Reach to determine the target consensus network.</p>
 
     <div class="collapse mb-3" id="conn-mode">
       <div class="card card-body">REACH_CONNECTOR_MODE</div>
     </div>
 
-1. <a data-bs-toggle="collapse" href="#reach-down" aria-expanded="false">Name the reach command that stops and removes all Reach Docker containers.</a>
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#reach-down" aria-expanded="false">Name the reach command that stops and removes all Reach Docker containers.</p>
 
     <div class="collapse mb-3" id="reach-down">
       <div class="card card-body">reach down</div>
     </div>
 
-1. <a data-bs-toggle="collapse" href="#view" aria-expanded="false">Name the reach object that allows frontends to peak into a contract without attaching.</a>
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#view" aria-expanded="false">Name the reach object that allows frontends to peak into a contract without attaching.</p>
 
     <div class="collapse mb-3" id="view">
       <div class="card card-body">View</div>

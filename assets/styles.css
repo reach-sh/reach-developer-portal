@@ -283,6 +283,12 @@ p.punch span {color:#F45747;}
   font-size:92%;
 }
 
+#page-col p.q-and-a {
+  color: steelblue;
+  cursor: pointer;
+}
+
+
 /************************************************
  blockquote
 ************************************************/
