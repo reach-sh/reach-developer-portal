@@ -260,7 +260,7 @@ i.fas:hover {cursor: pointer;}
 #page-col a:not(.btn) {color: steelblue; text-decoration: none;}
 #page-col a:hover:not(.btn) {color: #2b506e; text-decoration: none;}
 
-#page-col div.hh-viewer ul {list-style-type: square;}
+#page-col div.hh-viewer ul:not(.nav) {list-style-type: square;}
 
 #page-col img.hh-shadow {box-shadow: 0px 3px 5px #cccccc;}
 #page-col img.hh-halign-indent {margin-left:18px;margin-right:auto;}
