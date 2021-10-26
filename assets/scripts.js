@@ -11,7 +11,7 @@ const pathnameToId = (pathname) => { return pathname.replace(/^\/|\/$/g, '').rep
 const idToPathName = (id) => { return id.replace(/_/g, '/'); }
 
 let lang = window.navigator.language.split('-')[0];
-const homepage = `/${lang}/pages/homepage/`;
+const homepage = `/${lang}/pages/home/`;
 
 const otpPreferences = { 'none': 'none', 'show': 'show', 'hide': 'hide' };
 Object.freeze(otpPreferences);
@@ -203,6 +203,9 @@ const getWebpage = async (folder, hash, shallUpdateHistory) => {
     //console.log(JSON.stringify(configJson, null, 2));
     //console.log(pageHtml);
     //console.log(otpHtml);
+
+    // Set body background color.
+    document.querySelector('body').style.background = configJson.background;
 
     // Book or different book?
     if (configJson.bookPath && configJson.bookPath != currentPage.bookPath) {
@@ -525,7 +528,14 @@ document.getElementById('page-col').addEventListener('scroll', scrollHandler);
 * on load
 ************************************************************************************************/
 
+
 //console.log(window.location.origin);
 //console.log(window.location.href);
 //console.log(window.location.pathname);
-getWebpage(window.location.pathname, window.location.hash, true);
+//getWebpage(window.location.pathname, window.location.hash, true);
+
+function callGetWebpage() {
+  getWebpage(window.location.pathname, window.location.hash, true)
+}
+
+window.setTimeout(callGetWebpage, 500);

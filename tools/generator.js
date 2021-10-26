@@ -278,10 +278,12 @@ const processFolder = async (baseDir, relDir) => {
   // Create fresh config file with default values.
   let configJson = {};
   configJson.author = null;
+  configJson.background = 'white';
   configJson.bookPath = null;
   configJson.bookTitle = null;
   configJson.chapters = null;
   configJson.hasOtp = true;
+  configJson.hasCustomBase = false;
   configJson.hasEditBtn = argv.e;
   configJson.hasPageHeader = true;
   configJson.hasPageScrollbar = true;
@@ -470,23 +472,25 @@ const processFolder = async (baseDir, relDir) => {
   }
 
   // Create soft link in this folder to index.html file at root.
-  try {
-    fs.unlinkSync(`${folder}/index.html`);
-  } catch (err) {
-    //console.log('Info: Old symlink does not exist.');
-  }
-
-  try {
-    let backstepCount = relDir.split('/').length - 1;
-    let backstepUrl = '';
-    for (let i=0; i < backstepCount; i++) {
-      backstepUrl = backstepUrl + '../';
+  if(configJson.hasCustomBase == false) {
+    try {
+      fs.unlinkSync(`${folder}/index.html`);
+    } catch (err) {
+      //console.log('Info: Old symlink does not exist.');
     }
-    let target = `${backstepUrl}index.html`;
-    let symlink = `${folder}/index.html`;
-    fs.symlinkSync(target, symlink);
-  } catch (err) {
-    //console.log('Error: Could not create symlink to index.html.');
+  
+    try {
+      let backstepCount = relDir.split('/').length - 1;
+      let backstepUrl = '';
+      for (let i=0; i < backstepCount; i++) {
+        backstepUrl = backstepUrl + '../';
+      }
+      let target = `${backstepUrl}index.html`;
+      let symlink = `${folder}/index.html`;
+      fs.symlinkSync(target, symlink);
+    } catch (err) {
+      //console.log('Error: Could not create symlink to index.html.');
+    }  
   }
 
   // Write DOM to file.

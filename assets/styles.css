@@ -3,6 +3,7 @@
 ************************************************/
 
 html, body {height: 100%;}
+body {--bs-bg-opacity: 1; background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity));}
 #book-col, #page-col, #otp-col { height: 100%; overflow-x: hidden; overflow-y: auto;}
 main {height: calc(100% - 56px);}
 
@@ -56,11 +57,12 @@ main {height: calc(100% - 56px);}
 /************************************************
  colors
 ************************************************/
-
+/*
 body {background-color: white;}
 #book-col {background: white;}
 #page-col {background: white;}
 #otp-col {background: white;}
+*/
 em {color:var(--bs-body-color); font-weight:normal;}
 
 /************************************************
@@ -505,3 +507,6 @@ iframe.gray-scale {
 .angellist_jobs-title-link:hover,
 .angellist_jobs-title-link:visited,
 .angellist_jobs-title-link:active {font-weight: bold !important; }
+
+div.social-icons {text-align:center;}
+div.social-icons a i {color:white;}

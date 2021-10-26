@@ -7,7 +7,7 @@ menuItem: mi-docs
 
 Reach is a programming language for building blockchain applications that deploy smart contracts to consensus networks. Watch the video and review the notes below to explore the questions **Why blockchain?** and **Why Reach?**
 
-<p><img src="video-placeholder.png" class="img-fluid" width=600 loading="lazy"></p>
+<p><img src="video-placeholder.png" class="img-fluid" width=600 height=337 loading="lazy"></p>
 
 # Lorem ipsum
 
