@@ -533,7 +533,7 @@ This section shows you how to have the buyer attach to the contact. It also intr
     const info = await ask('Paste contract info:', (s) => JSON.parse(s));
     const ctc = acc.contract(backend, info);
     await showBalance(acc);
-    await ctc.p.Buyer(buyerInteract)
+    await ctc.p.Buyer(buyerInteract);
     await showBalance(acc);
     ```
 
@@ -573,7 +573,7 @@ This section shows you how to have the buyer attach to the contact. It also intr
     ```
 
     * Line 1: `confirmPurchase` passes `price` and returns `true` or `false` from frontend.
-    * Line 2: `S.publish()` transitions to a consensus step.
+    * Line 2: `B.publish()` transitions to a consensus step.
     * Line 4: `commit()` transitions to a step.
 
     The bottom of this section includes an information button about the Reach programming language.
@@ -738,7 +738,7 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
 
     ``` js nonum
     wisdom: await ask('Enter a wise phrase, or press Enter for default:', (s) => {
-      let w = !s ? 'Build health community.' : s;
+      let w = !s ? 'Build healthy communities.' : s;
       if (!s) { console.log(w); }
       return w;
     }),
@@ -766,7 +766,7 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
 
 1. In *index.rsh*, add the following before `exit()`:
 
-    ``` js nonum
+    ``` js 
     B.pay(price);
     commit();
 
@@ -778,6 +778,12 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     B.interact.reportWisdom(wisdom);
     ```
 
+    * Line 1: The buyer always pays the contract.
+    * Line 4: After the buyer commits to purchase, the seller declassifies the wisdom.
+    * Line 5: The seller makes the wisdom available to the buyer.
+    * Line 6: The contract transfers funds to the seller.
+    * Line 9: The buyer sends the new wisdom to the frontend for the user.
+
 1. Run your DApp as the seller and the buyer. Answer `y` when asked to buy wisdom. Output should resemble the following:
 
     <div class="row gx-3">
@@ -788,7 +794,7 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     The consensus network is ALGO.
     Enter a wise phrase, or press Enter for default:
     
-    Build health community.
+    Build healthy communities.
     Your balance is 1000 ALGO.
     Your wisdom is for sale at 5 ALGO.
     Contract info: 90
@@ -806,7 +812,7 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     Your balance is 1000 ALGO.
     Do you want to purchase wisdom for 5 ALGO?
     y
-    Your new wisdom is "Build health community."
+    Your new wisdom is "Build healthy communities."
     Your balance is 994.997 ALGO.
     ```
 
@@ -842,6 +848,9 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     B.interact.reportWisdom(wisdom);
     ```
 
+    * Line 2: `each` calls `interact.reportPayment` for each participant in the array.
+    * Line 10: `each` calls `interact.reportTransfer` for each participant in the array.
+
 1. Run your DApp as the seller and the buyer. Answer `y` when asked to buy wisdom. Output should resemble the following:
 
     <div class="row gx-3">
@@ -852,7 +861,7 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     The consensus network is ALGO.
     Enter a wise phrase, or press Enter for default:
     
-    Build health community.
+    Build healthy communities.
     Your balance is 1000 ALGO.
     Your wisdom is for sale at 5 ALGO.
     Contract info: 113
@@ -874,7 +883,7 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
     y
     You paid 5 ALGO to the contract.
     The contract paid 5 ALGO to the seller.
-    Your new wisdom is "Build health community."
+    Your new wisdom is "Build healthy communities."
     Your balance is 994.997 ALGO.
     ```
 
@@ -978,7 +987,7 @@ You need node.js and npm installed on your computer because you will need the [h
     $ reach down
     ```
 
-1. Open five terminals (i.e. shells), and change directory in each to `~/reach/wisdom-for-sale/current`:
+1. Open four terminals (i.e. shells), and change directory in each to `~/reach/wisdom-for-sale/current`:
 
     <p><img src="webapp-windows.png" class="img-fluid" width=800 loading="lazy"></p>
 
