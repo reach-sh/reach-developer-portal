@@ -4,15 +4,10 @@ menuItem: mi-docs
 
 # Market Day
 
-This tutorial assumes that the developer has completed the following:
+This tutorial shows you how to build a command-line version and a webapp version of [Market Day](https://github.com/hagenhaus/market-day), an application that enables two participants, a seller and a buyer, to ...
 
-1. [Overview]()
-1. [Quick Start]()
-1. [Development Environment]()
-1. [Wisdom for Sale](https://reach-sh.github.io/en/books/essentials/tutorials/wisdom-for-sale/)
+# Overview
 
-Based on the [Market Day](https://github.com/hagenhaus/market-day) repository, the Market Day tutorial focuses on passing various data types in interact objects between frontends and backends. Things to do:
+The following diagram represents a market-day transaction:
 
-1. Understand the command-line version.
-1. Write a webapp version.
-1. Write the tutorial in (some sort of) harmony with the Wisdom for Sale tutorial.
+<div><img src="seller-buyer.png" class="img-fluid my-4 d-block" width=850 height=314 loading="lazy"></div>
