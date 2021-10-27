@@ -8,7 +8,7 @@ This tutorial shows you how to build a command-line version and a webapp version
 
 # Learning Objectives
 
-These learning objectives describe what you will be able to do as a result of completing this tutorial.
+The following learning objectives describe what you will be able to do as a result of completing this tutorial.
 
 1. Define essential Reach terms.
 1. Build a simple Reach command-line DApp.
@@ -114,6 +114,8 @@ $ export REACH_CONNECTOR_MODE=ALGO-devnet
 $ reach run
 ```
 
+Follow these steps to run the DApp:
+
 1. In the vscode terminal, set `REACH_CONNECTOR_MODE=ALGO-devnet` and run the app on the same line:
 
     <p><img src="vscode-run.png" class="img-fluid" width=700 loading="lazy"></p>
@@ -213,12 +215,12 @@ Below is a line-by-line description:
 
 * Line 30-31: Your application outputs these messages.
 
-<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;"/>
 </span>
 
-# Pass a role argument
+# Pass an argument
 
-This section shows you how to modify the starter app to accept a command-line argument specifying whether to run as the seller or buyer. Although this change does not involve Reach directly, it does emphasize that your application represents two different participants negotiating via the same contract.
+This section shows you how to tell your DApp whether to run as the seller or the buyer. You do this by passing *role* as a command-line argument (e.g. `reach run index seller`). You cannot do this by passing *role* as a custom environment variable (e.g. `ROLE=seller reach run`) because the [reach](https://github.com/reach-sh/reach-lang/blob/master/reach) script exports only a pre-determined list of environment variables (including `REACH_CONNECTOR_MODE`) within the Docker container where it runs your DApp. Follow these directions to pass *role* as a command-line argument:
 
 1. In *index.mjs*, find the following line:
 
@@ -236,9 +238,15 @@ This section shows you how to modify the starter app to accept a command-line ar
     const role = process.argv[2];
     ```
 
-1. Open two terminals (i.e. shells), and change directory in both to `~/reach/wisdom-for-sale/current`:
+1. Open two terminals (i.e. shells):
 
     <p><img src="terminals-empty.png" class="img-fluid" width=700 loading="lazy"></p>
+
+1. Change directory in both terminals:
+
+    ``` nonum
+    $ ~/reach/wisdom-for-sale/current
+    ```
 
 1. Run the following command in both terminals:
 
@@ -274,20 +282,132 @@ This section shows you how to modify the starter app to accept a command-line ar
     Your role is buyer.
     ```
 
-Later (perhaps after you finish the tutorial) you can replace this simple way of handling command-line arguments in your Reach DApp with a more sophisticated one using a Node.js package like [Minimist](https://www.npmjs.com/package/minimist), [Commander](https://www.npmjs.com/package/commander), [Meow](https://www.npmjs.com/package/meow), [Yargs](https://www.npmjs.com/package/yargs), and [Vorpal](https://www.npmjs.com/package/vorpal).
+# Add a Node.js package
 
-<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#npi" aria-expanded="false">
-  <i class="fas fa-info-circle me-2"></i><span>Node Package Integration</span>
-</button>
+This section shows you how to leverage the [yargs](https://www.npmjs.com/package/yargs) Node.js package to manage command-line arguments as an alternative to using the simple technique described above.  
 
-<span class="collapse" id="npi">
+This section is **optional**. If you do **not** want to add a Node.js package to your DApp at this time, you can skip to the next section, continuing to use the following commands throughout the remainder of this tutorial:
 
-Not done yet.
+``` nonum
+$ reach run index seller
+$ reach run index buyer
+```
 
-<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
-</span>
+If you **do** complete this section, you will need to use the following commands instead:
 
-The [reach](https://github.com/reach-sh/reach-lang/blob/master/reach) script exports only a pre-determined list of environment variables (e.g. `REACH_CONNECTOR_MODE`) within the Docker container where it runs your DApp, so it does not support custom environment variables (e.g. `ROLE=seller reach run`).
+``` nonum
+$ reach run index -r seller
+$ reach run index -r buyer
+```
+
+Adding a Node.js package to your Reach DApp is easy:
+
+1. In any terminal, change directory:
+
+    ``` nonum
+    $ cd ~/reach/wisdom-for-sale/current
+    ```
+
+1. Create non-temporary Reach scaffolding files:
+
+    ``` nonum
+    $ reach scaffold
+    ```
+
+1. Install the Node.js package:
+
+    ``` nonum
+    $ npm i yargs
+    ```
+
+1. Open *Dockerfile*, and uncomment 
+
+    ``` nonum
+    COPY package.json /app/package.json
+    RUN npm install
+    RUN npm link @reach-sh/stdlib
+    ```
+
+    `COPY` and `RUN` are commands understood by Docker.
+
+1. Open *index.mjs*, and add the following import near the top of the file:
+
+    ``` nonum
+    import yargs from 'yargs';
+    ```
+
+1. In *index.mjs*, find the following code:
+
+    ``` js nonum
+    if (process.argv.length < 3 || ['seller', 'buyer'].includes(process.argv[2]) == false) {
+      console.log('Usage: reach run index [seller|buyer]');
+      process.exit(0);
+    }
+    const role = process.argv[2];
+
+1. Replace it with the following:
+
+    ``` js nonum
+    const argv = yargs(process.argv.slice(2))
+      .option('help', {
+        alias: 'h',
+        describe: 'Show help.',
+        type: 'boolean'
+      })
+      .option('role', {
+        alias: 'r',
+        describe: 'Specify role.',
+        type: 'string',
+        choices: ['seller', 'buyer'],
+        default: 'seller'
+      })
+      .argv
+
+    const role = argv.r;
+    ```
+
+1. Tell your DApp to display help information:
+
+    ``` nonum
+    $ reach run index -h
+    ```
+
+    Output should resemble the following:
+
+    ``` nonum
+    Options:
+      -h, --help     Show help.          [boolean]
+          --version  Show version number [boolean]
+      -r, --role     Specify role.       [string] [choices: "seller", "buyer"] [default: "seller"]
+    ```
+
+1. In the Seller Terminal, run your DApp as the seller:
+
+    ``` nonum
+    $ reach run index -r seller
+    ```
+    
+    Output should resemble the following:
+
+    ``` nonum
+    The consensus network is ALGO.
+    Your role is seller.
+    ```
+
+1. In the Buyer Terminal, run your DApp as the buyer:
+
+    ``` nonum
+    $ reach run index -r buyer
+    ```
+
+    Output should resemble the following:
+
+    ``` nonum
+    The consensus network is ALGO.
+    Your role is buyer.
+    ```
+
+For the remainder of the tutorial, remember to use the `-r` flag.
 
 # Explore units and balances
 
@@ -408,7 +528,7 @@ In this tutorial, the seller outputs the contract information to the Seller Term
 
 Not done yet.
 
-<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;"/>
 </span>
 
 Follow these directions to have the seller deploy the contract and return the contract information:
@@ -500,7 +620,7 @@ The interact objects introduced in this section facilitate communication between
 
 Not done yet.
 
-<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;"/>
 </span>
 
 # Attach to the contract (buyer)
@@ -619,7 +739,7 @@ Reach programs are state machines. States include *step*, *local step*, and *con
 
 Not done yet.
 
-<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;"/>
 </span>
 
 # Cancel a transaction
@@ -962,7 +1082,7 @@ Using a view, the buyer is able to obtain `price` before attaching to the contra
 
 Not done yet.
 
-<hr style="background-color:#198754;opacity:1;height:6px;border-top:3px solid #d1e7dc;"/>
+<hr style="background-color:#198754;opacity:1;height:6px;"/>
 </span>
 
 # Examine the webapp
