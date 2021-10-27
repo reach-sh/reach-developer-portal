@@ -595,7 +595,7 @@ Follow these directions to have the seller deploy the contract and return the co
     * Line 6: `commit()` transitions to a step.
     * Line 8: `exit()` halts the contract forever.
 
-    The next section includes an information button about the Reach programming language.
+    The next section explains these functions in more detail. For now, know that Reach programs (the *index.rsh* portion of your Reach DApp) are organized into four modes, and that `deploy`, `only`, `publish`, `commit`, and `exit` cause mode transitions.
 
 1. Run your DApp as the seller. Output should resemble the following:
 
@@ -610,18 +610,7 @@ Follow these directions to have the seller deploy the contract and return the co
 
     The seller creates the contract, retrieves the contract information, and makes it available to the buyer who will (shortly) use the information to attach to the contract. Note that simply deploying the contract cost the seller gas.
 
-The interact objects introduced in this section facilitate communication between the frontend (e.g. `index.mjs`) and backend (e.g. `index.main.mjs`) of Reach applications, (remembering that `index.rsh` is the pre-compiled version of `index.main.mjs`).
-
-<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#aio" aria-expanded="false">
-  <i class="fas fa-info-circle me-2"></i><span>About Interact Objects</span>
-</button>
-
-<span class="collapse" id="aio">
-
-Not done yet.
-
-<hr style="background-color:#198754;opacity:1;height:6px;"/>
-</span>
+The interact objects introduced in this section facilitate communication between the frontend (e.g. `index.mjs`) and backend (e.g. `index.main.mjs`) of Reach applications, (remembering that `index.rsh` is the pre-compiled version of `index.main.mjs`). The [Market Day](/en/books/essentials/tutorials/market-day/) tutorial explores interact objects in more detail. 
 
 # Attach to the contract (buyer)
 
@@ -696,7 +685,7 @@ This section shows you how to have the buyer attach to the contact. It also intr
     * Line 2: `B.publish()` transitions to a consensus step.
     * Line 4: `commit()` transitions to a step.
 
-    The bottom of this section includes an information button about the Reach programming language.
+    See [Reach Mode Diagram](#reach-mode-diagram) and [Reach Mode Definitions](#reach-mode-definitions) at the bottom of this section for an explanation about *index.rsh* code.
 
 1. Run your DApp as both the seller and the buyer. When prompted, copy & paste the contract info from the Seller Terminal to the Buyer Terminal. Output should resemble the following:
 
@@ -729,18 +718,56 @@ This section shows you how to have the buyer attach to the contact. It also intr
     </div>
     </div>
 
-Reach programs are state machines. States include *step*, *local step*, and *consensus step*. State transitions include *deploy*, *publish*, *commit*, etc. Click the button to learn more.
+## Reach Mode Diagram
 
-<button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#atrl" aria-expanded="false">
-  <i class="fas fa-info-circle me-2"></i><span>About the Reach Programming Language</span>
-</button>
+Reach programs (the *index.rsh* portion of your Reach DApp) are organized into four modes: *Init Mode*, *Step Mode*, *Local Step Mode*, and *Consensus Step Mode*. Consider this diagram:
 
-<span class="collapse" id="atrl">
+<div><img src="modes.png" class="img-fluid my-4 d-block" width=700 loading="lazy"></div>
 
-Not done yet.
+The dark blue boxes in the diagram represent modes. The light blue boxes represent actions (functions) permitted within the mode. The orange text represents functions that cause transitions between modes. 
 
-<hr style="background-color:#198754;opacity:1;height:6px;"/>
-</span>
+## Reach Mode Definitions
+
+### Init Mode
+
+Application Initialization defines participants and views (see [View the contract](#view-the-contract) later in the tutorial). It also, optionally, overrides default compile options. Lines 2 and 3 below occur in the *Init* mode:
+
+``` js
+export const main = Reach.App(() => {
+  const S = Participant('Seller', sellerInteract);
+  const B = Participant('Buyer', buyerInteract);
+  deploy();
+```
+
+You can also override compile options (Line 2 below) in the *Init* mode:
+
+``` js
+export const main = Reach.App(() => {
+  setOptions({ verifyArithmetic: true, connectors: [ETH, ALGO ] });
+  const S = Participant('Seller', sellerInteract);
+  const B = Participant('Buyer', buyerInteract);
+  deploy();
+```
+
+The `deploy` function transitions from the *Init* mode to the *Step* mode. 
+
+### Step Mode
+
+A Step specifies actions taken by each and every participant. `exit()`, for example, is a function that must occur within a step, and it means that each and every participant exits the contract after which that instance of the contract becomes forever unavailable.
+
+### Local Step Mode
+
+A Local Step specifies actions taken by a single participant. Local steps must occur within the body of `only` or `each` statements. Here is an example:
+
+``` js nonum
+S.only(() => { const price = declassify(interact.price); });
+```
+
+`only()` and `each()` transition to a local step and then back to the originating mode (step or consensus step).
+
+### Consensus Step Mode
+
+A Consensus Step specifies actions taken by the contract itself. Later in this tutorial, the contract calls `transfer` to transfer funds from the contract to the seller.
 
 # Cancel a transaction
 
