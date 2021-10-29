@@ -1,5 +1,4 @@
 ---
-background: "url(/en/pages/home/stars2.jpeg), rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))"
 hasOtp: false
 hasPageHeader: false
 hasScrollbar: false
@@ -9,20 +8,20 @@ menuItem: mi-home
 # Home
 
 <div class="row mt-3">
-  <div class="col-12 col-lg-11" style="color:white;">
+  <div class="col-12 col-lg-11">
     <div class="row justify-content-md-center gx-2">
       <div class="col-12">
-        <p class="lead text-center" style="color:white;">Reach is the ideal programming language for blockchain applications.</b></p>
+        <p class="lead text-center">Reach is the ideal programming language for blockchain applications.</b></p>
       </div>
     </div>
     <div class="row justify-content-md-center gx-2">
-      <div class="col-6 col-md-3 my-3"><a class="btn btn-light step" href="/en/books/essentials/" role="button" style="width:100%;">Overview</a></div>
-      <div class="col-6 col-md-3 my-3"><a class="btn btn-light step" href="/en/books/essentials/tutorials/" role="button" style="width:100%;">Tutorials</a></div>
+      <div class="col-6 col-md-3 my-3"><a class="btn btn-success step" href="/en/books/essentials/" role="button" style="width:100%;">Overview</a></div>
+      <div class="col-6 col-md-3 my-3"><a class="btn btn-success step" href="/en/books/essentials/tutorials/" role="button" style="width:100%;">Tutorials</a></div>
     </div>
     <div class="row justify-content-md-center gx-2">
       <div class="col-12 mt-4">
         <div id="develop-and-deploy-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" style="border: 1px solid gray;border-radius:12px;">
-          <div class="carousel-inner" style="text-align:center;">
+          <div class="carousel-inner" style="text-align:center;background:black;">
             <div class="carousel-item active"><img src="slide001.svg" class="img-fluid" width=960 height=540></div>
             <div class="carousel-item"><img src="slide002.svg" class="img-fluid" width=960 height=540></div>
             <div class="carousel-item"><img src="slide003.svg" class="img-fluid" width=960 height=540></div>

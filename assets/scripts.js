@@ -205,7 +205,7 @@ const getWebpage = async (folder, hash, shallUpdateHistory) => {
     //console.log(otpHtml);
 
     // Set body background color.
-    document.querySelector('body').style.background = configJson.background;
+    //document.querySelector('body').style.background = configJson.background;
 
     // Book or different book?
     if (configJson.bookPath && configJson.bookPath != currentPage.bookPath) {
@@ -532,10 +532,9 @@ document.getElementById('page-col').addEventListener('scroll', scrollHandler);
 //console.log(window.location.origin);
 //console.log(window.location.href);
 //console.log(window.location.pathname);
-//getWebpage(window.location.pathname, window.location.hash, true);
+getWebpage(window.location.pathname, window.location.hash, true);
 
-function callGetWebpage() {
-  getWebpage(window.location.pathname, window.location.hash, true)
-}
-
-window.setTimeout(callGetWebpage, 500);
+//function callGetWebpage() {
+//  getWebpage(window.location.pathname, window.location.hash, true);
+//}
+//window.setTimeout(callGetWebpage, 500);

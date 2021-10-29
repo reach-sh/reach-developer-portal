@@ -187,6 +187,10 @@ The various screen widths (seen below) determine whether a user sees, on initial
 
 Reach colors are reddish (#F45747), light blueish (#6AC6E7), and inkish (#1A1C23).
 
+```
+background: "url(/en/pages/home/stars2.jpeg), rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))"
+```
+
 ## About the generator
 
 A Node.js command-line application, the site generator which, for the most part, transforms markdown files into html files, will continue to evolve over the next few months. Here is the current help menu:

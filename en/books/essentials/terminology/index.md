@@ -54,6 +54,8 @@ menuItem: mi-docs
 
 # JavaScript Standard Library
 
+# Liquidity Provider Tokens
+
 # Mode
 
 # Module
