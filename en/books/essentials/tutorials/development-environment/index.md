@@ -76,7 +76,7 @@ Many instructions on this site assume that you have added `~/reach` to `PATH`.
     Goodbye, Alice and Bob!
     ```
 
-# Maintain your environment
+# Maintain Reach environment
 
 From time to time, you will need to do the following:
 
@@ -98,3 +98,31 @@ From time to time, you will need to do the following:
     ``` nonum
     $ reach update
     ```
+
+# Maintain Docker Environment
+
+## reach-devnet is ambiguous
+
+The following command may emit this error:
+
+``` nonum
+$ reach devnet
+ERROR: 2 matches found based on name: network reach-devnet is ambiguous
+```
+
+This error indicates that your Docker environment has two networks with the same name:
+
+``` nonum
+$ docker network ls
+NETWORK ID     NAME                            DRIVER    SCOPE
+99aa458bc910   reach-devnet                    bridge    local
+0515874f7eea   reach-devnet                    bridge    local
+```
+
+Fix this issue by removing one or both networks:
+
+``` nonum
+$ docker network rm 99aa458bc910
+```
+
+Then, run `reach devnet` again.
