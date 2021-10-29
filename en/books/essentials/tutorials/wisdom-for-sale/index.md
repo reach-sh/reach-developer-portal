@@ -4,7 +4,7 @@ menuItem: mi-docs
 
 # Wisdom for Sale
 
-This tutorial shows you how to build a command-line version and a webapp version of [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), an application that enables two participants, a seller and a buyer, to trade wisdom for tokens via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network residing in a Docker container on your computer. Your DApp will create and fund two accounts, one for each participant. Then, it will enable the seller and buyer to make a deal.
+This tutorial shows you how to build [Wisdom for Sale](https://github.com/hagenhaus/wisdom-for-sale), a command-line and web-based application that enables two participants, a seller and a buyer, to trade wisdom for tokens via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network residing in a Docker container on your computer. Your DApp creates and funds two accounts (one for each participant), enables the seller and buyer to make a transaction, and exits.
 
 # Learning Objectives
 
@@ -14,9 +14,9 @@ The following learning objectives describe what you will be able to do as a resu
 1. Build a simple Reach command-line DApp.
 1. Convert the command-line DApp into a vanilla Webapp.
 
-# Overview
+# Examine the transaction
 
-The following diagram represents the wisdom-for-sale deal:
+The following diagram represents the wisdom-for-sale transaction:
 
 <div><img src="seller-buyer.png" class="img-fluid my-4 d-block" width=800 height=314 loading="lazy"></div>
 
@@ -53,7 +53,9 @@ This section shows you how to clone the tutorial repository.
 
     <p><img src="vscode-open.png" class="img-fluid" width=700 loading="lazy"></p>
 
-## Review index.mjs starter
+## Review frontend starter
+
+The frontend source file is [index.mjs](https://github.com/hagenhaus/wisdom-for-sale/blob/master/starter/index.mjs):
 
 ``` js
 load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.mjs
@@ -77,7 +79,9 @@ Below is a line-by-line description of this JavaScript code:
 * Line 24: Code for when you run this app as the buyer.
 * Line 25: Define empty (for now) object.
 
-## Review index.rsh starter
+## Review backend starter
+
+The backend source file is [index.rsh](https://github.com/hagenhaus/wisdom-for-sale/blob/master/starter/index.rsh).
 
 ``` js
 load: https://raw.githubusercontent.com/hagenhaus/wisdom-for-sale/master/starter/index.rsh
@@ -1134,9 +1138,15 @@ You need node.js and npm installed on your computer because you will need the [h
     $ reach down
     ```
 
-1. Open four terminals (i.e. shells), and change directory in each to `~/reach/wisdom-for-sale/current`:
+1. Open four terminals (i.e. shells):
 
     <p><img src="webapp-windows.png" class="img-fluid" width=800 loading="lazy"></p>
+
+1. Change directory in each terminal:
+
+    ``` nonum
+    $ ~/reach/wisdom-for-sale/current
+    ```
 
 1. In the ALGO Terminal, run the following:
 
