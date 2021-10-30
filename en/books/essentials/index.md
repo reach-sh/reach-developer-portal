@@ -3,7 +3,7 @@ bookTitle: Reach Essentials
 menuItem: mi-docs
 ---
 
-# Overview
+# Reach Essentials
 
 Reach is a programming language for building blockchain applications that deploy smart contracts to consensus networks. Watch the video and review the notes below to explore the questions **Why blockchain?** and **Why Reach?**
 

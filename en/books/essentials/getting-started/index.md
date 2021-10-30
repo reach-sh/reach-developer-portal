@@ -3,16 +3,16 @@ hasOtp: false
 menuItem: mi-docs
 ---
 
-# Tutorials
+# Getting Started
 
-Welcome to the Reach Tutorials! You can complete one or more of these tutorials through self study. Reach also offers scheduled or ad hoc webinars, and instructor-led training. See the [Community Schedule](/en/pages/community/) or [Contact](/en/pages/contact/) us. We recommend that you complete the beginner tutorials in order before proceeding to intermediate or advanced tutorials.
+Welcome to the Reach Tutorials! You can complete one or more of these tutorials through self study. Reach also offers scheduled or ad hoc webinars, and instructor-led training. See the [Schedule]() or [Contact]() us. 
 
 <div class="card mb-3">
   <div class="row g-0">
-    <a href="/en/books/essentials/tutorials/hello-world/">
+    <a href="/en/books/essentials/getting-started/run-a-dapp/">
       <div class="col-12">
         <div class="card-body">
-          <h5 class="card-title">Hello World</h5>
+          <h5 class="card-title">Run a DApp</h5>
           <p class="card-text">Run a Reach Hello World decentralized application (DApp) in a POSIX-compliant shell.</p>
           <div class="card-text"><small class="text-muted">Level: Beginner. Duration: 15 minutes.</small></div>
         </div>
@@ -23,10 +23,10 @@ Welcome to the Reach Tutorials! You can complete one or more of these tutorials 
 
 <div class="card mb-3">
   <div class="row g-0">
-    <a href="/en/books/essentials/tutorials/developer-environment/">
+    <a href="/en/books/essentials/getting-started/set-up-an-ide/">
       <div class="col-12">
         <div class="card-body">
-          <h5 class="card-title">Developer Environment</h5>
+          <h5 class="card-title">Set up an IDE</h5>
           <p class="card-text">Set up a Reach development environment for Mac, Linux, and Windows.</p>
           <div class="card-text"><small class="text-muted">Level: Beginner. Duration: 15 minutes.</small></div>
         </div>
@@ -37,7 +37,7 @@ Welcome to the Reach Tutorials! You can complete one or more of these tutorials 
 
 <div class="card mb-3">
   <div class="row g-0">
-    <a href="/en/books/essentials/tutorials/wisdom-for-sale/">
+    <a href="/en/books/essentials/getting-started/wisdom-for-sale/">
       <div class="col-12">
         <div class="card-body">
           <h5 class="card-title">Wisdom for Sale</h5>
@@ -51,7 +51,7 @@ Welcome to the Reach Tutorials! You can complete one or more of these tutorials 
 
 <div class="card mb-3">
   <div class="row g-0">
-    <a href="/en/books/essentials/tutorials/market-day/">
+    <a href="/en/books/essentials/getting-started/market-day/">
       <div class="col-12">
         <div class="card-body">
           <h5 class="card-title">Market Day</h5>
@@ -65,7 +65,7 @@ Welcome to the Reach Tutorials! You can complete one or more of these tutorials 
 
 <div class="card mb-3">
   <div class="row g-0">
-    <a href="/en/books/essentials/tutorials/rock-paper-scissors/">
+    <a href="/en/books/essentials/getting-started/rock-paper-scissors/">
       <div class="col-12">
         <div class="card-body">
           <h5 class="card-title">Rock Paper Scissors</h5>

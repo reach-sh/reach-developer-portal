@@ -2,7 +2,7 @@
 menuItem: mi-docs
 ---
 
-# Development Environment
+# Set up an IDE
 
 This tutorial shows you how to set up a Reach development environment for Mac, Linux, or Windows PC. You can develop Reach applications using any project directory structure and IDE. This page describes the project directory structure and IDE used in the examples throughout the site. Be sure to complete [Quick Start](/en/books/essentials/quick-start/) first.
 

@@ -2,7 +2,7 @@
 menuItem: mi-docs
 ---
 
-# Hello World
+# Run a DApp
 
 This tutorial shows you how to run a Reach *Hello World* decentralized application (DApp) in a [POSIX](https://en.wikipedia.org/wiki/POSIX)-compliant shell. 
 
