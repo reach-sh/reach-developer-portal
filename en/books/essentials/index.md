@@ -5,13 +5,52 @@ menuItem: mi-docs
 
 # Reach Essentials
 
-Reach is a programming language for building blockchain applications that deploy smart contracts to consensus networks. Watch the video and review the notes below to explore the questions **Why blockchain?** and **Why Reach?**
+Reach is a programming language for building blockchain applications and the smart contracts they deploy to consensus networks. View the carousel to learn more:
 
-<p><img src="video-placeholder.png" class="img-fluid" width=600 height=337 loading="lazy"></p>
+<div id="develop-and-deploy-carousel" class="carousel slide carousel-fade" data-bs-interval="false" style="background:black;">
+  <div class="carousel-inner" style="text-align:center;background:black;">
+    <div class="carousel-item active"><img src="slide001.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide002.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide003.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide004.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide005.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide006.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide007.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide008.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide009.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide010.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide011.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide012.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide013.png" class="img-fluid" width=880 height=495></div>
+    <div class="carousel-item"><img src="slide014.png" class="img-fluid" width=880 height=495></div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#develop-and-deploy-carousel" data-bs-slide="prev" style="justify-content: left;">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#develop-and-deploy-carousel" data-bs-slide="next" style="justify-content: right;">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
 # Lorem ipsum
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+<!--
+Creating a Reach DApp does *not* entail implementing a smart contract. Rather, it involves using the Reach programming language to describe, step by step, participant interactions from which the Reach compiler derives a smart contract. The video below provides a mental framework for understanding Reach development and deployment. See also the [Google Slide Presentation](https://docs.google.com/presentation/d/1fzrBNkwzzC7DPL7reAOG6Vwy2bEjLp9CJBLnKAPg2yc/present?usp=sharing).
+
+<p class="ratio ratio-16x9 my-4" style="max-width:500px;">
+  <iframe 
+    src="https://www.youtube.com/embed/4MJqPNelqCE"
+    frameborder="0"  
+    allowfullscreen>
+  </iframe>
+</p>
+
+Mentioned in the video are (1) the Reach [JavaScript Standard Library](/en/books/essentials/support-for-js-frontends/) which supports Reach applications by providing properties and methods dealing with accounts, arithmetic, big numbers, comparisons, consensus network providers, contracts, debugging, encryption, randomization, and time, (2) interact objects which are JavaScript objects that enable communication between Reach frontends and backends, explained in detail below, and (3) the Reach Verification Engine which helps to ensure that the immutable smart contract you deploy will run without errors like the error of forgetting to transfer all the otherwise unretrievable tokens out of a smart contract account before the contract exits.
+-->
 
 ## Sed ut perspiciatis
 

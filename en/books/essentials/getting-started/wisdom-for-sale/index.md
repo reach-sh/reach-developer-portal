@@ -22,18 +22,6 @@ The following diagram represents the wisdom-for-sale transaction:
 
 This particular transaction took place on an Algorand devnet. The Algorand cryptocurrency standard token unit is the *ALGO*. As indicated by the final balances in the diagram, the seller received 0.006 ALGO less than the agreed upon price, and the buyer paid 0.003 ALGO more. These expenses represent *gas*, the cost of doing business on a consensus network. The seller paid a little more gas than the buyer because the seller deployed the contract.
 
-Creating a Reach DApp does *not* entail implementing a smart contract. Rather, it involves using the Reach programming language to describe, step by step, participant interactions from which the Reach compiler derives a smart contract. The video below provides a mental framework for understanding Reach development and deployment. See also the [Google Slide Presentation](https://docs.google.com/presentation/d/1fzrBNkwzzC7DPL7reAOG6Vwy2bEjLp9CJBLnKAPg2yc/present?usp=sharing).
-
-<p class="ratio ratio-16x9 my-4" style="max-width:500px;">
-  <iframe 
-    src="https://www.youtube.com/embed/4MJqPNelqCE"
-    frameborder="0"  
-    allowfullscreen>
-  </iframe>
-</p>
-
-Mentioned in the video are (1) the Reach [JavaScript Standard Library](/en/books/essentials/support-for-js-frontends/) which supports Reach applications by providing properties and methods dealing with accounts, arithmetic, big numbers, comparisons, consensus network providers, contracts, debugging, encryption, randomization, and time, (2) interact objects which are JavaScript objects that enable communication between Reach frontends and backends, explained in detail below, and (3) the Reach Verification Engine which helps to ensure that the immutable smart contract you deploy will run without errors like the error of forgetting to transfer all the otherwise unretrievable tokens out of a smart contract account before the contract exits.
-
 # Clone the repository
 
 This section shows you how to clone the tutorial repository.
