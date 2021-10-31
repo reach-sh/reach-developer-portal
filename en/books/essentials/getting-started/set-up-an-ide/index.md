@@ -110,16 +110,21 @@ $ reach devnet
 ERROR: 2 matches found based on name: network reach-devnet is ambiguous
 ```
 
-This error indicates that your Docker environment has two networks with the same name:
+This error indicates that your Docker environment has two networks with the same name (i.e. *reach-devnet*):
 
 ``` nonum
 $ docker network ls
-NETWORK ID     NAME                            DRIVER    SCOPE
-99aa458bc910   reach-devnet                    bridge    local
-0515874f7eea   reach-devnet                    bridge    local
+NETWORK ID     NAME            DRIVER    SCOPE
+6a1eb744c3da   bridge          bridge    local
+731ef93dc5ee   host            host      local
+fcf2f7562b08   none            null      local
+99aa458bc910   reach-devnet    bridge    local
+0515874f7eea   reach-devnet    bridge    local
 ```
 
-Fix this issue by removing one or both networks:
+Note that *bridge*, *host*, and *none* are pre-defined networks that cannot be removed.
+
+Fix this issue by removing one or both duplicate networks:
 
 ``` nonum
 $ docker network rm 99aa458bc910
