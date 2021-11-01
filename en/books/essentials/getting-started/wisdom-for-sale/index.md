@@ -1028,7 +1028,7 @@ This section shows you how to get wisdom from the seller on the frontend, and sw
 
 # View the contract
 
-This section shows you how to have the buyer (before attaching) peek into the deployed contract to view the price, and explains why viewing declassified contract data before attaching is sometimes necessary.
+This section shows you how to have the buyer (before attaching) peek into the deployed contract to view the price, and explains why viewing contract data before attaching is sometimes advantageous.
 
 Below is the *index.mjs* version of `confirmPurchase` from the `buyerInteract` object:
 
@@ -1197,7 +1197,7 @@ You need node.js and npm installed on your computer because you will need the [h
 
 1. Click *Choose a DevNet*, select *Ethereum*, and repeat the Deploy, Attach, Reset steps.
 
-Note that the webapp doesn't run reliably on Conflux yet. I'm working on it.
+Note that the webapp doesn't run reliably on Conflux yet.
 
 # Self Assessment
 

@@ -14,7 +14,7 @@ Welcome to the Reach Tutorials! You can complete one or more of these tutorials 
         <div class="card-body">
           <h5 class="card-title">Run a DApp</h5>
           <p class="card-text">Run a Reach Hello World decentralized application (DApp) in a POSIX-compliant shell.</p>
-          <div class="card-text"><small class="text-muted">Level: Beginner. Duration: 15 minutes.</small></div>
+          <div class="card-text"><small class="">Level: Beginner. Duration: 15 minutes.</small></div>
         </div>
       </div>
     </a>
@@ -28,7 +28,7 @@ Welcome to the Reach Tutorials! You can complete one or more of these tutorials 
         <div class="card-body">
           <h5 class="card-title">Set up an IDE</h5>
           <p class="card-text">Set up a Reach development environment for Mac, Linux, and Windows.</p>
-          <div class="card-text"><small class="text-muted">Level: Beginner. Duration: 15 minutes.</small></div>
+          <div class="card-text"><small class="">Level: Beginner. Duration: 15 minutes.</small></div>
         </div>
       </div>
     </a>
@@ -42,7 +42,7 @@ Welcome to the Reach Tutorials! You can complete one or more of these tutorials 
         <div class="card-body">
           <h5 class="card-title">Wisdom for Sale</h5>
           <p class="card-text">Build a command-line version and a webapp version of an application that enables two participants, a seller and a buyer, to trade wisdom for tokens via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network residing in a Docker container on your computer.</p>
-          <div class="card-text"><small class="text-muted">Level: Beginner. Duration: 2 hours.</small></div>
+          <div class="card-text"><small class="">Level: Beginner. Duration: 2 hours.</small></div>
         </div>
       </div>
     </a>
@@ -56,7 +56,7 @@ Welcome to the Reach Tutorials! You can complete one or more of these tutorials 
         <div class="card-body">
           <h5 class="card-title">Market Day</h5>
           <p class="card-text">Build an application that demonstrates the use of strings, integers, booleans, objects, and arrays in interact objects by modeling a conversation and purchase between a seller and a buyer</p>
-          <div class="card-text"><small class="text-muted">Level: Beginner. Duration: 1 hour.</small></div>
+          <div class="card-text"><small class="">Level: Beginner. Duration: 1.5 hours.</small></div>
         </div>
       </div>
     </a>
@@ -70,7 +70,7 @@ Welcome to the Reach Tutorials! You can complete one or more of these tutorials 
         <div class="card-body">
           <h5 class="card-title">Rock Paper Scissors</h5>
           <p class="card-text">Build an application that demonstrates several key aspects of the Reach programming language by enabling a game of Rock Paper Scissors between two participants.</p>
-          <div class="card-text"><small class="text-muted">Level: Beginner. Duration: 4 hours.</small></div>
+          <div class="card-text"><small class="">Level: Beginner. Duration: 4 hours.</small></div>
         </div>
       </div>
     </a>

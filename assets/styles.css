@@ -474,6 +474,8 @@ iframe.gray-scale {
  Tutorial Cards
 ************************************************/
 
+#page-col div.card {background: #f9ebd2; border-color: #f9ebd2;}
+
 #page-col div.card a,
 #page-col div.card a:active,
 #page-col div.card a:visited,
@@ -482,10 +484,10 @@ iframe.gray-scale {
   color: var(--bs-body-color);
 }
 
+#page-col div.card small {color: #5a3f0c;}
+
 #page-col div.card:hover,
-#page-col div.card:focus {
-  box-shadow: 0px 1px 3px #cccccc;
-}
+#page-col div.card:focus {background: wheat; border-color: wheat;}
 
 /************************************************
  banish

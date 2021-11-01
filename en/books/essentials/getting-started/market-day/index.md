@@ -4,8 +4,6 @@ menuItem: mi-docs
 
 # Market Day
 
-<span style="color:red;">Under Construction</span>
-
 This tutorial builds upon [Wisdom for Sale](/en/books/essentials/tutorials/wisdom-for-sale/) by demonstrating how to use a variety of data types (string, integer, boolean, object, and array) in interact objects. You should complete [Wisdom for Sale](/en/books/essentials/tutorials/wisdom-for-sale/) before continuing.
 
 The tutorial shows you how to build [Market Day](https://github.com/hagenhaus/market-day), a command-line and web-based application that enables two participants, a seller and a buyer, to trade vegetables for tokens via a smart contract running on a private Algorand, Ethereum, or Conflux consensus network residing in a Docker container on your computer. Your DApp creates and funds two accounts (one for each participant), enables the seller and buyer to make a transaction, and exits. 
@@ -16,9 +14,8 @@ The contract in this tutorial supports a single transaction between a seller and
 
 The following learning objectives describe what you will be able to do as a result of completing this tutorial.
 
-1. sss
-1. sss
-1. sss
+1. Visualize Reach command-line DApp design
+1. Implement strings, integers, booleans, objects, and arrays in interact object.
 
 # Examine the transaction
 
@@ -543,6 +540,258 @@ Here are the steps:
 
 # View the contract
 
+This section shows you how to have the buyer (before attaching) peek into the deployed contract to view the `sellerInfo` (including the array of `products`), and explains why viewing contract data before attaching is sometimes advantageous.
+
+Below is the *index.mjs* version of `confirmPurchase` from the `buyerInteract` object:
+
+``` js nonum
+confirmPurchase: async (total) => await ask(`Do you want to complete the purchase for ${toSU(total)} ${suStr}?`, yesno)
+```
+
+The backend calls the function (passing `total`), and the frontend displays `total` to the buyer, asks for a decision, waits for the answer, and returns `true` or `false` to the backend. Effective for a command-line app, this approach doesn't work as well for a webapp which might use a modal in place of `ask-yesno`:
+
+<div><img src="modal.png" class="img-fluid my-4 d-block" width=400 loading="lazy"></div>
+
+Using Bootstrap as a example, here is how to display a modal:
+
+``` js nonum
+const modal = new bootstrap.Modal(document.getElementById('confirm-modal'), {})
+modal.show();
+```
+
+Note that `modal.show()` does not display the modal and wait for an answer. Rather, it returns immediately to the caller (before the modal appears), and, to get the answer, the application listens (asynchronously) for *Yes* and *No* button events. So, the application cannot call `modal.show()` from within `confirmPurchase`, wait for an answer, and return `true` or `false` to the backend.
+
+Instead, a webapp can do the following prior to attaching to the contract:
+
+1. Get and display the product list to the buyer.
+1. Get confirmation from the buyer.
+
+Once confirmed, the webapp can attach to the contract and complete the transaction (skipping the existing `confirmPurchase` by, for now, always returning `true`). The following directions show you how to obtain `sellerInfo` from the contract before attaching:
+
+1. In *index.rsh*, add Lines 4 and 10:
+
+    ``` js
+    export const main = Reach.App(() => {
+      const S = Participant('Seller', sellerInteract);
+      const B = Participant('Buyer', buyerInteract);
+      const V = View('Main', { sellerInfo: Object({ announcement: announcement, products: products }) });
+      deploy();
+
+      S.only(() => { const sellerInfo = declassify(interact.sellerInfo); });
+      S.publish(sellerInfo);
+      S.interact.reportReady();
+      V.sellerInfo.set(sellerInfo);
+      commit();
+    ```
+
+1. In *index.mjs*, add Lines 4-9 (in the Buyer section):
+
+    ``` js
+    const acc = await stdlib.newTestAccount(iBalance);
+    const info = await ask('Paste contract info:', (s) => JSON.parse(s));
+    const ctc = acc.contract(backend, info);
+    console.log('BEGIN VIEW SECTION');
+    const sellerInfo = await ctc.views.Main.sellerInfo();
+    sellerInfo[1].products.forEach((p, i) => {
+      console.log(`${i + 1}. ${p.name} at ${toSU(p.price)} ${suStr} per unit (${p.unit}).`);
+    });
+    console.log('END VIEW SECTION');
+    await showBalance(acc);
+    await ctc.p.Buyer(buyerInteract);
+    await showBalance(acc);
+    ``` 
+
+1. Run your DApp as the seller and the buyer. Buyer output should resemble the following:
+
+    ```
+    Your role is buyer.
+    The consensus network is ALGO.
+    Paste contract info:
+    15
+    BEGIN VIEW SECTION
+    1. Potatoes at 200 ALGO per unit (bag).
+    2. Carrots at 100 ALGO per unit (bunch).
+    3. Corn at 50 ALGO per unit (ear).
+    END VIEW SECTION
+    Your balance is 1000 ALGO.
+    List of products for sale:
+    1. Potatoes at 200 ALGO per unit (bag).
+    2. Carrots at 100 ALGO per unit (bunch).
+    3. Corn at 50 ALGO per unit (ear).
+    Enter 1-3, or 0 to exit:
+    2
+    Enter number of units, or 0 to exit:
+    2
+    You are ordering 2 bunches of Carrots at 100 ALGO per bunch.
+    Do you want to complete the purchase for 200 ALGO?
+    y
+    You paid 200 ALGO to the contract.
+    The contract paid 200 ALGO to the seller.
+    The seller owes you 2 bunches of Carrots.
+    Exiting contract.
+    Your balance is 799.994 ALGO.
+    ```
+
+    Lines 5-9 in the output demonstrate that the buyer can view `sellerInfo` before attaching to the contract.
+
+1. In *index.mjs*, comment out the *VIEW SECTION* code that you added above. You don't need this code in the command-line implementation of your DApp, but you will see the equivalent of this code when you examine the webapp implementation below. Specifically, in [webapp.mjs](https://github.com/hagenhaus/market-day/blob/master/solution/webapp.mjs), see the `view-btn` event listener.
+
 # Examine the webapp
 
+The [market-day](https://github.com/hagenhaus/market-day) repository includes a [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)-based webapp implementation that you can inspect and modify:
+
+<p class="ratio ratio-16x9 my-4" style="max-width:500px;">
+  <iframe 
+    src="https://www.youtube.com/embed/lZnzqOiYarY" 
+    frameborder="0"  
+    allowfullscreen>
+  </iframe>
+</p>
+
+You need node.js and npm installed on your computer because you will need the [http-server](https://www.npmjs.com/package/http-server) package (or similar) to run the webapp. Below are directions for running and inspecting the DApp:
+
+1. Copy [index.html](https://github.com/hagenhaus/market-day/blob/master/solution/index.html) and [webapp.mjs](https://github.com/hagenhaus/market-day/blob/master/solution/webapp.mjs) from the solution directory to your current directory.
+
+1. Stop and remove all your Reach containers:
+
+    ``` nonum
+    $ reach down
+    ```
+
+1. Open four terminals (i.e. shells):
+
+    <p><img src="webapp-windows.png" class="img-fluid" width=800 loading="lazy"></p>
+
+1. Change directory in each terminal:
+
+    ``` nonum
+    $ ~/reach/market-day/current
+    ```
+
+1. In the ALGO Terminal, run the following:
+
+    ``` nonum
+    $ export REACH_CONNECTOR_MODE=ALGO-devnet
+    $ reach devnet
+    ```
+
+1. In the CFX Terminal, run the following:
+
+    ``` nonum
+    $ export REACH_CONNECTOR_MODE=CFX-devnet
+    $ reach devnet
+    ```
+
+1. In the ETH Terminal, run the following:
+
+    ``` nonum
+    $ export REACH_CONNECTOR_MODE=ETH-devnet
+    $ reach devnet
+    ```
+
+1. In the Webapp Terminal, run the following:
+
+    ``` nonum
+    $ npm i --global http-server # Install the package globally if you haven't already.
+    $ http-server -c-1 -p 8080   # Run the webapp.
+    ```
+
+    Output should look similar to the following:
+
+    ``` nonum
+    Starting up http-server, serving ./
+
+    http-server settings: 
+    CORS: disabled
+    Cache: -1 seconds
+    Connection Timeout: 120 seconds
+    Directory Listings: visible
+    AutoIndex: visible
+    Serve GZIP Files: false
+    Serve Brotli Files: false
+    Default File Extension: none
+
+    Available on:
+      http://127.0.0.1:8080
+      http://192.168.1.4:8080
+    Hit CTRL-C to stop the server
+    ```
+
+1. Browse to one of the urls listed above. `http://localhost:8080` should probably work, too.
+
+1. Click *Choose a DevNet*, and select *Algorand*. The Deploy button should turn green.
+
+1. Click *Deploy*. The *View* button should turn green. 
+
+1. Click *View*. The *Attach* button should turn green. Choose a product and quantity.
+
+1. Click *Attach*, and then click *Yes*. The *Reset* button should turn green.
+
+1. Click *Reset*, and try it again with a different `Price` and `Wisdom` string.
+
+Note that the webapp doesn't run reliably on Conflux or Ethereum yet.
+
 # Self assessment
+
+Click on the question to view the answer.
+
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#one-to-one" aria-expanded="false">Is there is a one-to-one correspondence between frontend and backend interact objects?</p>
+
+    <div class="collapse mb-3" id="one-to-one">
+      <div class="card card-body">Yes. Generally, participant frontend and backend interact objects mirror each other to enable communication between frontends and backends.</div>
+    </div>
+
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#async-await" aria-expanded="false">Why do Reach JS Stdlib method invocations often appear within an async scope?</p>
+
+    <div class="collapse mb-3" id="async-await">
+      <div class="card card-body">Many Stdlib methods are asynchronous. Examples include balanceOf and newTestAccount. An synchronous method returns a promise immediately and the promised value eventually. JavaScipt code uses the await keyword to wait for promised values, and the await keyword must appear within an async scope.</div>
+    </div>
+
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#common-interact" aria-expanded="false">What is the best practice for including the same properties and/or methods in two different interact objects?</p>
+
+    <div class="collapse mb-3" id="common-interact">
+      <div class="card card-body">Put the common properties and methods in their own interact object (e.g. commonInteract) and use the JavaScript spread operator (i.e. ...commonInteract) inside the interact objects where you want to include the common items.</div>
+    </div>
+
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#pay-transfer" aria-expanded="false">In Reach smart contracts, does a participant pay another participant directly?</p>
+
+    <div class="collapse mb-3" id="pay-transfer">
+      <div class="card card-body">No. A participant pays the contract, and the contract transfers funds to another participant.</div>
+    </div>
+
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#view" aria-expanded="false">Is it possible to peak at data inside a smart contract without attaching to the contract?</p>
+
+    <div class="collapse mb-3" id="view">
+      <div class="card card-body">Yes. Reach views enable participants to view declassified smart-contract data with attaching to the contract.</div>
+    </div>
+
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#modes" aria-expanded="false">Name the four Reach modes.</p>
+
+    <div class="collapse mb-3" id="modes">
+      <div class="card card-body">Init, Step, Local Step, and Consensus Step.</div>
+    </div>
+
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#consensus-step" aria-expanded="false">A consensus step specifies actions taken by ____.</p>
+
+    <div class="collapse mb-3" id="consensus-step">
+      <div class="card card-body">The contract.</div>
+    </div>
+
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#deploy" aria-expanded="false">What is the name of the Reach function that causes a transition from Init mode to Step mode?</p>
+
+    <div class="collapse mb-3" id="deploy">
+      <div class="card card-body">deploy.</div>
+    </div>
+
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#fun" aria-expanded="false">Explain the parts of a Reach function definition.</p>
+
+    <div class="collapse mb-3" id="fun">
+      <div class="card card-body">Consider Fun([UInt], Bool). Fun means function definition. [] indicates the argument array. This function has one argument. The argument is an unsigned integer. Bool indicates that this function returns a boolean.</div>
+    </div>
+
+1. <p class="q-and-a" data-bs-toggle="collapse" href="#webapp-stdlib" aria-expanded="false">How does a webapp access the Reach JS Stdlib?</p>
+
+    <div class="collapse mb-3" id="webapp-stdlib">
+      <div class="card card-body">The Reach JS Stdlib is available on a CDN: (e.g. https://cdn.jsdelivr.net/npm/@reach-sh/stdlib@latest/dist/browser/reachsdk.min.js).</div>
+    </div>
+
