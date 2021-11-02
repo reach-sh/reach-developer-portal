@@ -113,51 +113,42 @@ const processBook = (baseDir, relDir) => {
 /************************************************************************************************
 * processCss
 ************************************************************************************************/
-const processCss = () => {
+const processCss = async () => {
   let iPath = `${srcDir}${cfg.iCssPath}`;
   let oPath = `${srcDir}${cfg.oCssPath}`;
   console.log(`Minifying ${cfg.iCssPath.slice(1)}`);
-  try {
-    let input = fs.readFileSync(iPath, 'utf8');
-    let options = { level: 2 };
-    let output = new CleanCss(options).minify(input);
-    fs.writeFileSync(oPath, output.styles);
-  } catch (err) {
-    console.log(err);
-  }
-}
+  let input = await fs.readFile(iPath, 'utf8');
+  let options = { level: 2 };
+  let output = new CleanCss(options).minify(input);
+  await fs.writeFile(oPath, output.styles);
+};
 
 /************************************************************************************************
 * processBase
 ************************************************************************************************/
 
-const processBase = (lang) => {
+const processBase = async (lang) => {
   let iPath = `${srcDir}/${lang}/base.html`;
   let oPath = `${srcDir}/${lang}/index.html`;
   console.log(`Minifying ${iPath}`);
   let options = { html: {}, };
-  minify(iPath, options)
-    .then(output => { fs.writeFileSync(oPath, output); })
-    .catch(error => { console.log(error); });
-}
+  const output = await minify(iPath, options);
+  await fs.writeFile(oPath, output);
+};
 
 /************************************************************************************************
 * processJs
 ************************************************************************************************/
 
-const processJs = () => {
+const processJs = async () => {
   let iPath = `${srcDir}${cfg.iJsPath}`;
   let oPath = `${srcDir}${cfg.oJsPath}`;
   console.log(`Minifying ${cfg.iJsPath.slice(1)}`);
-  try {
-    let input = fs.readFileSync(iPath, 'utf8');
-    let options = {};
-    let output = new UglifyJS.minify(input, options);
-    if (output.error) throw output.error;
-    fs.writeFileSync(oPath, output.code);
-  } catch (err) {
-    console.log(err);
-  }
+  let input = await fs.readFile(iPath, 'utf8');
+  let options = {};
+  let output = new UglifyJS.minify(input, options);
+  if (output.error) throw output.error;
+  await fs.writeFile(oPath, output.code);
 }
 
 /************************************************************************************************
@@ -293,11 +284,7 @@ const processFolder = async (baseDir, relDir) => {
   configJson.pathname = null;
   configJson.publishedDate = null;
   configJson.title = null;
-  try {
-    fs.writeFileSync(cfgPath, JSON.stringify(configJson, null, 2));
-  } catch (err) {
-    return `Error writing ${cfgPath}`;
-  }
+  await fs.writeFile(cfgPath, JSON.stringify(configJson, null, 2));
 
   /*
   const docOptions = {
@@ -311,143 +298,115 @@ const processFolder = async (baseDir, relDir) => {
   };
   */
 
-  let doc = null;
-  try {
-    let md = fs.readFileSync(mdPath, 'utf8');
+  let md = await fs.readFile(mdPath, 'utf8');
 
-    // If src == remote, get the remote markdown..
-    const re = /---([\s\S]*?)---/;
-    const fm = md.match(re);
-    if (fm) {
-      const fmArr = fm[0].split('\n');
-      for (let i = 0; i < fmArr.length; i++) {
-        let s = fmArr[i].replaceAll(' ', '').trim();
-        if (s.substring(0, 4) === 'src:') {
-          let url = `${cfg.repoBase}${cfg.repoSrcDir}${s.substring(4)}`;
-          md = fm[0] + '\n' + transformReachDoc((await axios.get(url)).data.trim());
-          break;
+  // If src == remote, get the remote markdown..
+  const re = /---([\s\S]*?)---/;
+  const fm = md.match(re);
+  if (fm) {
+    const fmArr = fm[0].split('\n');
+    for (let i = 0; i < fmArr.length; i++) {
+      const s = fmArr[i].replaceAll(' ', '').trim();
+      if (s.substring(0, 4) === 'src:') {
+        const target = `${cfg.repoSrcDir}${s.substring(4)}`;
+        let content;
+        try {
+          content = await fs.readFile(`${__dirname}/../../reach-lang/${target}`, 'utf8');
+        } catch (e) {
+          void(e);
+          const url = `${cfg.repoBase}${target}`;
+          content = (await axios.get(url)).data.trim();
         }
+        md = fm[0] + '\n' + transformReachDoc(content);
+        break;
       }
     }
-
-    // markdown-to-html pipeline.
-    await unified()
-      .use(remarkParse) // Parse markdown to Markdown Abstract Syntax Tree (MDAST).
-      .use(remarkFrontmatter) // Prepend YAML node with frontmatter.
-      .use(copyFmToConfig, { path: cfgPath }) // Remove YAML node and write frontmatter to config file.
-      .use(prependTocNode) // Prepend Heading, level 6, value "toc".
-      //.use(() => (tree) => { console.dir(tree); })
-      .use(remarkToc, { maxDepth: 2 }) // Build toc list under the heading.
-      //.use(() => (tree) => { console.dir(JSON.stringify(tree.children[1].children, null, 2)); })
-      .use(remarkSlug) // Create IDs (acting as anchors) for headings throughout the document.
-      .use(joinCodeClasses) // Concatenate (using _) class names for code elements.
-      .use(remarkGfm) // Normalize Github Flavored Markdown so it can be converted to html.
-      .use(remarkRehype, { allowDangerousHtml: true }) // Convert MDAST to html.
-      .use(rehypeRaw) // Copy over html embedded in markdown.
-      //.use(rehypeDocument, docOptions) // Adds full-page html tags.
-      .use(rehypeFormat) // Prettify html.
-      .use(rehypeStringify) // Serialize html.
-      .process(md) // Push the markdown through the pipeline.
-      .then((output) => {
-
-        //console.log(String(output));
-
-        doc = new JSDOM(output).window.document;
-
-        // Process OTP.
-        if (doc.getElementById('toc')) {
-          doc.getElementById('toc').remove();
-          let otpEl = doc.querySelector('ul');
-          otpEl.querySelectorAll('li').forEach(el => el.classList.add('dynamic'));
-          otpEl.querySelectorAll('ul').forEach(el => el.classList.add('dynamic'));
-          otpEl.querySelectorAll('p').forEach(el => {
-            let parent = el.parentNode;
-            while (el.firstChild) { parent.insertBefore(el.firstChild, el); }
-            parent.removeChild(el);
-          })
-          try {
-            fs.writeFileSync(otpPath, `<ul>${otpEl.innerHTML.trim()}</ul>`);
-          } catch (err) {
-            return `Error writing ${otpPath}`;
-          }
-          otpEl.remove();
-        }
-
-        // Read config.json.
-        try {
-          configJson = fs.readJsonSync(cfgPath);
-        } catch (err) {
-          return `Error reading ${configJson}`;
-        }
-
-        // Update config.json with title and pathname.
-        const title = doc.querySelector('h1').textContent;
-        doc.querySelector('h1').remove();
-        configJson.title = title;
-        configJson.pathname = folder;
-
-        // Update config.json with book information.
-        if (configJson.bookTitle) {
-          configJson.bookPath = relDir;
-        } else {
-          const pArray = folder.split('/');
-          if (pArray.includes('books')) {
-            const bArray = pArray.slice(0, pArray.indexOf('books') + 2);
-            const bPath = bArray.join('/');
-            const bIdArray = pArray.slice(pArray.indexOf('books') - 1, pArray.indexOf('books') + 2);
-            configJson.bookPath = bIdArray.join('/');
-            const bookConfigJsonFile = `${bPath}/config.json`;
-            const bookConfigJson = fs.readJsonSync(bookConfigJsonFile);
-            configJson.bookTitle = bookConfigJson.bookTitle;
-
-            //console.log(pArray);
-            //console.log(bArray);
-            //console.log(bPath);
-            //console.log(bIdArray);
-            //console.log(configJson.bookPath);
-
-          }
-        }
-
-        // Write config.json.
-        try {
-          fs.writeFileSync(cfgPath, JSON.stringify(configJson, null, 2));
-        } catch (err) {
-          return `Error writing ${cfgPath}`;
-        }
-
-        // Adjust image urls.
-        doc.querySelectorAll('img').forEach(img => {
-          img.src = `/${relDir}/${img.src}`;
-        });
-
-      }),
-      (error) => {
-        throw error
-      }
-  } catch (err) {
-    //return `Error reading ${relDir}`;
-    return err;
   }
 
+  // markdown-to-html pipeline.
+  const output = await unified()
+    .use(remarkParse) // Parse markdown to Markdown Abstract Syntax Tree (MDAST).
+    .use(remarkFrontmatter) // Prepend YAML node with frontmatter.
+    .use(copyFmToConfig, { path: cfgPath }) // Remove YAML node and write frontmatter to config file.
+    .use(prependTocNode) // Prepend Heading, level 6, value "toc".
+    //.use(() => (tree) => { console.dir(tree); })
+    .use(remarkToc, { maxDepth: 2 }) // Build toc list under the heading.
+    //.use(() => (tree) => { console.dir(JSON.stringify(tree.children[1].children, null, 2)); })
+    .use(remarkSlug) // Create IDs (acting as anchors) for headings throughout the document.
+    .use(joinCodeClasses) // Concatenate (using _) class names for code elements.
+    .use(remarkGfm) // Normalize Github Flavored Markdown so it can be converted to html.
+    .use(remarkRehype, { allowDangerousHtml: true }) // Convert MDAST to html.
+    .use(rehypeRaw) // Copy over html embedded in markdown.
+    //.use(rehypeDocument, docOptions) // Adds full-page html tags.
+    .use(rehypeFormat) // Prettify html.
+    .use(rehypeStringify) // Serialize html.
+    .process(md); // Push the markdown through the pipeline.
+
+  //console.log(String(output));
+
+  const doc = new JSDOM(output).window.document;
+
+  // Process OTP.
+  if (doc.getElementById('toc')) {
+    doc.getElementById('toc').remove();
+    const otpEl = doc.querySelector('ul');
+    otpEl.querySelectorAll('li').forEach(el => el.classList.add('dynamic'));
+    otpEl.querySelectorAll('ul').forEach(el => el.classList.add('dynamic'));
+    otpEl.querySelectorAll('p').forEach(el => {
+      const p = el.parentNode;
+      while (el.firstChild) { p.insertBefore(el.firstChild, el); }
+      p.removeChild(el);
+    })
+    await fs.writeFile(otpPath, `<ul>${otpEl.innerHTML.trim()}</ul>`);
+    otpEl.remove();
+  }
+
+  // Read config.json.
+  configJson = await fs.readJson(cfgPath);
+
+  // Update config.json with title and pathname.
+  const title = doc.querySelector('h1').textContent;
+  doc.querySelector('h1').remove();
+  configJson.title = title;
+  configJson.pathname = folder;
+
+  // Update config.json with book information.
+  if (configJson.bookTitle) {
+    configJson.bookPath = relDir;
+  } else {
+    const pArray = folder.split('/');
+    if (pArray.includes('books')) {
+      const bArray = pArray.slice(0, pArray.indexOf('books') + 2);
+      const bPath = bArray.join('/');
+      const bIdArray = pArray.slice(pArray.indexOf('books') - 1, pArray.indexOf('books') + 2);
+      configJson.bookPath = bIdArray.join('/');
+      const bookConfigJsonFile = `${bPath}/config.json`;
+      const bookConfigJson = await fs.readJson(bookConfigJsonFile);
+      configJson.bookTitle = bookConfigJson.bookTitle;
+    }
+  }
+
+  // Write config.json.
+  await fs.writeFile(cfgPath, JSON.stringify(configJson, null, 2));
+
+  // Adjust image urls.
+  doc.querySelectorAll('img').forEach(img => {
+    img.src = `/${relDir}/${img.src}`;
+  });
+
   // Process code snippets.
-  let preArray = doc.querySelectorAll('pre');
+  const preArray = doc.querySelectorAll('pre');
   for (let i = 0; i < preArray.length; i++) {
-    let pre = preArray[i];
-    let code = pre.querySelector('code');
+    const pre = preArray[i];
+    const code = pre.querySelector('code');
 
     // Evaluate code snippet
     if (!code) { continue; }
-    let spec = evaluateCodeSnippet(code);
+    const spec = evaluateCodeSnippet(code);
 
     // Get remote content if specified.
     if (spec.url) {
-      try {
-        code.textContent = (await axios.get(spec.url)).data;
-      } catch (err) {
-        console.log(`Error on GET ${spec.url}.`);
-        continue;
-      }
+      code.textContent = (await axios.get(spec.url)).data;
     }
 
     // Replace < and > with code.
@@ -473,33 +432,19 @@ const processFolder = async (baseDir, relDir) => {
 
   // Create soft link in this folder to index.html file at root.
   if(configJson.hasCustomBase == false) {
-    try {
-      fs.unlinkSync(`${folder}/index.html`);
-    } catch (err) {
-      //console.log('Info: Old symlink does not exist.');
+    await fs.unlink(`${folder}/index.html`);
+    const backstepCount = relDir.split('/').length - 1;
+    let backstepUrl = '';
+    for (let i=0; i < backstepCount; i++) {
+      backstepUrl = backstepUrl + '../';
     }
-  
-    try {
-      let backstepCount = relDir.split('/').length - 1;
-      let backstepUrl = '';
-      for (let i=0; i < backstepCount; i++) {
-        backstepUrl = backstepUrl + '../';
-      }
-      let target = `${backstepUrl}index.html`;
-      let symlink = `${folder}/index.html`;
-      fs.symlinkSync(target, symlink);
-    } catch (err) {
-      //console.log('Error: Could not create symlink to index.html.');
-    }  
+    const target = `${backstepUrl}index.html`;
+    const symlink = `${folder}/index.html`;
+    await fs.symlink(target, symlink);
   }
 
   // Write DOM to file.
-  try {
-    fs.writeFileSync(pagePath, doc.body.innerHTML.trim());
-    return 'success';
-  } catch (err) {
-    return `Error writing ${pagePath}`;
-  }
+  await fs.writeFile(pagePath, doc.body.innerHTML.trim());
 }
 
 /************************************************************************************************
@@ -507,81 +452,57 @@ const processFolder = async (baseDir, relDir) => {
 ************************************************************************************************/
 
 const findAndProcessFolder = async (folder) => {
-  const fileArr = fs.readdirSync(folder);
-  for (let i = 0; i < fileArr.length; i++) {
-    if (fileArr[i] == 'index.md') {
-      let baseDir = normalizeDir(srcDir);
+  const fileArr = await fs.readdir(folder);
+  await Promise.all(fileArr.map(async (p) => {
+    if (p === 'index.md') {
+      const baseDir = normalizeDir(srcDir);
       let relDir = normalizeDir(folder.replace(baseDir, ''));
       relDir = relDir.startsWith('/') ? relDir.slice(1) : relDir;
-      let rval = await processFolder(baseDir, relDir);
-      if (rval !== 'success') { console.log(rval); }
-      break;
+      return await processFolder(baseDir, relDir);
+    } else {
+      const absolute = path.join(folder, p);
+      if ((await fs.stat(absolute)).isDirectory()) {
+        return await findAndProcessFolder(absolute);
+      }
     }
-  }
-  for (let i = 0; i < fileArr.length; i++) {
-    let absolute = path.join(folder, fileArr[i]);
-    if (fs.statSync(absolute).isDirectory()) {
-      await findAndProcessFolder(absolute);
-    }
-  }
-  return 1;
-}
+  }));
+};
 
 /************************************************************************************************
 * findAndProcessFolders
 ************************************************************************************************/
 
-const findAndProcessFolders = (folder) => {
-  (async () => {
-    try {
-      await findAndProcessFolder(folder);
-    } catch (err) {
-      console.log(`Cannot read ${err.path}`);
-    }
-  })();
-}
+const findAndProcessFolders = async (folder) =>
+  await findAndProcessFolder(folder);
 
 /************************************************************************************************
 * Process specified type.
 ************************************************************************************************/
 
-switch (argv.t) {
-
-  case 'all':
-    processCss();
-    processBase('en');
-    processJs();
+(async () => {
+  const goals = [];
+  if ( argv.t === 'base' ) {
+    goals.push(processBase(argv.l));
+  }
+  if ( argv.t === 'book' ) {
+    goals.push(processBook(normalizeDir(srcDir), normalizeDir(argv.d)));
+  }
+  if ( argv.t === 'css' || argv.t === 'all' ) {
+    goals.push(processCss());
+  }
+  if ( argv.t === 'js' || argv.t === 'all' ) {
+    goals.push(processJs());
+  }
+  if ( argv.t === 'folder' ) {
+    goals.push(processFolder(normalizeDir(srcDir), normalizeDir(argv.d)));
+  }
+  if ( argv.t === 'folders' ) {
+    goals.push(findAndProcessFolders(`${normalizeDir(srcDir)}/${normalizeDir(argv.d)}`));
+  }
+  if ( argv.t === 'all' ) {
+    goals.push(processBase('en'));
     // Need to add --ignore flag.
-    findAndProcessFolders(`${normalizeDir(srcDir)}`);
-    break;
-
-  case 'base':
-    processBase(argv.l);
-    break;
-
-  case 'book':
-    processBook(normalizeDir(srcDir), normalizeDir(argv.d));
-    break;
-
-  case 'css':
-    processCss();
-    break;
-
-  case 'folder':
-    (async () => {
-      const rval = await processFolder(normalizeDir(srcDir), normalizeDir(argv.d));
-      if (rval !== 'success') { console.log(rval); }
-    })();
-    break;
-
-  case 'folders':
-    findAndProcessFolders(`${normalizeDir(srcDir)}/${normalizeDir(argv.d)}`);
-    break;
-
-  case 'js':
-    processJs();
-    break;
-
-  default:
-    console.log('Switch Default')
-}
+    goals.push(findAndProcessFolders(`${normalizeDir(srcDir)}`));
+  }
+  await Promise.all(goals);
+})();
