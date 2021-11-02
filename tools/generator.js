@@ -34,6 +34,25 @@ const cfg = fs.readJsonSync(`${__dirname}/generator.json`);
 
 const srcDir = __dirname.replace('/tools', '');
 
+const remoteGet_ = async (url) => {
+  if ( url.startsWith(cfg.repoBase) ) {
+    const n = url.replace(cfg.repoBase, `${__dirname}/../../reach-lang/`);
+    try { return await fs.readFile(n, 'utf8'); }
+    catch (e) {
+      void(e);
+    }
+  }
+  console.log(`Downloading ${url}`);
+  return (await axios.get(url)).data;
+};
+const CACHE = {};
+const remoteGet = async (url) => {
+  if ( ! (url in CACHE) ) {
+    CACHE[url] = await remoteGet_(url);
+  }
+  return CACHE[url];
+};
+
 /************************************************************************************************
 * Parse command line
 * For option details, https://github.com/yargs/yargs/blob/HEAD/docs/api.md.
@@ -309,14 +328,8 @@ const processFolder = async (baseDir, relDir) => {
       const s = fmArr[i].replaceAll(' ', '').trim();
       if (s.substring(0, 4) === 'src:') {
         const target = `${cfg.repoSrcDir}${s.substring(4)}`;
-        let content;
-        try {
-          content = await fs.readFile(`${__dirname}/../../reach-lang/${target}`, 'utf8');
-        } catch (e) {
-          void(e);
-          const url = `${cfg.repoBase}${target}`;
-          content = (await axios.get(url)).data.trim();
-        }
+        const url = `${cfg.repoBase}${target}`;
+        const content = (await remoteGet(url));
         md = fm[0] + '\n' + transformReachDoc(content);
         break;
       }
@@ -406,7 +419,7 @@ const processFolder = async (baseDir, relDir) => {
 
     // Get remote content if specified.
     if (spec.url) {
-      code.textContent = (await axios.get(spec.url)).data;
+      code.textContent = await remoteGet(spec.url);
     }
 
     // Replace < and > with code.
@@ -432,7 +445,7 @@ const processFolder = async (baseDir, relDir) => {
 
   // Create soft link in this folder to index.html file at root.
   if(configJson.hasCustomBase == false) {
-    await fs.unlink(`${folder}/index.html`);
+    try { await fs.unlink(`${folder}/index.html`); } catch (e) { void(e); }
     const backstepCount = relDir.split('/').length - 1;
     let backstepUrl = '';
     for (let i=0; i < backstepCount; i++) {
