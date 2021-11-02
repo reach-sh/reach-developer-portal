@@ -16,46 +16,19 @@ This repository contains the source files and site generator for the [Reach Deve
     cd reach-developer-portal
     ```
 
-1. Convert source files to website files. (Node.js and npm are required. I use Node.js v16.3.0.)
+1. Convert source files to website files.
 
     ```
-    cd tools
-    npm install
-    npm run s1 && npm run s2 && npm run s3 && npm run s4 # Build custom plugins.
-    node generator.js -t all
-    cd .. # change back to reach-developer-portal
+    make build
     ```
 
-1. Install and run [http-server](https://www.npmjs.com/package/http-server):
+    (Node.js and npm are required. I use Node.js v16.3.0.)
 
-    ```
-    npm i --global http-server
-    http-server -c-1
-    ```
+1. Run `make serve-up`
 
-    The -c flag turns off server caching. If you plan to create/modify webpages and see the changes on refresh, you probably want to turn off browser caching, too. In Chrome, check Developer Tools > Network > Disable cache. Chrome clears this setting at exit.
+   You can turn it off with `make serve-down`.
 
-    Hit CTRL-C to stop the server.
-
-    You can also run *http-server* in the background using [pm2](https://www.npmjs.com/package/pm2):
-
-    ```
-    $ npm install pm2 -g
-    $ pm2 start http-server --name http-server -- -c-1
-    ```
-
-    The `--` argument passes the `-c` flag to `http-server`.
-
-    Helpful *pm2* commands:
-
-    ```
-    $ pm2 list      # list all processes
-    $ pm2 stop 0    # stop process where id=0
-    $ pm2 start 0   # start process where id=0
-    $ pm2 delete 0  # stop process and remove from list where id=0
-    ```
-    
-1. Browse to http://127.0.0.1:8080 or http://localhost:8080.
+1. Browse to http://127.0.0.1:8081 or http://localhost:8081.
 
 ## Create a webpage
 
@@ -79,7 +52,7 @@ This repository contains the source files and site generator for the [Reach Deve
     node tools/generator.js -t folder -d en/pages/colors-and-shapes
     ```
 
-1. Browse to http://localhost:8080/en/pages/colors-and-shapes.
+1. Browse to http://localhost:8081/en/pages/colors-and-shapes.
 
 ## Configure the webpage
 
