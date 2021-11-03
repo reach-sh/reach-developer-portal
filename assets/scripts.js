@@ -11,7 +11,7 @@ const pathnameToId = (pathname) => { return pathname.replace(/^\/|\/$/g, '').rep
 const idToPathName = (id) => { return id.replace(/_/g, '/'); }
 
 let lang = window.navigator.language.split('-')[0];
-const homepage = `/${lang}/pages/homepage/`;
+const homepage = `/${lang}/pages/home/`;
 
 const otpPreferences = { 'none': 'none', 'show': 'show', 'hide': 'hide' };
 Object.freeze(otpPreferences);

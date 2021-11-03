@@ -6,3 +6,4 @@ menuItem: mi-home
 
 # Homepage
 
+Please use [/en/pages/home](/en/pages/home/).

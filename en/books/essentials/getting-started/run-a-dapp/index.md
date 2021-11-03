@@ -88,19 +88,6 @@ Reach assumes the presence of a [POSIX](https://en.wikipedia.org/wiki/POSIX)-com
 
 # Run the app
 
-1. Run the DApp on a local dockerized Ethereum devnet:
-
-    ``` nonum
-    $ ~/reach/reach run
-    ...
-    Hello, Alice and Bob!
-    Launching...
-    Starting backends...
-    Goodbye, Alice and Bob!
-    ```
-
-    You could also use `REACH_CONNECTOR_MODE=ETH-devnet ~/reach/reach run`.
-
 1. Run the DApp on a local dockerized Algorand devnet:
 
     ``` nonum
@@ -116,6 +103,17 @@ Reach assumes the presence of a [POSIX](https://en.wikipedia.org/wiki/POSIX)-com
 
     ``` nonum
     $ REACH_CONNECTOR_MODE=CFX-devnet ~/reach/reach run
+    ...
+    Hello, Alice and Bob!
+    Launching...
+    Starting backends...
+    Goodbye, Alice and Bob!
+    ```
+
+1. Run the DApp on a local dockerized Ethereum devnet:
+
+    ``` nonum
+    $ REACH_CONNECTOR_MODE=ETH-devnet ~/reach/reach run
     ...
     Hello, Alice and Bob!
     Launching...
