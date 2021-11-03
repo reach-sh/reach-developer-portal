@@ -326,7 +326,8 @@ const getWebpage = async (folder, hash, shallUpdateHistory) => {
 
     // Adjust navbar active indicator.
     if (configJson.menuItem) {
-      if (!document.getElementById(configJson.menuItem).classList.contains('active')) {
+      let el = document.getElementById(configJson.menuItem);
+      if (el && !el.classList.contains('active')) {
         document.querySelectorAll('header a').forEach(el => { el.classList.remove('active'); });
         document.getElementById(configJson.menuItem).classList.add('active');
       }
