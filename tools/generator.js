@@ -139,8 +139,15 @@ const remoteGet = async (url) => {
   return CACHE[url];
 };
 
-// Library
+let shikiHighlighter = undefined;
+const shikiHighlight = async (code, lang) => {
+  if ( shikiHighlighter === undefined ) {
+    shikiHighlighter = await shiki.getHighlighter({ theme: 'github-light' });
+  }
+  return shikiHighlighter.codeToHtml(code, lang);
+};
 
+// Library
 const normalizeDir = (s) => {
   return s.endsWith('/') ? s.slice(0, -1) : s;
 }
@@ -407,8 +414,8 @@ const processFolder = async (baseDir, relDir) => {
     // https://github.com/shikijs/shiki/blob/main/docs/themes.md
     // https://github.com/shikijs/shiki/blob/main/docs/languages.md
     if (spec.language) {
-      const highlighter = await shiki.getHighlighter({ theme: 'github-light' });
-      code.textContent = highlighter.codeToHtml(code.textContent, spec.language)
+      const hicode = await shikiHighlight(code.textContent, spec.language);
+      code.textContent = hicode
         //.replace('<pre class="shiki" style="background-color: #282A36"><code>', '') // dracula
         .replace('<pre class="shiki" style="background-color: #ffffff"><code>', '') // github-light
         .replaceAll('<span class="line">', '')
