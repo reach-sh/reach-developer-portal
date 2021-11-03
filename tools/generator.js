@@ -5,10 +5,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import UglifyJS from 'uglify-js';
 import yargs from 'yargs';
-
 import axios from 'axios';
 import shiki from 'shiki';
-
+import yaml from 'js-yaml';
 import rehypeFormat from 'rehype-format';
 import rehypeRaw from 'rehype-raw'
 import rehypeDocument from 'rehype-document';
@@ -20,19 +19,103 @@ import remarkRehype from 'remark-rehype';
 import remarkSlug from 'remark-slug';
 import remarkToc from 'remark-toc';
 import { unified } from 'unified';
-
-import prependTocNode from './plugins/prepend-toc-node/index.js';
-import joinCodeClasses from './plugins/join-code-classes/index.js';
-import copyFmToConfig from './plugins/copy-fm-to-config/index.js';
-
-import jsdom from 'jsdom';
-const { JSDOM } = jsdom;
+import { visit } from 'unist-util-visit';
+import { JSDOM } from 'jsdom';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const cfg = fs.readJsonSync(`${__dirname}/generator.json`);
-
 const srcDir = __dirname.replace('/tools', '');
+
+// Plugins
+
+const prependTocNode = (options = {}) => {
+  return (tree, file) => {
+    tree.children = [
+      {
+        "type": "heading",
+        "depth": 6,
+        "children": [
+          {
+            "type": "text",
+            "value": "toc",
+            "position": {
+              "start": {
+                "line": 1,
+                "column": 8,
+                "offset": 7
+              },
+              "end": {
+                "line": 1,
+                "column": 11,
+                "offset": 10
+              }
+            }
+          }
+        ],
+        "position": {
+          "start": {
+            "line": 1,
+            "column": 1,
+            "offset": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 12,
+            "offset": 11
+          }
+        }
+      },
+      ...tree.children.slice(0)
+    ];
+
+    /*
+    node.children = [
+      ...node.children.slice(0, result.index),
+      result.map,
+      ...node.children.slice(result.endIndex)
+    ]
+    */
+  }
+};
+
+const joinCodeClasses = () => {
+  return (tree, file) => {
+    visit(tree, 'code', node => {
+      if(node.lang || node.meta) {
+        node.lang = 
+        node.meta==null ? node.lang 
+        : node.lang==null ? node.meta.split(' ').join('_')
+        : `${node.lang}_${node.meta.split(' ').join('_')}`;
+      }
+    });
+  }
+};
+
+const copyFmToConfig = (options = {}) => {
+  return (tree, file) => {
+    let configJson = fs.readJsonSync(options.path);
+    visit(tree, 'yaml', (node, index, p) => {
+      let fm = yaml.load(node.value, 'utf8');
+      if(fm.hasOwnProperty('author')) {configJson.author = fm.author;}
+      if(fm.hasOwnProperty('background')) {configJson.background = fm.background;}
+      if(fm.hasOwnProperty('bookTitle')) {configJson.bookTitle = fm.bookTitle;}
+      if(fm.hasOwnProperty('hasCustomBase')) {configJson.hasCustomBase = fm.hasCustomBase;}
+      if(fm.hasOwnProperty('hasEditBtn')) {configJson.hasEditBtn = fm.hasEditBtn;}
+      if(fm.hasOwnProperty('hasOtp')) {configJson.hasOtp = fm.hasOtp;}
+      if(fm.hasOwnProperty('hasPageHeader')) {configJson.hasPageHeader = fm.hasPageHeader;}
+      if(fm.hasOwnProperty('hasPageScrollbar')) {configJson.hasPageScrollbar = fm.hasPageScrollbar;}
+      if(fm.hasOwnProperty('hasRefreshBtn')) {configJson.hasRefreshBtn = fm.hasRefreshBtn;}
+      if(fm.hasOwnProperty('menuItem')) {configJson.menuItem = fm.menuItem;}
+      if(fm.hasOwnProperty('publishedDate')) {configJson.publishedDate = fm.publishedDate;}
+      fs.writeFileSync(options.path, JSON.stringify(configJson, null, 2));
+      p.children.splice(index, 1); // Remove yaml node.
+      return [visit.SKIP, index];
+    });
+  }
+};
+
+// Tools
 
 const remoteGet_ = async (url) => {
   if ( url.startsWith(cfg.repoBase) ) {
