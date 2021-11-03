@@ -1,3 +1,4 @@
+import { setTimeout } from 'timers/promises';
 import CleanCss from 'clean-css';
 import fs from 'fs-extra';
 import minify from 'minify';
@@ -92,23 +93,13 @@ const joinCodeClasses = () => {
   }
 };
 
-const copyFmToConfig = (options = {}) => {
+const copyFmToConfig = (configJson) => {
   return (tree, file) => {
-    let configJson = fs.readJsonSync(options.path);
     visit(tree, 'yaml', (node, index, p) => {
-      let fm = yaml.load(node.value, 'utf8');
-      if(fm.hasOwnProperty('author')) {configJson.author = fm.author;}
-      if(fm.hasOwnProperty('background')) {configJson.background = fm.background;}
-      if(fm.hasOwnProperty('bookTitle')) {configJson.bookTitle = fm.bookTitle;}
-      if(fm.hasOwnProperty('hasCustomBase')) {configJson.hasCustomBase = fm.hasCustomBase;}
-      if(fm.hasOwnProperty('hasEditBtn')) {configJson.hasEditBtn = fm.hasEditBtn;}
-      if(fm.hasOwnProperty('hasOtp')) {configJson.hasOtp = fm.hasOtp;}
-      if(fm.hasOwnProperty('hasPageHeader')) {configJson.hasPageHeader = fm.hasPageHeader;}
-      if(fm.hasOwnProperty('hasPageScrollbar')) {configJson.hasPageScrollbar = fm.hasPageScrollbar;}
-      if(fm.hasOwnProperty('hasRefreshBtn')) {configJson.hasRefreshBtn = fm.hasRefreshBtn;}
-      if(fm.hasOwnProperty('menuItem')) {configJson.menuItem = fm.menuItem;}
-      if(fm.hasOwnProperty('publishedDate')) {configJson.publishedDate = fm.publishedDate;}
-      fs.writeFileSync(options.path, JSON.stringify(configJson, null, 2));
+      const fm = yaml.load(node.value, 'utf8');
+      for ( const k in fm ) {
+        configJson[fm] = fm[k];
+      }
       p.children.splice(index, 1); // Remove yaml node.
       return [visit.SKIP, index];
     });
@@ -116,6 +107,18 @@ const copyFmToConfig = (options = {}) => {
 };
 
 // Tools
+
+// This is a hack, really we need to have better synchronization across the
+// parallel jobs.
+const readJsonWait = async (f) => {
+  while ( true ) {
+    if ( await fs.exists(f) ) {
+      try { return await fs.readJson(f); }
+      catch (e) { void(e); }
+    }
+    await setTimeout(100);
+  }
+};
 
 const remoteGet_ = async (url) => {
   if ( url.startsWith(cfg.repoBase) ) {
@@ -136,126 +139,39 @@ const remoteGet = async (url) => {
   return CACHE[url];
 };
 
-/************************************************************************************************
-* Parse command line
-* For option details, https://github.com/yargs/yargs/blob/HEAD/docs/api.md.
-************************************************************************************************/
-
-const argv = yargs(process.argv.slice(2))
-  .option('dir', {
-    alias: 'd',
-    describe: 'Specify dirpath.',
-    type: 'string',
-    default: ''
-  })
-  .option('edit', {
-    alias: 'e',
-    describe: 'Add edit button to page.',
-    type: 'boolean',
-    default: true
-  })
-  .option('help', {
-    alias: 'h',
-    describe: 'Show help.',
-    type: 'boolean'
-  })
-  .option('language', {
-    alias: 'l',
-    describe: 'Specify language (e.g. en, zh).',
-    type: 'string',
-    default: 'en'
-  })
-  .option('refresh', {
-    alias: 'r',
-    describe: 'Add refresh button to page.',
-    type: 'boolean',
-    default: true
-  })
-  .option('type', {
-    alias: 't',
-    describe: 'Specify file type.',
-    type: 'string',
-    choices: ['all', 'base', 'book', 'css', 'folder', 'folders', 'js'],
-    demandOption: true
-  })
-  .option('version', {
-    alias: 'v',
-    describe: 'Show version.',
-    type: 'boolean'
-  })
-  .wrap(null)
-  .example([
-    ['$0'],
-    ['$0 -t all'],
-    ['$0 -t book -d books/demo'],
-    ['$0 -t css'],
-    ['$0 -t base -l en'],
-    ['$0 -t folder -d en/books/demo'],
-    ['$0 -t folders -d en/books/demo'],
-    ['$0 -t js']
-  ])
-  .argv
-
-/************************************************************************************************
-* normalizeDir
-************************************************************************************************/
+// Library
 
 const normalizeDir = (s) => {
   return s.endsWith('/') ? s.slice(0, -1) : s;
 }
 
-/************************************************************************************************
-* processBook
-************************************************************************************************/
-const processBook = (baseDir, relDir) => {
-  let folder = `${baseDir}/${relDir}`;
-  console.log(`Building book ${relDir}`);
-}
-
-/************************************************************************************************
-* processCss
-************************************************************************************************/
+const cleanCss = new CleanCss({level: 2});
 const processCss = async () => {
-  let iPath = `${srcDir}${cfg.iCssPath}`;
-  let oPath = `${srcDir}${cfg.oCssPath}`;
+  const iPath = `${srcDir}${cfg.iCssPath}`;
+  const oPath = `${srcDir}${cfg.oCssPath}`;
   console.log(`Minifying ${cfg.iCssPath.slice(1)}`);
-  let input = await fs.readFile(iPath, 'utf8');
-  let options = { level: 2 };
-  let output = new CleanCss(options).minify(input);
+  const input = await fs.readFile(iPath, 'utf8');
+  const output = cleanCss.minify(input);
   await fs.writeFile(oPath, output.styles);
 };
 
-/************************************************************************************************
-* processBase
-************************************************************************************************/
-
 const processBase = async (lang) => {
-  let iPath = `${srcDir}/${lang}/base.html`;
-  let oPath = `${srcDir}/${lang}/index.html`;
+  const iPath = `${srcDir}/${lang}/base.html`;
+  const oPath = `${srcDir}/${lang}/index.html`;
   console.log(`Minifying ${iPath}`);
-  let options = { html: {}, };
-  const output = await minify(iPath, options);
+  const output = await minify(iPath, { html: {} });
   await fs.writeFile(oPath, output);
 };
 
-/************************************************************************************************
-* processJs
-************************************************************************************************/
-
 const processJs = async () => {
-  let iPath = `${srcDir}${cfg.iJsPath}`;
-  let oPath = `${srcDir}${cfg.oJsPath}`;
+  const iPath = `${srcDir}${cfg.iJsPath}`;
+  const oPath = `${srcDir}${cfg.oJsPath}`;
   console.log(`Minifying ${cfg.iJsPath.slice(1)}`);
-  let input = await fs.readFile(iPath, 'utf8');
-  let options = {};
-  let output = new UglifyJS.minify(input, options);
+  const input = await fs.readFile(iPath, 'utf8');
+  const output = new UglifyJS.minify(input, {});
   if (output.error) throw output.error;
   await fs.writeFile(oPath, output.code);
 }
-
-/************************************************************************************************
-* evaluateCodeSnippet
-************************************************************************************************/
 
 const evaluateCodeSnippet = (code) => {
   const spec = {
@@ -294,22 +210,18 @@ const evaluateCodeSnippet = (code) => {
   return spec;
 }
 
-/************************************************************************************************
-* processCodeSnippet
-************************************************************************************************/
-
 const processCodeSnippet = (doc, pre, code, spec) => {
   let firstLineIndex = null;
   let lastLineIndex = null;
   if (spec.range) {
-    let rangeArr = spec.range.split('-');
+    const rangeArr = spec.range.split('-');
     firstLineIndex = rangeArr[0] - 1;
     if (rangeArr.length > 1) {
       lastLineIndex = rangeArr[1] - 1;
     }
   }
 
-  let arr = code.textContent.split(/\r?\n/g);
+  const arr = code.textContent.split(/\r?\n/g);
   let olStr = '<ol class="snippet">';
   for (let i = 0; i < arr.length; i++) {
 
@@ -324,15 +236,11 @@ const processCodeSnippet = (doc, pre, code, spec) => {
   }
   olStr += '</ol>';
   code.remove();
-  let olEl = doc.createRange().createContextualFragment(olStr);
+  const olEl = doc.createRange().createContextualFragment(olStr);
   pre.append(olEl);
   pre.classList.add('snippet');
   pre.classList.add(spec.numbered ? 'numbered' : 'unnumbered');
 }
-
-/************************************************************************************************
-* transformReachDoc
-************************************************************************************************/
 
 const transformReachDoc = (md) => {
   const match1 = /# {#(.*)}/; // Example: # {#guide-ctransfers}
@@ -353,40 +261,35 @@ const transformReachDoc = (md) => {
   return md;
 }
 
-/************************************************************************************************
-* processFolder
-************************************************************************************************/
-
 const processFolder = async (baseDir, relDir) => {
-
-  let lang = relDir.split('/')[0];
-  let folder = `${baseDir}/${relDir}`;
-  let mdPath = `${folder}/${cfg.mdFile}`;
-  let cfgPath = `${folder}/${cfg.cfgFile}`;
-  let pagePath = `${folder}/${cfg.pageFile}`;
-  let otpPath = `${folder}/${cfg.otpFile}`;
+  const lang = relDir.split('/')[0];
+  const folder = `${baseDir}/${relDir}`;
+  const mdPath = `${folder}/${cfg.mdFile}`;
+  const cfgPath = `${folder}/${cfg.cfgFile}`;
+  const pagePath = `${folder}/${cfg.pageFile}`;
+  const otpPath = `${folder}/${cfg.otpFile}`;
 
   console.log(`Building page ${relDir}`);
 
   // Create fresh config file with default values.
-  let configJson = {};
-  configJson.author = null;
-  configJson.background = 'white';
-  configJson.bookPath = null;
-  configJson.bookTitle = null;
-  configJson.chapters = null;
-  configJson.hasOtp = true;
-  configJson.hasCustomBase = false;
-  configJson.hasEditBtn = argv.e;
-  configJson.hasPageHeader = true;
-  configJson.hasPageScrollbar = true;
-  configJson.hasRefreshBtn = argv.r;
-  configJson.menuItem = null;
-  configJson.pages = null;
-  configJson.pathname = null;
-  configJson.publishedDate = null;
-  configJson.title = null;
-  await fs.writeFile(cfgPath, JSON.stringify(configJson, null, 2));
+  const configJson = {
+    author: null,
+    background: 'white',
+    bookPath: null,
+    bookTitle: null,
+    chapters: null,
+    hasOtp: true,
+    hasCustomBase: false,
+    hasEditBtn: cfg.hasEditBtn,
+    hasPageHeader: true,
+    hasPageScrollbar: true,
+    hasRefreshBtn: cfg.hasRefreshBtn,
+    menuItem: null,
+    pages: null,
+    pathname: null,
+    publishedDate: null,
+    title: null,
+  };
 
   /*
   const docOptions = {
@@ -423,7 +326,7 @@ const processFolder = async (baseDir, relDir) => {
   const output = await unified()
     .use(remarkParse) // Parse markdown to Markdown Abstract Syntax Tree (MDAST).
     .use(remarkFrontmatter) // Prepend YAML node with frontmatter.
-    .use(copyFmToConfig, { path: cfgPath }) // Remove YAML node and write frontmatter to config file.
+    .use(copyFmToConfig, configJson) // Remove YAML node and write frontmatter to config file.
     .use(prependTocNode) // Prepend Heading, level 6, value "toc".
     //.use(() => (tree) => { console.dir(tree); })
     .use(remarkToc, { maxDepth: 2 }) // Build toc list under the heading.
@@ -437,8 +340,6 @@ const processFolder = async (baseDir, relDir) => {
     .use(rehypeFormat) // Prettify html.
     .use(rehypeStringify) // Serialize html.
     .process(md); // Push the markdown through the pipeline.
-
-  //console.log(String(output));
 
   const doc = new JSDOM(output).window.document;
 
@@ -457,9 +358,6 @@ const processFolder = async (baseDir, relDir) => {
     otpEl.remove();
   }
 
-  // Read config.json.
-  configJson = await fs.readJson(cfgPath);
-
   // Update config.json with title and pathname.
   const title = doc.querySelector('h1').textContent;
   doc.querySelector('h1').remove();
@@ -477,13 +375,10 @@ const processFolder = async (baseDir, relDir) => {
       const bIdArray = pArray.slice(pArray.indexOf('books') - 1, pArray.indexOf('books') + 2);
       configJson.bookPath = bIdArray.join('/');
       const bookConfigJsonFile = `${bPath}/config.json`;
-      const bookConfigJson = await fs.readJson(bookConfigJsonFile);
+      const bookConfigJson = await readJsonWait(bookConfigJsonFile);
       configJson.bookTitle = bookConfigJson.bookTitle;
     }
   }
-
-  // Write config.json.
-  await fs.writeFile(cfgPath, JSON.stringify(configJson, null, 2));
 
   // Adjust image urls.
   doc.querySelectorAll('img').forEach(img => {
@@ -512,15 +407,13 @@ const processFolder = async (baseDir, relDir) => {
     // https://github.com/shikijs/shiki/blob/main/docs/themes.md
     // https://github.com/shikijs/shiki/blob/main/docs/languages.md
     if (spec.language) {
-      await shiki.getHighlighter({ theme: 'github-light' })
-        .then(highlighter => {
-          code.textContent = highlighter.codeToHtml(code.textContent, spec.language)
-            //.replace('<pre class="shiki" style="background-color: #282A36"><code>', '') // dracula
-            .replace('<pre class="shiki" style="background-color: #ffffff"><code>', '') // github-light
-            .replaceAll('<span class="line">', '')
-            .replaceAll('</span></span>', '</span>')
-            .replace('</code></pre>', '');
-        });
+      const highlighter = await shiki.getHighlighter({ theme: 'github-light' });
+      code.textContent = highlighter.codeToHtml(code.textContent, spec.language)
+        //.replace('<pre class="shiki" style="background-color: #282A36"><code>', '') // dracula
+        .replace('<pre class="shiki" style="background-color: #ffffff"><code>', '') // github-light
+        .replaceAll('<span class="line">', '')
+        .replaceAll('</span></span>', '</span>')
+        .replace('</code></pre>', '');
     }
 
     processCodeSnippet(doc, pre, code, spec);
@@ -539,13 +432,12 @@ const processFolder = async (baseDir, relDir) => {
     await fs.symlink(target, symlink);
   }
 
-  // Write DOM to file.
-  await fs.writeFile(pagePath, doc.body.innerHTML.trim());
-}
-
-/************************************************************************************************
-* findAndProcessFolder
-************************************************************************************************/
+  // Write files
+  await Promise.all([
+    fs.writeFile(cfgPath, JSON.stringify(configJson, null, 2)),
+    fs.writeFile(pagePath, doc.body.innerHTML.trim())
+  ]);
+};
 
 const findAndProcessFolder = async (folder) => {
   const fileArr = await fs.readdir(folder);
@@ -564,25 +456,40 @@ const findAndProcessFolder = async (folder) => {
   }));
 };
 
-/************************************************************************************************
-* findAndProcessFolders
-************************************************************************************************/
-
-const findAndProcessFolders = async (folder) =>
-  await findAndProcessFolder(folder);
-
-/************************************************************************************************
-* Process specified type.
-************************************************************************************************/
+// Main
 
 (async () => {
+  const argv = yargs(process.argv.slice(2))
+    .option('dir', {
+      alias: 'd',
+      describe: 'Specify dirpath.',
+      type: 'string',
+      default: ''
+    })
+    .option('type', {
+      alias: 't',
+      describe: 'Specify file type.',
+      type: 'string',
+      choices: ['all', 'css', 'folder', 'folders', 'js'],
+      demandOption: true
+    })
+    .option('version', {
+      alias: 'v',
+      describe: 'Show version.',
+      type: 'boolean'
+    })
+    .wrap(null)
+    .example([
+      ['$0'],
+      ['$0 -t all'],
+      ['$0 -t css'],
+      ['$0 -t folder -d en/books/demo'],
+      ['$0 -t folders -d en/books/demo'],
+      ['$0 -t js']
+    ])
+    .argv;
+
   const goals = [];
-  if ( argv.t === 'base' ) {
-    goals.push(processBase(argv.l));
-  }
-  if ( argv.t === 'book' ) {
-    goals.push(processBook(normalizeDir(srcDir), normalizeDir(argv.d)));
-  }
   if ( argv.t === 'css' || argv.t === 'all' ) {
     goals.push(processCss());
   }
@@ -593,12 +500,12 @@ const findAndProcessFolders = async (folder) =>
     goals.push(processFolder(normalizeDir(srcDir), normalizeDir(argv.d)));
   }
   if ( argv.t === 'folders' ) {
-    goals.push(findAndProcessFolders(`${normalizeDir(srcDir)}/${normalizeDir(argv.d)}`));
+    goals.push(findAndProcessFolder(`${normalizeDir(srcDir)}/${normalizeDir(argv.d)}`));
   }
   if ( argv.t === 'all' ) {
     goals.push(processBase('en'));
     // Need to add --ignore flag.
-    goals.push(findAndProcessFolders(`${normalizeDir(srcDir)}`));
+    goals.push(findAndProcessFolder(`${normalizeDir(srcDir)}`));
   }
   await Promise.all(goals);
 })();
