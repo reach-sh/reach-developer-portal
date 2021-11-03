@@ -4,12 +4,7 @@
   "description": "This program inputs markdown (etc.) and outputs html (etc.).",
   "type": "module",
   "main": "index.js",
-  "scripts": {
-    "s1": "cd plugins/copy-fm-to-config && npm install",
-    "s2": "cd plugins/example && npm install",
-    "s3": "cd plugins/join-code-classes && npm install",
-    "s4": "cd plugins/prepend-toc-node && npm install"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "UNLICENSED",
@@ -18,6 +13,7 @@
     "axios": "^0.21.4",
     "clean-css": "^5.1.5",
     "fs-extra": "^10.0.0",
+    "js-yaml": "^4.1.0",
     "jsdom": "^17.0.0",
     "minify": "^7.0.2",
     "path": "^0.12.7",
@@ -32,8 +28,12 @@
     "remark-rehype": "^9.0.0",
     "remark-slug": "^7.0.0",
     "remark-toc": "^8.0.0",
+    "retext": "^8.1.0",
     "shiki": "^0.9.11",
     "uglify-js": "^3.14.2",
+    "unified": "^10.1.0",
+    "unist-util-is": "^5.1.1",
+    "unist-util-visit": "^4.0.0",
     "vfile-reporter": "^7.0.2",
     "yargs": "^17.1.1"
   }
