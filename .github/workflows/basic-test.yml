@@ -1,0 +1,62 @@
+name: Basic Test
+
+# Run this test anytime someone pushes to a branch.
+on: [push]
+
+# Checkout
+# https://docs.github.com/en/actions/quickstart#creating-your-first-workflow
+# to learn more about syntax for GitHub Actions.
+# "jobs" appears to be a GitHub Action keyword.
+jobs:
+  # We pick the name "tests".
+  tests:
+    # On what software do you want this test to run?
+    runs-on: ubuntu-latest
+    # I copied and pasted the first three "run" steps from
+    # https://docs.github.com/en/actions/quickstart#creating-your-first-workflow
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out this repository's code.
+        uses: actions/checkout@v2
+      # I copied and pasted the next several "run" steps from
+      # https://docs.github.com/en/actions/quickstart#creating-your-first-workflow
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in this repository.
+        run: |
+          ls ${{ github.workspace }}
+
+      # These are commands specific to this repository.
+      # https://github.com/reach-sh/reach-developer-portal#deploy-the-site-locally
+
+      # I used https://stackoverflow.com/a/58142276 as a template for this
+      # next block.
+      - name: Convert source files to website files.
+        # Change to the `tools` directory.
+        working-directory: ./tools
+        run: |
+          npm install
+          npm run s1 && npm run s2 && npm run s3 && npm run s4
+          node generator.js -t all
+
+      # We should automatically be back in the main, parent directory, now.
+      - name: Install `http-server`.
+        run: sudo npm i --global http-server
+      # Skip testing `http-server` because I don't know how to exit out of
+      # it in a GitHub Action workflow. Normally, I would just use CTRL-C.
+      # - name: Turn off server caching.
+      #   run: http-server -c-1
+
+      # Create a webpage! I grabbed these commands from
+      # https://github.com/reach-sh/reach-developer-portal#create-a-webpage.
+      - name: Create a folder, e.g., a folder called `colors-and-shapes`.
+        run: mkdir -p en/pages/colors-and-shapes
+      - name: Create an `index.md` file inside the newly created folder.
+        run: touch en/pages/colors-and-shapes/index.md
+      - name: Generate the webpage!
+        run: node tools/generator.js -t folder -d en/pages/colors-and-shapes
+
+      # Print out the status of this job.
+      - run: echo "🍏 This job's status is ${{ job.status }}."
